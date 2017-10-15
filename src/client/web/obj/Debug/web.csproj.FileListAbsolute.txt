@@ -35,7 +35,6 @@ C:\workspace\git\BSAdmin\src\client\web\bin\System.Web.WebPages.xml
 C:\workspace\git\BSAdmin\src\client\web\bin\System.Web.WebPages.Deployment.xml
 C:\workspace\git\BSAdmin\src\client\web\bin\System.Web.WebPages.Razor.xml
 C:\workspace\git\BSAdmin\src\client\web\bin\Antlr3.Runtime.pdb
-C:\workspace\git\BSAdmin\src\client\web\bin\Newtonsoft.Json.xml
 C:\workspace\git\BSAdmin\src\client\web\bin\EntityFramework.xml
 C:\workspace\git\BSAdmin\src\client\web\bin\EntityFramework.SqlServer.xml
 C:\workspace\git\BSAdmin\src\client\web\bin\Microsoft.AspNet.Identity.Core.xml
@@ -69,6 +68,6 @@ C:\workspace\git\BSAdmin\src\client\web\bin\zh-Hans\Microsoft.Owin.Security.Face
 C:\workspace\git\BSAdmin\src\client\web\bin\zh-Hans\Microsoft.Owin.Security.Google.resources.dll
 C:\workspace\git\BSAdmin\src\client\web\bin\zh-Hans\Microsoft.Owin.Security.Twitter.resources.dll
 C:\workspace\git\BSAdmin\src\client\web\bin\zh-Hans\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
-C:\workspace\git\BSAdmin\src\client\web\obj\Debug\web.csprojResolveAssemblyReference.cache
 C:\workspace\git\BSAdmin\src\client\web\obj\Debug\web.dll
 C:\workspace\git\BSAdmin\src\client\web\obj\Debug\web.pdb
+C:\workspace\git\BSAdmin\src\client\web\bin\Newtonsoft.Json.xml

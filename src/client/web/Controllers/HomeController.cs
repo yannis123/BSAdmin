@@ -26,5 +26,9 @@ namespace web.Controllers
 
             return View();
         }
+        public ActionResult Empty()
+        {
+            return View();
+        }
     }
 }
