@@ -9,6 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "client", "client", "{266BAB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "web", "src\client\web\web.csproj", "{B5FA89AE-7AB0-493D-8DB1-FFDF68D240B2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{B1FBF57C-B933-4DDF-ABBD-4E838404D2A9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,5 +28,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{266BAB10-3DF9-4C15-AC3D-269B04B8E28E} = {0AEE677A-F9D6-4962-9A39-9581C68C6769}
 		{B5FA89AE-7AB0-493D-8DB1-FFDF68D240B2} = {266BAB10-3DF9-4C15-AC3D-269B04B8E28E}
+		{B1FBF57C-B933-4DDF-ABBD-4E838404D2A9} = {0AEE677A-F9D6-4962-9A39-9581C68C6769}
 	EndGlobalSection
 EndGlobal
