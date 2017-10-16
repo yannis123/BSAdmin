@@ -12,12 +12,12 @@
     <link href="/content/css/font-awesome.css?v=4.4.0" rel="stylesheet">
     <link href="/content/css/animate.css" rel="stylesheet">
     <link href="/content/css/style.css?v=4.1.0" rel="stylesheet">
-    @Styles.Render("~/Content/css")
+    @RenderSection("styles", required: false)
 </head>
 <body class="gray-bg">
-    <div class="wrapper wrapper-content">
+   
         @RenderBody()
-    </div>
+    
     <!-- 全局js -->
     <script src="/content/js/jquery.min.js?v=2.1.4"></script>
     <script src="/content/js/bootstrap.min.js?v=3.3.6"></script>
