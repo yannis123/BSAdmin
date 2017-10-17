@@ -148,3 +148,12 @@ C:\workspace\git\BSAdmin\src\client\web\bin\zh-Hans\Microsoft.Owin.Security.Micr
 C:\workspace\git\BSAdmin\src\client\web\obj\Debug\web.dll
 C:\workspace\git\BSAdmin\src\client\web\obj\Debug\web.pdb
 C:\workspace\git\BSAdmin\src\client\web\obj\Debug\web.csprojResolveAssemblyReference.cache
+C:\workspace\git\BSAdmin\src\client\web\bin\Dapper.dll
+C:\workspace\git\BSAdmin\src\client\web\bin\Dapper.xml
+C:\workspace\git\BSAdmin\src\client\web\bin\Castle.Core.dll
+C:\workspace\git\BSAdmin\src\client\web\bin\Castle.Windsor.dll
+C:\workspace\git\BSAdmin\src\client\web\bin\Domain.dll
+C:\workspace\git\BSAdmin\src\client\web\bin\DapperExtensions.dll
+C:\workspace\git\BSAdmin\src\client\web\bin\Domain.pdb
+C:\workspace\git\BSAdmin\src\client\web\bin\Castle.Windsor.xml
+C:\workspace\git\BSAdmin\src\client\web\bin\DapperExtensions.pdb

@@ -15,7 +15,7 @@ namespace UnitTestProject1
         public static void MyClassInitialize(TestContext testContext)
         {
             string connection = ConfigurationManager.ConnectionStrings["default"].ConnectionString;
-            _psv = new PersonService(connection);
+            //_psv = new PersonService(connection);
         }
         //使用 ClassCleanup 在运行完类中的所有测试后再运行代码
         [ClassCleanup()]
