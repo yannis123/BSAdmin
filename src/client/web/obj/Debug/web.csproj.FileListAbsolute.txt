@@ -71,6 +71,8 @@ C:\Users\qxs6840\Source\Repos\BSAdmin\src\client\web\bin\zh-Hans\Microsoft.Owin.
 C:\Users\qxs6840\Source\Repos\BSAdmin\src\client\web\bin\zh-Hans\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
 C:\Users\qxs6840\Source\Repos\BSAdmin\src\client\web\obj\Debug\web.dll
 C:\Users\qxs6840\Source\Repos\BSAdmin\src\client\web\obj\Debug\web.pdb
+C:\Users\qxs6840\Source\Repos\BSAdmin\src\client\web\bin\Dapper.dll
+C:\Users\qxs6840\Source\Repos\BSAdmin\src\client\web\bin\Dapper.xml
 C:\Users\qxs6840\Source\Repos\BSAdmin\src\client\web\obj\Debug\web.csprojResolveAssemblyReference.cache
 C:\workspace\git\BSAdmin\src\client\web\bin\web.dll.config
 C:\workspace\git\BSAdmin\src\client\web\bin\web.dll
