@@ -145,3 +145,4 @@ C:\workspace\git\BSAdmin\src\client\web\bin\zh-Hans\Microsoft.Owin.Security.Twit
 C:\workspace\git\BSAdmin\src\client\web\bin\zh-Hans\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
 C:\workspace\git\BSAdmin\src\client\web\obj\Debug\web.dll
 C:\workspace\git\BSAdmin\src\client\web\obj\Debug\web.pdb
+C:\workspace\git\BSAdmin\src\client\web\obj\Debug\web.csprojResolveAssemblyReference.cache
