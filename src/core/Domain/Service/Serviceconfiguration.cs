@@ -9,14 +9,14 @@ namespace Domain.IService
 {
     public class Serviceconfiguration : IServiceconfiguration
     {
-        private const string DNCONNECTIONSTRING = "default";
+        private const string DEFAULTCONNECTIONSTRING = "default";
 
 
-        public string DBConnection
+        public string DefaultConnection
         {
             get
             {
-                return System.Configuration.ConfigurationManager.ConnectionStrings[DNCONNECTIONSTRING].ConnectionString ?? "";
+                return System.Configuration.ConfigurationManager.ConnectionStrings[DEFAULTCONNECTIONSTRING].ConnectionString ?? "";
             }
            
         }

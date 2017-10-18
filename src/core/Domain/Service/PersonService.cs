@@ -18,7 +18,7 @@ namespace Domain.Service
         }
         public Person Get(int id)
         {
-            using (SqlConnection cn = new SqlConnection(_config.DBConnection))
+            using (SqlConnection cn = new SqlConnection(_config.DefaultConnection))
             {
                 cn.Open();
                 int personId = 1;
@@ -30,7 +30,7 @@ namespace Domain.Service
 
         public dynamic Insert()
         {
-            using (SqlConnection cn = new SqlConnection(_config.DBConnection))
+            using (SqlConnection cn = new SqlConnection(_config.DefaultConnection))
             {
                 cn.Open();
                 var result = cn.Insert(new Person() { FirstName = "yannis", LastName = "yang", Active = true, DateCreated = DateTime.Now });
