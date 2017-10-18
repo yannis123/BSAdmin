@@ -157,3 +157,10 @@ C:\workspace\git\BSAdmin\src\client\web\bin\DapperExtensions.dll
 C:\workspace\git\BSAdmin\src\client\web\bin\Domain.pdb
 C:\workspace\git\BSAdmin\src\client\web\bin\Castle.Windsor.xml
 C:\workspace\git\BSAdmin\src\client\web\bin\DapperExtensions.pdb
+C:\Users\qxs6840\Source\Repos\BSAdmin\src\client\web\bin\Castle.Core.dll
+C:\Users\qxs6840\Source\Repos\BSAdmin\src\client\web\bin\Castle.Windsor.dll
+C:\Users\qxs6840\Source\Repos\BSAdmin\src\client\web\bin\Domain.dll
+C:\Users\qxs6840\Source\Repos\BSAdmin\src\client\web\bin\DapperExtensions.dll
+C:\Users\qxs6840\Source\Repos\BSAdmin\src\client\web\bin\Domain.pdb
+C:\Users\qxs6840\Source\Repos\BSAdmin\src\client\web\bin\Castle.Windsor.xml
+C:\Users\qxs6840\Source\Repos\BSAdmin\src\client\web\bin\DapperExtensions.pdb
