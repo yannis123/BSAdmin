@@ -1,4 +1,5 @@
 ﻿using Domain.IService;
+using Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,14 +11,15 @@ namespace web.Controllers
 {
     public class HomeController : Controller
     {
-        private IPersonService _person;
-        public HomeController(IPersonService person)
+        private IUserService _usersvc;
+
+        public HomeController(IUserService usersvc)
         {
-            _person = person;
+            _usersvc = usersvc;
         }
         public ActionResult Index()
         {
-            var p = _person.Get(1);
+            var roles = _usersvc.GetRoleList();
             return View();
         }
 

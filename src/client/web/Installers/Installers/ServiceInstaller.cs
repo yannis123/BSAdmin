@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Domain.Repositories;
 
 namespace web.Ioc.Installers
 {
@@ -26,11 +27,21 @@ namespace web.Ioc.Installers
                    .LifestyleSingleton() //实现类 
              );
 
-            container.Register(Component.For<IPersonService>() //接口  
-                  .ImplementedBy<PersonService>() //实现类 
+            container.Register(Component.For<IUserService>() //接口  
+                  .ImplementedBy<UserService>() //实现类 
                   .LifestyleSingleton()
             );
-           
+
+            container.Register(Component.For<IDBConnectionManager>() //接口  
+                 .ImplementedBy<DBConnectionManager>() //实现类 
+                 .LifestyleSingleton()
+           );
+
+            //container.Register(Component.For(typeof(IRepository<>)) //接口  
+            //       .ImplementedBy(typeof(Repository<>)) //实现类 
+            //       .LifestyleSingleton()
+            // );
+
         }
     }
 }

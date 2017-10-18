@@ -8,6 +8,6 @@ namespace Domain.Service
 {
     public interface IServiceconfiguration
     {
-        string DBConnection { get; }
+        string DefaultConnection { get; }
     }
 }
