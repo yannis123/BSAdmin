@@ -1,5 +1,7 @@
 ﻿using Domain.IService;
-using Domain.Repositories;
+using Domain.Model;
+using Domain.Service;
+using Senparc.Weixin.MP.AppStore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,15 +13,36 @@ namespace web.Controllers
 {
     public class HomeController : Controller
     {
-        private IUserService _usersvc;
-
-        public HomeController(IUserService usersvc)
+        private IMemberService _member;
+        private IServiceconfiguration _config;
+        public HomeController(IMemberService member, IServiceconfiguration config)
         {
-            _usersvc = usersvc;
+            _member = member;
+            _config = config;
         }
-        public ActionResult Index()
+        public ActionResult Index(string code)
         {
-            var roles = _usersvc.GetRoleList();
+            return View();
+        }
+        [HttpGet]
+        public ActionResult RegistOpenId(string code)
+        {
+            Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthAccessTokenResult token =
+                Senparc.Weixin.MP.AdvancedAPIs.OAuthApi.GetAccessToken(
+                _config.Wx_AppId,
+                _config.Wx_AppSecret,
+                code
+                );
+
+            return View(token);
+        }
+
+        [HttpPost]
+        public ActionResult RegistOpenId(string openId, string phoneNumber)
+        {
+            Member member = _member.GetMember(phoneNumber);
+            member.OpenId = openId;
+            _member.UpdateMember(member);
             return View();
         }
 

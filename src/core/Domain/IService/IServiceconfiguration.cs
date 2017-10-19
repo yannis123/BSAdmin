@@ -9,5 +9,8 @@ namespace Domain.Service
     public interface IServiceconfiguration
     {
         string DefaultConnection { get; }
+        string Wx_AppId { get; }
+        string Wx_AppSecret { get; }
+        string Wx_RedirectUrl { get; }
     }
 }
