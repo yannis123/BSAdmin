@@ -4,7 +4,7 @@ using Domain.Service;
 using Domain.IService;
 using Domain.Model;
 using System.Collections.Generic;
-using Domain.Repositories;
+using Domain;
 
 namespace UnitTestProject1
 {

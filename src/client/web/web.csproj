@@ -167,26 +167,29 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MemberController.cs" />
+    <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Filter\AuthFilterFilterAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Installers\Installers\ControllersInstaller.cs" />
     <Compile Include="Installers\Installers\ServiceInstaller.cs" />
     <Compile Include="Installers\WindsorControllerFactory.cs" />
-    <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\IManager.cs" />
-    <Compile Include="Models\Manager.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\MyAuthorizeAttribute.cs" />
+    <Compile Include="Models\MyFormsAuthentication.cs" />
+    <Compile Include="Models\MyFormsPrincipal.cs" />
+    <Compile Include="Models\MyUserDataPrincipal.cs" />
+    <Compile Include="Models\RequestModel\RegistOpenIdRequest.cs" />
+    <Compile Include="Models\ResponseModel\BaseResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -326,6 +329,7 @@
     <Content Include="Content\js\jquery-ui-1.10.4.min.js" />
     <Content Include="Content\js\jquery-ui.custom.min.js" />
     <Content Include="Content\js\jquery.min.js" />
+    <Content Include="Content\js\login.js" />
     <Content Include="Content\js\plugins\beautifyhtml\beautifyhtml.js" />
     <Content Include="Content\js\plugins\blueimp\jquery.blueimp-gallery.min.js" />
     <Content Include="Content\js\plugins\bootstrap-table\bootstrap-table-mobile.min.js" />
@@ -1335,6 +1339,7 @@
     <Content Include="Content\js\plugins\suggest\data.json" />
     <Content Include="Content\js\plugins\webuploader\.DS_Store" />
     <Content Include="Content\js\plugins\webuploader\README.md" />
+    <None Include="Properties\PublishProfiles\publish.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -1362,21 +1367,6 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\_RemoveAccountPartial.cshtml" />
-    <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
-    <Content Include="Views\Account\ConfirmEmail.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
-    <Content Include="Views\Account\ForgotPassword.cshtml" />
-    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Account\ResetPassword.cshtml" />
-    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\SendCode.cshtml" />
-    <Content Include="Views\Account\VerifyCode.cshtml" />
     <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
     <Content Include="Views\Manage\ChangePassword.cshtml" />
     <Content Include="Views\Manage\Index.cshtml" />
@@ -1390,9 +1380,14 @@
     <Content Include="Views\Store\Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Member\Index.cshtml" />
+    <Content Include="Views\Home\RegistOpenId.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Api\" />
+    <Folder Include="Views\Authorize\" />
+    <Folder Include="Views\Project\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -1406,6 +1401,14 @@
     <ProjectReference Include="..\..\core\Domain\Domain.csproj">
       <Project>{72ccf70e-69dd-42b7-b1b6-4e85758ca6f1}</Project>
       <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\core\WeixinSDK\Senparc.Weixin.MP\Senparc.Weixin.MP.csproj">
+      <Project>{1d815fbf-451c-4e23-939c-cb80172f445c}</Project>
+      <Name>Senparc.Weixin.MP</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\core\WeixinSDK\Senparc.Weixin\Senparc.Weixin.csproj">
+      <Project>{814092cd-9cd0-4fb7-91e8-d147f476f1fb}</Project>
+      <Name>Senparc.Weixin</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

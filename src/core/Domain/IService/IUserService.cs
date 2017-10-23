@@ -13,9 +13,12 @@ namespace Domain.IService
         void AddRoleList(List<Role> roles);
         List<Role> GetRoleList();
         List<User> GetUserList();
-        User GetUser(Guid id);
+        User GetUser(Guid id);   
         int AddUser(User user);
         bool UpdateUser(User user);
         bool DeleteUser(Guid id);
+        User GetUser(string userName, string password);
+        Role GetRole(Guid id);
     }
 }
+

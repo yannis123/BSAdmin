@@ -7,7 +7,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using System.Web.Security;
 using web.Ioc;
+using web.Models;
 
 namespace web
 {
@@ -28,9 +30,14 @@ namespace web
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
             MvcApplication.BootstrapContainer();
         }
+
+        protected void Application_PostAuthenticateRequest(object sender, System.EventArgs e)
+        {
+           
+        }
+
         protected void Application_End()
         {
             container.Dispose();

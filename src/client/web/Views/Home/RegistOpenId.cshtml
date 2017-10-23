@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "绑定微信";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthAccessTokenResult
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h3 class="m-t-none m-b text-center">请输入手机号绑定微信</h3>
+                            <form role="form" method="post" action="/home/registopenid">
+                                <input type="hidden" value="@(Model.openid)" name="openId" />
+                                <div class="form-group">
+                                    <input type="text" name="phoneNumber" placeholder="请输入您的In's注册手机号码" class="form-control">
+                                </div>
+
+                                <div>
+                                    <button type="submit" class="btn btn-block btn-rounded  btn-outline btn-primary">验证</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

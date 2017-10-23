@@ -1,13 +1,13 @@
 ﻿using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
+using Domain;
 using Domain.IService;
 using Domain.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Domain.Repositories;
 
 namespace web.Ioc.Installers
 {
@@ -31,6 +31,11 @@ namespace web.Ioc.Installers
                   .ImplementedBy<UserService>() //实现类 
                   .LifestyleSingleton()
             );
+
+            container.Register(Component.For<IMemberService>() //接口  
+                 .ImplementedBy<MemberService>() //实现类 
+                 .LifestyleSingleton()
+           );
 
             container.Register(Component.For<IDBConnectionManager>() //接口  
                  .ImplementedBy<DBConnectionManager>() //实现类 

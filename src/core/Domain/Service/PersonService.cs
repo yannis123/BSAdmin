@@ -1,4 +1,6 @@
 ﻿using DapperExtensions;
+using DapperExtensions.Sql;
+using Dapper;
 using Domain.IService;
 using System;
 using System.Collections.Generic;
@@ -30,6 +32,7 @@ namespace Domain.Service
 
         public dynamic Insert()
         {
+            
             using (SqlConnection cn = new SqlConnection(_config.DefaultConnection))
             {
                 cn.Open();

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Repositories
+namespace Domain
 {
     public interface IDBConnectionManager
     {
@@ -17,7 +17,7 @@ namespace Domain.Repositories
 
     public class DBConnectionManager : IDBConnectionManager
     {
-        IServiceconfiguration _config;
+        private IServiceconfiguration _config;
         public DBConnectionManager(IServiceconfiguration config)
         {
             _config = config;
@@ -25,9 +25,16 @@ namespace Domain.Repositories
 
         public IDbConnection GetDefaultConn() //获取sql数据库连接，这边你可以用MySql、SQLlite等五种数据库Connection
         {
-            SqlConnection conn = new SqlConnection(_config.DefaultConnection);
-            conn.Open();
-            return conn;
+            try
+            {
+                SqlConnection conn = new SqlConnection(_config.DefaultConnection);
+                conn.Open();
+                return conn;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
     }
 }

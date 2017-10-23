@@ -54,6 +54,9 @@
     <Compile Include="IService\IPersonService.cs" />
     <Compile Include="DBConnectionManager.cs" />
     <Compile Include="IService\IUserService.cs" />
+    <Compile Include="IService\IMemberService.cs" />
+    <Compile Include="Model\Member.cs" />
+    <Compile Include="Service\MemberService.cs" />
     <Compile Include="Service\Serviceconfiguration.cs" />
     <Compile Include="Model\Person.cs" />
     <Compile Include="Model\Role.cs" />
