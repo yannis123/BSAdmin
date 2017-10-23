@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DapperExtensions;
+using Dapper;
 using Domain.Model;
 
 namespace Domain.Service
@@ -40,7 +41,8 @@ namespace Domain.Service
 
         public Member GetMember(string phoneNumber)
         {
-            return connection.GetList<Member>(new Member() { Phone = phoneNumber }).FirstOrDefault();
+            var predicate = Predicates.Field<Member>(m => m.Phone, Operator.Eq, phoneNumber);          
+            return connection.GetList<Member>(predicate).FirstOrDefault();
         }
     }
 }
