@@ -11,7 +11,7 @@ using web.Models;
 
 namespace web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : AuthorizeController
     {
         private IMemberService _member;
         private IServiceconfiguration _config;
@@ -46,6 +46,7 @@ namespace web.Controllers
             return View();
         }
 
+        [MyAuthorize(Roles = "User", Users = "bomo,toroto")]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

@@ -7,7 +7,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using System.Web.Security;
 using web.Ioc;
+using web.Models;
 
 namespace web
 {
@@ -31,6 +33,17 @@ namespace web
             //BundleConfig.RegisterBundles(BundleTable.Bundles);
             MvcApplication.BootstrapContainer();
         }
+
+        protected void Application_PostAuthenticateRequest(object sender, System.EventArgs e)
+        {
+            //var formsIdentity = HttpContext.Current.User.Identity as FormsIdentity;
+            //if (formsIdentity != null && formsIdentity.IsAuthenticated && formsIdentity.AuthenticationType == "Forms")
+            //{
+                //HttpContext.Current.User =
+                //    MyFormsAuthentication<MyUserDataPrincipal>.TryParsePrincipal(HttpContext.Current.Request);
+            //}
+        }
+
         protected void Application_End()
         {
             container.Dispose();
