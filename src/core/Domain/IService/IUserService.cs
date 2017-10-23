@@ -18,6 +18,7 @@ namespace Domain.IService
         bool UpdateUser(User user);
         bool DeleteUser(Guid id);
         User GetUser(string userName, string password);
+        Role GetRole(Guid id);
     }
 }
 

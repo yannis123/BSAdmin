@@ -11,7 +11,7 @@ using web.Models;
 
 namespace web.Controllers
 {
-    public class HomeController : AuthorizeController
+    public class HomeController : Controller
     {
       
         private IServiceconfiguration _config;
