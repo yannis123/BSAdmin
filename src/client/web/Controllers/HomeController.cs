@@ -13,17 +13,22 @@ namespace web.Controllers
 {
     public class HomeController : Controller
     {
-        private IMemberService _member;
+      
         private IServiceconfiguration _config;
-        public HomeController(IMemberService member, IServiceconfiguration config)
+        public HomeController( IServiceconfiguration config)
         {
-            _member = member;
             _config = config;
         }
         public ActionResult Index(string code)
         {
             return View();
         }
+
+        /// <summary>
+        /// 获取微信用户OpenId
+        /// </summary>
+        /// <param name="code">authorizathon_code</param>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult RegistOpenId(string code)
         {
@@ -37,14 +42,6 @@ namespace web.Controllers
             return View(token);
         }
 
-        [HttpPost]
-        public ActionResult RegistOpenId(string openId, string phoneNumber)
-        {
-            Member member = _member.GetMember(phoneNumber);
-            member.OpenId = openId;
-            _member.UpdateMember(member);
-            return View();
-        }
 
         public ActionResult About()
         {
