@@ -30,18 +30,12 @@ namespace web
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            //BundleConfig.RegisterBundles(BundleTable.Bundles);
             MvcApplication.BootstrapContainer();
         }
 
         protected void Application_PostAuthenticateRequest(object sender, System.EventArgs e)
         {
-            //var formsIdentity = HttpContext.Current.User.Identity as FormsIdentity;
-            //if (formsIdentity != null && formsIdentity.IsAuthenticated && formsIdentity.AuthenticationType == "Forms")
-            //{
-                //HttpContext.Current.User =
-                //    MyFormsAuthentication<MyUserDataPrincipal>.TryParsePrincipal(HttpContext.Current.Request);
-            //}
+           
         }
 
         protected void Application_End()
