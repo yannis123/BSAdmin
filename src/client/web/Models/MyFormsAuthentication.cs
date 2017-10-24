@@ -21,7 +21,12 @@ namespace web.Models
             if (userData == null)
                 throw new ArgumentNullException("userData");
 
-            var data = (new JavaScriptSerializer()).Serialize(new User() { Id = userData.Id, UserName = userData.UserName, RoleId = userData.RoleId });
+            var data = (new JavaScriptSerializer()).Serialize(new User()
+            {
+                Id = userData.Id,
+                UserName = userData.UserName,
+                RoleName = userData.RoleName
+            });
 
             //创建ticket
             var ticket = new FormsAuthenticationTicket(
@@ -40,6 +45,8 @@ namespace web.Models
             };
             if (rememberMe)
                 cookie.Expires = DateTime.Now.AddDays(CookieSaveDays);
+
+            HttpContext.Current.User = new GenericPrincipal(identity, new string[] { userData.RoleName });
 
             //写入Cookie
             HttpContext.Current.Response.Cookies.Remove(cookie.Name);

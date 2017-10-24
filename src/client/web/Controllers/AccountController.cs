@@ -13,6 +13,7 @@ using Domain.IService;
 
 namespace web.Controllers
 {
+    [AllowAnonymous]
     public class AccountController : Controller
     {
         private IUserService _userSerice;
@@ -21,6 +22,7 @@ namespace web.Controllers
             _userSerice = userSerice;
         }
 
+      
         public ActionResult Login()
         {
             return View();

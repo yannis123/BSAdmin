@@ -36,18 +36,18 @@ namespace Domain.Service
         public List<Role> GetRoleList()
         {
             List<Role> list = new List<Role>();
-            list.Add(new Role() { Id = Guid.Parse("cd9674fe-b353-491e-9da1-2868ebe57a2f"), RoleName = "超级管理员" });
-            list.Add(new Role() { Id = Guid.Parse("cd9674fe-b353-491e-9da1-2868ebe57a2f"), RoleName = "管理员" });
-            return list;
+            //list.Add(new Role() { Id = Guid.Parse("cd9674fe-b353-491e-9da1-2868ebe57a2f"), RoleName = "超级管理员" });
+            //list.Add(new Role() { Id = Guid.Parse("cd9674fe-b353-491e-9da1-2868ebe57a2f"), RoleName = "管理员" });
+            //return list;
             return connection.GetList<Role>().ToList();
         }
 
         public List<User> GetUserList()
         {
-            List<User> list = new List<Model.User>();
-            list.Add(new User() { UserName = "yannis", CreateTime = DateTime.Now, Id = Guid.Parse("cd9674fe-b353-491e-9da1-2868ebe57a2f"), Password = "123", Status = 1, RoleId = Guid.Parse("cd9674fe-b353-491e-9da1-2868ebe57a2f") });
-            list.Add(new User() { UserName = "yanght", CreateTime = DateTime.Now, Id = Guid.Parse("ea60d9c7-d522-42b2-8a9f-ff8009fa0cf3"), Password = "123", Status = 1, RoleId = Guid.Parse("cd9674fe-b353-491e-9da1-2868ebe57a2f") });
-            return list;
+            //List<User> list = new List<Model.User>();
+            //list.Add(new User() { UserName = "yannis", CreateTime = DateTime.Now, Id = Guid.Parse("cd9674fe-b353-491e-9da1-2868ebe57a2f"), Password = "123", Status = 1});
+            //list.Add(new User() { UserName = "yanght", CreateTime = DateTime.Now, Id = Guid.Parse("ea60d9c7-d522-42b2-8a9f-ff8009fa0cf3"), Password = "123", Status = 1 });
+            //return list;
             return connection.GetList<User>().ToList();
         }
 
@@ -72,14 +72,14 @@ namespace Domain.Service
         }
         public User GetUser(string userName, string password)
         {
-            return new User() { Id = Guid.Parse("cd9674fe-b353-491e-9da1-2868ebe57a2f"), CreateTime = DateTime.Now, Password = "123", Status = 1, UserName = "yannis", RoleId = Guid.Parse("cd9674fe-b353-491e-9da1-2868ebe57a2f") };
-            string sql = "select * from user where username=@username and password=@password";
+          //return new User() { Id = Guid.Parse("cd9674fe-b353-491e-9da1-2868ebe57a2f"), CreateTime = DateTime.Now, Password = "123", Status = 1, UserName = "yannis"};
+            string sql = "select * from [User] where username=@username and password=@password";
             return connection.Query<User>(sql, new { userName = userName, password = password }).SingleOrDefault();
         }
 
         public Role GetRole(Guid id)
         {
-            return new Role() { Id = Guid.Parse("cd9674fe-b353-491e-9da1-2868ebe57a2f"), RoleName = "超级管理员" };
+            //return new Role() { Id = Guid.Parse("cd9674fe-b353-491e-9da1-2868ebe57a2f"), RoleName = "超级管理员" };
             return connection.Get<Role>(id);
         }
     }

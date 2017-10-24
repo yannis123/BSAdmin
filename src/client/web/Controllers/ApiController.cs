@@ -12,7 +12,8 @@ using web.Models.ResponseModel;
 
 namespace web.Controllers
 {
-    public class ApiController : Controller
+    [Permission]
+    public class ApiController : BaseController
     {
         private IServiceconfiguration _config;
         private IMemberService _member;
@@ -23,7 +24,7 @@ namespace web.Controllers
         }
         // GET: Api
         public ActionResult Index()
-        {
+        {        
             string url = Senparc.Weixin.MP.AdvancedAPIs.OAuthApi.GetAuthorizeUrl(
                 _config.Wx_AppId,
                 _config.Wx_RedirectUrl,
