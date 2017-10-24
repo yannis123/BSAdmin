@@ -184,10 +184,7 @@
     <Compile Include="Installers\Installers\ServiceInstaller.cs" />
     <Compile Include="Installers\WindsorControllerFactory.cs" />
     <Compile Include="Models\LoginModel.cs" />
-    <Compile Include="Models\MyAuthorizeAttribute.cs" />
     <Compile Include="Models\MyFormsAuthentication.cs" />
-    <Compile Include="Models\MyFormsPrincipal.cs" />
-    <Compile Include="Models\MyUserDataPrincipal.cs" />
     <Compile Include="Models\RequestModel\RegistOpenIdRequest.cs" />
     <Compile Include="Models\ResponseModel\BaseResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
