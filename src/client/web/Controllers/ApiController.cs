@@ -12,7 +12,6 @@ using web.Models.ResponseModel;
 
 namespace web.Controllers
 {
-    [AuthFilterrAttribute(RoleName="超级管理员")]
     public class ApiController : Controller
     {
         private IServiceconfiguration _config;

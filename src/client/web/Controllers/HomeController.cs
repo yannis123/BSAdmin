@@ -43,7 +43,7 @@ namespace web.Controllers
         }
 
 
-        [MyAuthorize(Roles = "User", Users = "bomo,toroto")]
+       
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
