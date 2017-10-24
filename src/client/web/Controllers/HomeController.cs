@@ -11,11 +11,11 @@ using web.Models;
 
 namespace web.Controllers
 {
-    public class HomeController : Controller
+   
+    public class HomeController : BaseController
     {
-      
         private IServiceconfiguration _config;
-        public HomeController( IServiceconfiguration config)
+        public HomeController(IServiceconfiguration config)
         {
             _config = config;
         }
@@ -41,16 +41,12 @@ namespace web.Controllers
 
             return View(token);
         }
-
-
-        [MyAuthorize(Roles = "User", Users = "bomo,toroto")]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
 
             return View();
         }
-
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
