@@ -13,7 +13,6 @@ using Domain.IService;
 
 namespace web.Controllers
 {
-    [AllowAnonymous]
     public class AccountController : Controller
     {
         private IUserService _userSerice;

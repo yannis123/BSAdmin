@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -27,6 +26,7 @@
                             <th>账户余额</th>
                             <th>积分</th>
                             <th>是否绑定微信</th>
+                            <th>操作</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -40,6 +40,9 @@
                             <td>¥100</td>
                             <td>100</td>
                             <td><span class="label label-primary">已绑定</span></td>
+                            <td>
+                                <a class="btn btn-default  btn-sm" data-toggle="modal" href="/member/recharge" data-target="#myModal">充值</a>
+                            </td>
                         </tr>
                         <tr>
                             <td>2</td>
@@ -51,6 +54,9 @@
                             <td>¥100</td>
                             <td>100</td>
                             <td><span class="label label-info">未绑定</span></td>
+                            <td>
+                                <button type="button" class="btn btn-default btn-sm">充值</button>
+                            </td>
                         </tr>
                         <tr>
                             <td>3</td>
@@ -62,10 +68,19 @@
                             <td>¥100</td>
                             <td>100</td>
                             <td><span class="label label-info">未绑定</span></td>
+                            <td>
+                                <button type="button" class="btn btn-default btn-sm">充值</button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
         </div>
     </div>
 </div>

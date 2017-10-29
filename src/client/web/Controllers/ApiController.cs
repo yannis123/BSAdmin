@@ -12,7 +12,6 @@ using web.Models.ResponseModel;
 
 namespace web.Controllers
 {
-    [Permission]
     public class ApiController : BaseController
     {
         private IServiceconfiguration _config;

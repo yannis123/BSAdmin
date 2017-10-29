@@ -311,6 +311,7 @@
     <Content Include="Content\img\user.png" />
     <Content Include="Content\img\webuploader.png" />
     <Content Include="Content\img\wenku_logo.png" />
+    <Content Include="Content\js\app.js" />
     <Content Include="Content\js\bootstrap.min.js" />
     <Content Include="Content\js\contabs.js" />
     <Content Include="Content\js\content.js" />
@@ -1383,6 +1384,7 @@
     <Content Include="Views\Member\Index.cshtml" />
     <Content Include="Views\Home\RegistOpenId.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Member\Recharge.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
