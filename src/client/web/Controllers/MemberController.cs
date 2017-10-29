@@ -6,10 +6,15 @@ using System.Web.Mvc;
 
 namespace web.Controllers
 {
-    public class MemberController : Controller
+    public class MemberController : BaseController
     {
         // GET: Member
         public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ActionResult Recharge()
         {
             return View();
         }
