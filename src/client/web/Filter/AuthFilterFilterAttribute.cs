@@ -46,7 +46,7 @@ namespace web.Filter
             #endregion
 
             #region 没有权限
-
+        
             UserService userService = new UserService(new DBConnectionManager(new Serviceconfiguration()));
             Role role = userService.GetRole(Guid.NewGuid());
             if (!string.IsNullOrEmpty(this.RoleName) && !this.RoleName.Split(',').Contains(role.RoleName))
