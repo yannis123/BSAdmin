@@ -10,6 +10,7 @@ namespace Domain.IService
     public class Serviceconfiguration : IServiceconfiguration
     {
         private const string DEFAULTCONNECTIONSTRING = "default";
+        private const string BSCONNECTIONSTRING = "bsconnection";
         private const string WX_APPID = "AppId";
         private const string WX_APPSECRET = "AppSecret";
         private const string WX_REDIRECTURL = "RedirectUrl";
@@ -22,6 +23,15 @@ namespace Domain.IService
             }
 
         }
+        public string BSConnection
+        {
+            get
+            {
+                return System.Configuration.ConfigurationManager.ConnectionStrings[BSCONNECTIONSTRING].ConnectionString ?? "";
+            }
+
+        }
+
 
 
         public string Wx_AppId

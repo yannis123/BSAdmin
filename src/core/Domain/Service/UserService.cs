@@ -48,7 +48,10 @@ namespace Domain.Service
             //list.Add(new User() { UserName = "yannis", CreateTime = DateTime.Now, Id = Guid.Parse("cd9674fe-b353-491e-9da1-2868ebe57a2f"), Password = "123", Status = 1});
             //list.Add(new User() { UserName = "yanght", CreateTime = DateTime.Now, Id = Guid.Parse("ea60d9c7-d522-42b2-8a9f-ff8009fa0cf3"), Password = "123", Status = 1 });
             //return list;
-            return connection.GetList<User>().ToList();
+
+            var predicate = Predicates.Field<User>(m=>m.Status, Operator.Eq, 1);
+
+            return connection.GetList<User>(predicate).ToList();
         }
 
         public User GetUser(Guid id)
@@ -72,7 +75,7 @@ namespace Domain.Service
         }
         public User GetUser(string userName, string password)
         {
-          //return new User() { Id = Guid.Parse("cd9674fe-b353-491e-9da1-2868ebe57a2f"), CreateTime = DateTime.Now, Password = "123", Status = 1, UserName = "yannis"};
+            //return new User() { Id = Guid.Parse("cd9674fe-b353-491e-9da1-2868ebe57a2f"), CreateTime = DateTime.Now, Password = "123", Status = 1, UserName = "yannis"};
             string sql = "select * from [User] where username=@username and password=@password";
             return connection.Query<User>(sql, new { userName = userName, password = password }).SingleOrDefault();
         }

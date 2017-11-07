@@ -10,7 +10,9 @@ namespace web.Models.ResponseModel
         public BaseResponse()
         {
             Code = "1000";
+            Success = true;
         }
+        public bool Success { get; set; }
         public string Code { get; set; }
         public object Data { get; set; }
         public string ErrorMessage { get; set; }

@@ -13,5 +13,9 @@ namespace web.Controllers
         {
             return View();
         }
+        public ActionResult AddPreOrder()
+        {
+            return View();
+        }
     }
 }

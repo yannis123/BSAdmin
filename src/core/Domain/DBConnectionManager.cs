@@ -36,5 +36,19 @@ namespace Domain
                 return null;
             }
         }
+
+        public IDbConnection GetBSConn()
+        {
+            try
+            {
+                SqlConnection conn = new SqlConnection(_config.DefaultConnection);
+                conn.Open();
+                return conn;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
     }
 }
