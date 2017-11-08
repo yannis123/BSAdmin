@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0AEE677A-F9D6-4962-9A39-9581C68C6769}"
 EndProject
@@ -12,6 +12,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{56B0E826-961B-41D3-9A3F-A3418FB7E757}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{0B834A26-1D0A-4154-9844-7A4748080667}"
+	ProjectSection(SolutionItems) = preProject
+		db.sql = db.sql
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WeixinSDK", "WeixinSDK", "{ECE698D6-6498-4BE1-9BBC-7CEA8C059ACB}"
 EndProject
