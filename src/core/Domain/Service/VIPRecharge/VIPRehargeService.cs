@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.IService;
-using Domain.IService.VIPRecharge;
+
 using Domain.Model;
 using System.Data;
 using DapperExtensions;
 namespace Domain.Service.VIPRecharge
 {
-    public class VIPRehargeService : IVIPRechargeService, IRechargeArchivesService, IVIPRechargeDetailService
+    public class VIPRehargeService : IVIPRechargeService
     {
 
         private IDbConnection connection;

@@ -3,7 +3,9 @@ using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using Domain;
 using Domain.IService;
+using Domain.IService.VIPRecharge;
 using Domain.Service;
+using Domain.Service.VIPRecharge;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,6 +43,15 @@ namespace web.Ioc.Installers
                  .ImplementedBy<DBConnectionManager>() //实现类 
                  .LifestyleSingleton()
            );
+
+            #region VIPRecharge
+            container.Register(Component.For<IVIPRechargeService>() //接口  
+                .ImplementedBy<VIPRehargeService>() //实现类 
+                .LifestyleSingleton()
+          );           
+            #endregion
+
+
 
             //container.Register(Component.For(typeof(IRepository<>)) //接口  
             //       .ImplementedBy(typeof(Repository<>)) //实现类 
