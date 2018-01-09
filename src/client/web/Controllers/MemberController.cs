@@ -1,5 +1,6 @@
 ﻿using Domain.IService;
-using Domain.IService.VIPRecharge;
+using Domain.IService;
+using Domain.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,12 +18,24 @@ namespace web.Controllers
         }
         // GET: Member
         public ActionResult Index()
-        {            
+        {
+
             return View();
         }
 
         public ActionResult Recharge()
         {
+            var archives = _service.GetArchives();
+            ViewBag.Archives = archives;
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Recharge(CCJL recharge)
+        {
+            var rechargeLst = new List<CCJL>();
+            rechargeLst.Add(recharge);
+            _service.AddRecharges(rechargeLst);
+
             return View();
         }
     }

@@ -3,7 +3,7 @@ using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using Domain;
 using Domain.IService;
-using Domain.IService.VIPRecharge;
+using Domain.IService;
 using Domain.Service;
 using Domain.Service.VIPRecharge;
 using System;

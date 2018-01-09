@@ -30,7 +30,16 @@ namespace Domain.Service.VIPRecharge
 
         public List<CCDA> GetArchives()
         {
-            return connection.GetList<CCDA>().ToList();
+            try
+            {
+                return connection.GetList<CCDA>().ToList();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+           
         }
     }
 }
