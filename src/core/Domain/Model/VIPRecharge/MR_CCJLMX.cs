@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Model
 {
-    public class CCJLMX
+    public class MR_CCJLMX
     {
         public string DJBH { get; set; }
         public string VIPDM { get; set; }

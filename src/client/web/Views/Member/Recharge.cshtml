@@ -1,6 +1,8 @@
-﻿@{
+﻿@model Domain.Model.MR_CCJLMX
+@{
     ViewBag.Title = "Recharge";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var daLst = (List<Domain.Model.MR_CCDA>)ViewBag.Archives;
 }
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -9,9 +11,10 @@
 
 </div>
 <div class="modal-body">
-   
-    <form class="form-horizontal m-t" id="commentForm">
-
+@using (Html.BeginForm("Recharge", "Member", FormMethod.Post))
+{
+    @*<form class="form-horizontal m-t" id="commentForm">*@
+       
         <div class="table-responsive m-t">
             <table class="table invoice-table">
                 <thead>
@@ -37,23 +40,23 @@
         <div class="form-group">
             <label class="col-sm-3 control-label">充值金额：</label>
             <div class="col-sm-8">
-                <select class="form-control">
-                    <option>请选择充值金额</option>
-                    <option>5000</option>
-                    <option>10000</option>
-                    <option>20000</option>
+                <select name="CZJE" class="form-control">
+                    <option >请选择充值金额</option>
+                    @foreach (var item in daLst)
+                    {                         
+                        <option>@item.KCJE</option>                       
+                    }
+
                 </select>
             </div>
         </div>
-       
+
         <div class="form-group">
             <div class="col-sm-4 col-sm-offset-3">
                 <button class="btn btn-primary" type="submit">提交</button>
             </div>
         </div>
-
-    
-    </form>
+}
 </div>
 <div class="modal-footer">
     @*<button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>

@@ -30,11 +30,11 @@ namespace web.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Recharge(CCJL recharge)
+        public ActionResult Recharge(MR_CCJLMX recharge)
         {
-            var rechargeLst = new List<CCJL>();
+            var rechargeLst = new List<MR_CCJLMX>();
             rechargeLst.Add(recharge);
-            _service.AddRecharges(rechargeLst);
+            _service.AddRechargeDtl(rechargeLst);
 
             return View();
         }

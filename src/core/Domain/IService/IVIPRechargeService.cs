@@ -8,8 +8,8 @@ namespace Domain.IService
 {
     public interface IVIPRechargeService
     {
-        void AddRecharges(List<CCJL> rechargeLst);
-        void AddRechargeDtl(List<CCJLMX> rechargedDetailLst);
-        List<CCDA> GetArchives();
+        void AddRecharges(List<MR_CCJL> rechargeLst);
+        void AddRechargeDtl(List<MR_CCJLMX> rechargedDetailLst);
+        List<MR_CCDA> GetArchives();
     }
 }
