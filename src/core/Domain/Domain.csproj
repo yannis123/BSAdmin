@@ -55,7 +55,13 @@
     <Compile Include="DBConnectionManager.cs" />
     <Compile Include="IService\IUserService.cs" />
     <Compile Include="IService\IMemberService.cs" />
+    <Compile Include="IService\VIPRecharge\IRechargeArchivesService.cs" />
+    <Compile Include="IService\VIPRecharge\IVIPRechargeDetailService.cs" />
+    <Compile Include="IService\VIPRecharge\IVIPRechargeService.cs" />
+    <Compile Include="Model\VIPRecharge\CCJLMX.cs" />
     <Compile Include="Model\Member.cs" />
+    <Compile Include="Model\VIPRecharge\CCDA.cs" />
+    <Compile Include="Model\VIPRecharge\CCJL.cs" />
     <Compile Include="Service\MemberService.cs" />
     <Compile Include="Service\Serviceconfiguration.cs" />
     <Compile Include="Model\Person.cs" />
@@ -65,6 +71,7 @@
     <Compile Include="IService\IServiceconfiguration.cs" />
     <Compile Include="Service\PersonService.cs" />
     <Compile Include="Service\UserService.cs" />
+    <Compile Include="Service\VIPRecharge\VIPRehargeService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
