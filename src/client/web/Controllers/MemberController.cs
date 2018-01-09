@@ -30,11 +30,25 @@ namespace web.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Recharge(MR_CCJLMX recharge)
+        public ActionResult Recharge(MR_CCJLMX rechargeDlt)
         {
-            var rechargeLst = new List<MR_CCJLMX>();
+            var rechargeLst = new List<MR_CCJL>();
+            var recharge = new MR_CCJL()
+            {
+                DJBH = Guid.NewGuid().ToString(),
+                DYDM = "",
+                SDDM = "",
+                RQ = DateTime.Now,
+                BZ = string.Empty
+
+            };
             rechargeLst.Add(recharge);
-            _service.AddRechargeDtl(rechargeLst);
+            _service.AddRecharges(rechargeLst);
+
+
+            var rechargeDelLst = new List<MR_CCJLMX>();
+            rechargeDelLst.Add(rechargeDlt);
+            _service.AddRechargeDtl(rechargeDelLst);
 
             return View();
         }
