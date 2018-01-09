@@ -242,3 +242,4 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+BSAdmin.v12.suo
