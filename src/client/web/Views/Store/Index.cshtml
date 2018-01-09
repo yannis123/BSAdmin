@@ -2,31 +2,31 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    List<Domain.Model.MRKeHu> list = Model as List<Domain.Model.MRKeHu>;
 }
 
 <div class="wrapper wrapper-content">
     <div class="row">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>鼠标经过</h5>
-                <div class="ibox-tools">
-                    <a class="collapse-link">
-                        <i class="fa fa-chevron-up"></i>
-                    </a>
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="table_basic.html#">
-                        <i class="fa fa-wrench"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li>
-                            <a href="table_basic.html#">选项1</a>
-                        </li>
-                        <li>
-                            <a href="table_basic.html#">选项2</a>
-                        </li>
-                    </ul>
-                    <a class="close-link">
-                        <i class="fa fa-times"></i>
-                    </a>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        店铺查询
+                    </div>
+                    <div class="panel-body">
+                        <form role="form" class="form-inline">
+                            <div class="form-group">
+                                <label for="UserName" class="control-label">店铺编码:</label>
+                                <input type="text" name="UserName" placeholder="请输入店铺编码" id="UserName" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="Password" class="control-label">店铺名称:</label>
+                                <input type="text" name="Password" placeholder="请输入店铺名称" id="Password" class="form-control">
+                            </div>
+                            <button class="btn btn-white" type="button">查询</button>
+                        </form>
+                    </div>
+
                 </div>
             </div>
             <div class="ibox-content">
@@ -34,37 +34,34 @@
                 <table class="table table-hover  table-bordered">
                     <thead>
                         <tr>
-                            <th>编号</th>
+                            <th>店铺代码</th>
                             <th>店铺名称</th>
-                            <th>用户</th>
-                            <th>操作</th>
+                            <th>渠道名称</th>
+                            <th>区域名称</th>
+                          
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>
-                                杭州武林银泰Ins's店
-                            </td>
-                            <td>张三</td>
-                            <td class="text-navy"> <i class="fa fa-level-up"></i> 40%</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>
-                                <span class="line" style="display: none;">5,3,9,6,5,9,7,3,5,2</span><svg class="peity" height="16" width="32"><polygon fill="#1ab394" points="0 14.9974 0 7.16551111111111 3.554977777777778 10.498266666666666 7.109955555555556 0.4999999999999982 10.664933333333334 5.499133333333333 14.219911111111111 7.16551111111111 17.77488888888889 0.4999999999999982 21.329866666666668 3.832755555555556 24.884844444444443 10.498266666666666 28.439822222222222 7.16551111111111 31.9948 12.164644444444445 31.9948 14.9974"></polygon><polyline fill="transparent" points="0 7.16551111111111 3.554977777777778 10.498266666666666 7.109955555555556 0.4999999999999982 10.664933333333334 5.499133333333333 14.219911111111111 7.16551111111111 17.77488888888889 0.4999999999999982 21.329866666666668 3.832755555555556 24.884844444444443 10.498266666666666 28.439822222222222 7.16551111111111 31.9948 12.164644444444445" stroke="#169c81" stroke-width="1" stroke-linecap="square"></polyline></svg>
-                            </td>
-                            <td>李四</td>
-                            <td class="text-warning"><a class="btn btn-primary btn-sm">添加管理员</a></td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>
-                                <span class="line" style="display: none;">1,6,3,9,5,9,5,3,9,6,4</span><svg class="peity" height="16" width="32"><polygon fill="#1ab394" points="0 14.9974 0 13.831022222222224 3.1994800000000003 5.499133333333333 6.398960000000001 10.498266666666666 9.59844 0.4999999999999982 12.797920000000001 7.16551111111111 15.997400000000003 0.4999999999999982 19.19688 7.16551111111111 22.39636 10.498266666666666 25.595840000000003 0.4999999999999982 28.795320000000004 5.499133333333333 31.994800000000005 8.831888888888889 31.9948 14.9974"></polygon><polyline fill="transparent" points="0 13.831022222222224 3.1994800000000003 5.499133333333333 6.398960000000001 10.498266666666666 9.59844 0.4999999999999982 12.797920000000001 7.16551111111111 15.997400000000003 0.4999999999999982 19.19688 7.16551111111111 22.39636 10.498266666666666 25.595840000000003 0.4999999999999982 28.795320000000004 5.499133333333333 31.994800000000005 8.831888888888889" stroke="#169c81" stroke-width="1" stroke-linecap="square"></polyline></svg>
-                            </td>
-                            <td>王麻子</td>
-                            <td class="text-navy"> <i class="fa fa-level-up"></i> 26%</td>
-                        </tr>
+                        @{
+                            foreach (var item in list)
+                            {
+                                <tr>
+                                    <td>@item.KHDM</td>
+                                    <td>
+                                        @item.KHMC
+                                    </td>
+                                    <td>
+                                        @item.QDMC
+                                    </td>
+                                    <td>
+                                        @item.QYMC
+                                    </td>
+                                  
+                                </tr>
+                            }
+                        }
+                      
+                     
                     </tbody>
                 </table>
             </div>
