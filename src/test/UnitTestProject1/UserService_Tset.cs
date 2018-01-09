@@ -12,6 +12,7 @@ namespace UnitTestProject1
     public class UserService_Tset
     {
         private static IUserService _usersvc;
+        private static IMRKeHuService _kehusvc;
         //使用 ClassInitialize 在运行类中的第一个测试前先运行代码
         [ClassInitialize()]
         public static void MyClassInitialize(TestContext testContext)
@@ -20,7 +21,8 @@ namespace UnitTestProject1
             IDBConnectionManager connManager = new DBConnectionManager(config);
 
 
-            _usersvc = new UserService( connManager);
+            _usersvc = new UserService(connManager);
+            _kehusvc = new MRKeHuService(connManager);
 
         }
         //使用 ClassCleanup 在运行完类中的所有测试后再运行代码
@@ -81,6 +83,12 @@ namespace UnitTestProject1
                 Assert.IsTrue(_usersvc.AddRole(role) != Guid.Empty);
             }
 
+        }
+
+        [TestMethod]
+        public void GetKeHuList_Test()
+        {
+            List<MRKeHu> list = _kehusvc.GetKeHuList(1, 10, "02101", null);
         }
     }
 }

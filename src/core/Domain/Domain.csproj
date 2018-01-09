@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IService\IMRKeHuService.cs" />
     <Compile Include="IService\IPersonService.cs" />
     <Compile Include="DBConnectionManager.cs" />
     <Compile Include="IService\IUserService.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Model\VIPRecharge\MR_CCJL.cs" />
     <Compile Include="Model\VipSearch.cs" />
     <Compile Include="Service\MemberService.cs" />
+    <Compile Include="Service\MRKeHuService.cs" />
     <Compile Include="Service\Serviceconfiguration.cs" />
     <Compile Include="Model\Person.cs" />
     <Compile Include="Model\Role.cs" />

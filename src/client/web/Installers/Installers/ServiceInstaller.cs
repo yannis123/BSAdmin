@@ -39,6 +39,11 @@ namespace web.Ioc.Installers
                  .LifestyleSingleton()
            );
 
+            container.Register(Component.For<IMRKeHuService>() //接口  
+                .ImplementedBy<MRKeHuService>() //实现类 
+                .LifestyleSingleton()
+          );
+
             container.Register(Component.For<IDBConnectionManager>() //接口  
                  .ImplementedBy<DBConnectionManager>() //实现类 
                  .LifestyleSingleton()

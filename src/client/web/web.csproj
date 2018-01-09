@@ -188,6 +188,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\MyFormsAuthentication.cs" />
+    <Compile Include="Models\RequestModel\KeHuRequest.cs" />
     <Compile Include="Models\RequestModel\RegistOpenIdRequest.cs" />
     <Compile Include="Models\ResponseModel\BaseResponse.cs" />
     <Compile Include="Models\UserRolePermission.cs" />
