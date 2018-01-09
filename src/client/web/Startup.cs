@@ -1,7 +1,7 @@
 ﻿using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(web.Startup))]
+
 namespace web
 {
     public partial class Startup
