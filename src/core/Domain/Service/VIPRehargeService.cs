@@ -18,14 +18,14 @@ namespace Domain.Service.VIPRecharge
         {
             connection = connManager.GetDefaultConn();
         }
-        public void AddRechargeDtl(List<MR_CCJLMX> rechargedDetail)
+        public void AddRechargeDtl(MR_CCJLMX rechargedDetail)
         {
-            connection.Insert(rechargedDetail);
+            connection.Insert<MR_CCJLMX>(rechargedDetail);
         }
 
-        public void AddRecharges(List<MR_CCJL> rechargeLst)
+        public void AddRecharges(MR_CCJL recharge)
         {
-            connection.Insert(rechargeLst);
+            connection.Insert<MR_CCJL>(recharge);
         }
 
         public List<MR_CCDA> GetArchives()
@@ -39,7 +39,7 @@ namespace Domain.Service.VIPRecharge
 
                 throw ex;
             }
-           
+
         }
     }
 }

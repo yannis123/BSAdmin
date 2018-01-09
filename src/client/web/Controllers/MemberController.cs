@@ -35,20 +35,20 @@ namespace web.Controllers
             var rechargeLst = new List<MR_CCJL>();
             var recharge = new MR_CCJL()
             {
-                DJBH = Guid.NewGuid().ToString(),
-                DYDM = "",
-                SDDM = "",
+                DJBH = "dddddd",
+                DYDM = "2",
+                SDDM = "2",
                 RQ = DateTime.Now,
                 BZ = string.Empty
 
             };
             rechargeLst.Add(recharge);
-            _service.AddRecharges(rechargeLst);
+            _service.AddRecharges(recharge);
 
 
             var rechargeDelLst = new List<MR_CCJLMX>();
             rechargeDelLst.Add(rechargeDlt);
-            _service.AddRechargeDtl(rechargeDelLst);
+            _service.AddRechargeDtl(rechargeDlt);
 
             return View();
         }
