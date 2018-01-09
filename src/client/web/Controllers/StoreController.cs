@@ -17,9 +17,9 @@ namespace web.Controllers
             _kehuService = kehuService;
         }
         // GET: Store
-        public ActionResult Index()
+        public ActionResult Index(KeHuRequest request)
         {
-            List<MRKeHu> list = _kehuService.GetKeHuList();
+            List<MRKeHu> list = _kehuService.GetKeHuList(1,int.MaxValue,request.KHDM,request.KHMC);
             return View(list);
         }
     }

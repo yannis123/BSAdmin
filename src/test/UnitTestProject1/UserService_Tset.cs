@@ -88,7 +88,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void GetKeHuList_Test()
         {
-            List<MRKeHu> list = _kehusvc.GetKeHuList();
+            List<MRKeHu> list = _kehusvc.GetKeHuList(1, 10, "02101", null);
         }
     }
 }

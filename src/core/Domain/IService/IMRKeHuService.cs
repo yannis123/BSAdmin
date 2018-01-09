@@ -9,6 +9,6 @@ namespace Domain.IService
 {
     public interface IMRKeHuService
     {
-        List<MRKeHu> GetKeHuList();
+        List<MRKeHu> GetKeHuList(int pageIndex, int pageSize, string khdm, string khmc);
     }
 }
