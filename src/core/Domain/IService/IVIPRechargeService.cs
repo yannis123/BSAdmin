@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 using Domain.Model;
 namespace Domain.IService
 {
-    public interface IRechargeArchivesService
+    public interface IVIPRechargeService
     {
+        void AddRecharges(List<CCJL> rechargeLst);
+        void AddRechargeDtl(List<CCJLMX> rechargedDetailLst);
         List<CCDA> GetArchives();
     }
 }
