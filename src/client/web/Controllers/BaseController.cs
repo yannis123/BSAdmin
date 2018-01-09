@@ -15,6 +15,14 @@ namespace web.Controllers
         {
             _user = MyFormsAuthentication.GetAuthCookie();
         }
+        protected override void OnActionExecuted(ActionExecutedContext filterContext)
+        {
+            if (_user == null)
+            {
+                filterContext.RequestContext.HttpContext.Response.Redirect("/account/login");
+            }
+
+        }
         /// <summary>
         /// 用户信息
         /// </summary>

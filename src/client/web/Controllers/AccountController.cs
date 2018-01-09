@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using web.Models;
 using Domain.IService;
+using System.Web.Security;
 
 namespace web.Controllers
 {
@@ -26,7 +27,14 @@ namespace web.Controllers
         {
             return View();
         }
-
+        public ActionResult Logout()
+        {
+            var cookie = HttpContext.Request.Cookies[FormsAuthentication.FormsCookieName];
+            cookie.Expires = DateTime.Now.AddDays(-1);
+            HttpContext.Response.Cookies.Remove(cookie.Name);
+            HttpContext.Response.Cookies.Add(cookie);
+            return Redirect("/account/login");
+        }
         [HttpPost]
         public ActionResult Login(LoginModel model, string returnUrl)
         {
@@ -41,7 +49,7 @@ namespace web.Controllers
                 if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
                         && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
                 {
-                    return Redirect(returnUrl);
+                    return Redirect("/accont/login");
                 }
                 else
                 {
