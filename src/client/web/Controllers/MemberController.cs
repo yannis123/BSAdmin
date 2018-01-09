@@ -32,7 +32,6 @@ namespace web.Controllers
         [HttpPost]
         public ActionResult Recharge(MR_CCJLMX rechargeDlt)
         {
-            var rechargeLst = new List<MR_CCJL>();
             var recharge = new MR_CCJL()
             {
                 DJBH = "dddddd",
@@ -42,12 +41,9 @@ namespace web.Controllers
                 BZ = string.Empty
 
             };
-            rechargeLst.Add(recharge);
+            
             _service.AddRecharges(recharge);
-
-
-            var rechargeDelLst = new List<MR_CCJLMX>();
-            rechargeDelLst.Add(rechargeDlt);
+          
             _service.AddRechargeDtl(rechargeDlt);
 
             return View();
