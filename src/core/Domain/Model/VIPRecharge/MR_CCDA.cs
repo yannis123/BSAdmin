@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Model
 {
-    public class CCDA
+    public class MR_CCDA
     {
         public string CZDM { get; set; }
         public decimal KCJE { get; set; }

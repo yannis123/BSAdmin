@@ -18,21 +18,21 @@ namespace Domain.Service.VIPRecharge
         {
             connection = connManager.GetDefaultConn();
         }
-        public void AddRechargeDtl(List<CCJLMX> rechargedDetail)
+        public void AddRechargeDtl(List<MR_CCJLMX> rechargedDetail)
         {
             connection.Insert(rechargedDetail);
         }
 
-        public void AddRecharges(List<CCJL> rechargeLst)
+        public void AddRecharges(List<MR_CCJL> rechargeLst)
         {
             connection.Insert(rechargeLst);
         }
 
-        public List<CCDA> GetArchives()
+        public List<MR_CCDA> GetArchives()
         {
             try
             {
-                return connection.GetList<CCDA>().ToList();
+                return connection.GetList<MR_CCDA>().ToList();
             }
             catch (Exception ex)
             {
