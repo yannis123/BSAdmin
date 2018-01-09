@@ -59,7 +59,6 @@
     <Compile Include="IService\IVIPRechargeService.cs" />
     <Compile Include="Model\VIPRecharge\MR_CCJLMX.cs" />
     <Compile Include="Model\MRKeHu.cs" />
-    <Compile Include="Model\VIPRecharge\CCJLMX.cs" />
     <Compile Include="Model\Member.cs" />
     <Compile Include="Model\VIPRecharge\MR_CCDA.cs" />
     <Compile Include="Model\VIPRecharge\MR_CCJL.cs" />
