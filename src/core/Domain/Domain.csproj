@@ -57,6 +57,7 @@
     <Compile Include="IService\IUserService.cs" />
     <Compile Include="IService\IMemberService.cs" />
     <Compile Include="IService\IVIPRechargeService.cs" />
+    <Compile Include="IService\IVIPSalesService.cs" />
     <Compile Include="Model\MR_Customer.cs" />
     <Compile Include="Model\MR_DianYuan.cs" />
     <Compile Include="Model\VIPRecharge\MR_CCJLMX.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="Model\Member.cs" />
     <Compile Include="Model\VIPRecharge\MR_CCDA.cs" />
     <Compile Include="Model\VIPRecharge\MR_CCJL.cs" />
+    <Compile Include="Model\VIPSales\MR_XSJL.cs" />
     <Compile Include="Model\VIPSales\MR_XSJLMX.cs" />
     <Compile Include="Model\VipSearch.cs" />
     <Compile Include="Service\MemberService.cs" />
@@ -75,6 +77,7 @@
     <Compile Include="IService\IServiceconfiguration.cs" />
     <Compile Include="Service\UserService.cs" />
     <Compile Include="Service\VIPRehargeService.cs" />
+    <Compile Include="Service\VIPSalesService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

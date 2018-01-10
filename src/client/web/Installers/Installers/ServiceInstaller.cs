@@ -54,11 +54,21 @@ namespace web.Ioc.Installers
                .LifestyleSingleton()
          );
 
+
             #region VIPRecharge
             container.Register(Component.For<IVIPRechargeService>() //接口  
                 .ImplementedBy<VIPRehargeService>() //实现类 
                 .LifestyleSingleton()
-          );           
+          );
+            #endregion
+
+
+
+            #region VIPSales
+            container.Register(Component.For<IVIPSalesService>() //接口  
+                    .ImplementedBy<VIPSalesService>() //实现类 
+                    .LifestyleSingleton()
+              );
             #endregion
 
 
