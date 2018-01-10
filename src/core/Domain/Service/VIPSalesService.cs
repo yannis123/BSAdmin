@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Domain.Model.VIPSales;
 using System.Data;
 using DapperExtensions;
+using Domain.Model;
+using Dapper;
 namespace Domain.Service
 {
     public class VIPSalesService : IVIPSalesService
@@ -26,6 +28,42 @@ namespace Domain.Service
         public void AddSalesDel(MR_XSJLMX saleDel)
         {
             connection.Insert<MR_XSJLMX>(saleDel);
+        }
+
+        public List<MR_Customer> GetCustomer(string phone)
+        {
+            var customers = connection.Query<MR_Customer>(" select * from MR_V_CUSTOMER where sj='@sj'", new { sj = phone });
+            if (!customers.Any())
+                return new List<MR_Customer>();
+            return customers.ToList();
+        }
+
+        public List<MR_DianYuan> GetDY(string param)
+        {
+            var dys = connection.Query<MR_DianYuan>(" select * from [dbo].[MR_DIANYUAN] where DYDM like'%@dydm%' or DYMC like'%@dymc%'", new { dydm = param, dymc = param });
+            if (!dys.Any())
+                return new List<MR_DianYuan>();
+            return dys.ToList();
+        }
+
+        public List<MR_SHANGPIN> GetSP(string SPDM)
+        {
+            var sps = connection.Query<MR_SHANGPIN>(
+                @"select sp.spdm,sp.BZSJ,sp1.GGDM as gg1dm,gg1.GGMC as GG1MC,sp2.GGDM as GG2DM ,gg2.GGMC as GG2MC
+                    from[dbo].[MR_SHANGPIN] sp
+                  left join
+                    [dbo].[MR_SPGG1] sp1 on sp.SPDM = sp1.SPDM
+                  left join
+                    [dbo].[MR_GUIGE1]gg1 on sp1.GGDM = gg1.GGDM
+                  left join
+                    [dbo].[MR_SPGG2] sp2 on sp.SPDM = sp2.SPDM
+                  left join
+                    [dbo].[MR_GUIGE2] gg2 on sp2.GGDM = gg2.GGDM
+                    where sp.spdm = '@spdm'",new { spdm=SPDM});
+            if (!sps.Any())
+                return new List<MR_SHANGPIN>();
+            return sps.ToList();
+
         }
     }
 }

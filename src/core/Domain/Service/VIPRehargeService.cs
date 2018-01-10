@@ -44,7 +44,7 @@ namespace Domain.Service.VIPRecharge
             try
             {
               
-                int djbh = connection.Execute("insert into mr_ccjl (bz,dydm,rq,sddm) values (@bz,@dydm,@rq,@sddm);SELECT @@identity;", new
+                int djbh = connection.Execute("insert into mr_ccjl (bz,dydm,rq,sddm) values (@bz,@dydm,@rq,@sddm);SELECT @@identity;",new
                 {
                     bz = string.Empty,
                     dydm = dydm,
