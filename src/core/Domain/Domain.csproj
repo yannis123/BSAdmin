@@ -64,6 +64,7 @@
     <Compile Include="Model\Member.cs" />
     <Compile Include="Model\VIPRecharge\MR_CCDA.cs" />
     <Compile Include="Model\VIPRecharge\MR_CCJL.cs" />
+    <Compile Include="Model\VIPSales\MR_XSJLMX.cs" />
     <Compile Include="Model\VipSearch.cs" />
     <Compile Include="Service\MemberService.cs" />
     <Compile Include="Service\MRCustomerService.cs" />
