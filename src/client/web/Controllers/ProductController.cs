@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Domain.IService;
+using Domain.Model.VIPSales;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,10 +10,28 @@ namespace web.Controllers
 {
     public class ProductController : Controller
     {
-        // GET: Product
-        public ActionResult Index()
+        private IVIPSalesService _saleService = null;
+        public ProductController(IVIPSalesService saleservice)
         {
-            return View();
+            _saleService = saleservice;
+        }
+        public ActionResult Index(string spdm)
+        {
+            List<MR_SHANGPIN> list = _saleService.GetSP(spdm);
+
+            return View(list);
+        }
+
+
+
+
+        public JsonResult GetProduct(string spdm)
+        {
+            List<MR_SHANGPIN> list = _saleService.GetSP(spdm);
+
+            return Json(new { code = 0, data = list }, JsonRequestBehavior.AllowGet);
+
+
         }
     }
 }

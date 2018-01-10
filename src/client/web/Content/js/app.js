@@ -25,3 +25,9 @@ app.changeRecharge = function (_this) {
         }
     })
 }
+
+app.queryshangpin = function (spdm) {
+    $.get("/", { spdm: spdm }, function (resp) {
+
+    })
+}
