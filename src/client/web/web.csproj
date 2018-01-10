@@ -650,6 +650,7 @@
     <Content Include="Content\js\plugins\webuploader\webuploader.nolog.min.js" />
     <Content Include="Content\js\plugins\webuploader\webuploader.withoutimage.js" />
     <Content Include="Content\js\plugins\webuploader\webuploader.withoutimage.min.js" />
+    <Content Include="Content\js\template.js" />
     <Content Include="Content\js\welcome.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />

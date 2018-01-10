@@ -18,7 +18,7 @@ namespace web.Filter
         public string RoleName { get; set; }
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            User user = MyFormsAuthentication.GetAuthCookie();
+            MR_DianYuan user = MyFormsAuthentication.GetAuthCookie();
 
             #region 未登录
             if (user == null)
@@ -47,29 +47,29 @@ namespace web.Filter
 
             #region 没有权限
         
-            UserService userService = new UserService(new DBConnectionManager(new Serviceconfiguration()));
-            Role role = userService.GetRole(Guid.NewGuid());
-            if (!string.IsNullOrEmpty(this.RoleName) && !this.RoleName.Split(',').Contains(role.RoleName))
-            {
-                if (filterContext.HttpContext.Request.IsAjaxRequest())
-                {
-                    UrlHelper urlHelper = new UrlHelper(filterContext.RequestContext);
-                    filterContext.Result = new JsonResult
-                    {
-                        Data = new
-                        {
-                            Error = "没有权限",
-                            LogOnUrl = urlHelper.Action("NoPromission", "Account")
-                        },
-                        JsonRequestBehavior = JsonRequestBehavior.AllowGet
-                    };
-                }
-                else
-                {
-                    filterContext.Result = new RedirectResult("/Account/NoPromission");
-                }
-                return;
-            }
+            //UserService userService = new UserService(new DBConnectionManager(new Serviceconfiguration()));
+            //Role role = userService.GetRole(Guid.NewGuid());
+            //if (!string.IsNullOrEmpty(this.RoleName) && !this.RoleName.Split(',').Contains(role.RoleName))
+            //{
+            //    if (filterContext.HttpContext.Request.IsAjaxRequest())
+            //    {
+            //        UrlHelper urlHelper = new UrlHelper(filterContext.RequestContext);
+            //        filterContext.Result = new JsonResult
+            //        {
+            //            Data = new
+            //            {
+            //                Error = "没有权限",
+            //                LogOnUrl = urlHelper.Action("NoPromission", "Account")
+            //            },
+            //            JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            //        };
+            //    }
+            //    else
+            //    {
+            //        filterContext.Result = new RedirectResult("/Account/NoPromission");
+            //    }
+            //    return;
+            //}
             #endregion
 
             base.OnActionExecuting(filterContext);

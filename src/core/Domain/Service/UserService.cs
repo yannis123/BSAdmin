@@ -22,25 +22,6 @@ namespace Domain.Service
         }
 
 
-        public Guid AddRole(Role role)
-        {
-            return connection.Insert(role);
-
-        }
-
-        public void AddRoleList(List<Role> roles)
-        {
-            connection.Insert(roles);
-        }
-
-        public List<Role> GetRoleList()
-        {
-            List<Role> list = new List<Role>();
-            //list.Add(new Role() { Id = Guid.Parse("cd9674fe-b353-491e-9da1-2868ebe57a2f"), RoleName = "超级管理员" });
-            //list.Add(new Role() { Id = Guid.Parse("cd9674fe-b353-491e-9da1-2868ebe57a2f"), RoleName = "管理员" });
-            //return list;
-            return connection.GetList<Role>().ToList();
-        }
 
         public List<User> GetUserList()
         {
@@ -49,7 +30,7 @@ namespace Domain.Service
             //list.Add(new User() { UserName = "yanght", CreateTime = DateTime.Now, Id = Guid.Parse("ea60d9c7-d522-42b2-8a9f-ff8009fa0cf3"), Password = "123", Status = 1 });
             //return list;
 
-            var predicate = Predicates.Field<User>(m=>m.Status, Operator.Eq, 1);
+            var predicate = Predicates.Field<User>(m => m.Status, Operator.Eq, 1);
 
             return connection.GetList<User>(predicate).ToList();
         }
@@ -80,10 +61,10 @@ namespace Domain.Service
             return connection.Query<User>(sql, new { userName = userName, password = password }).SingleOrDefault();
         }
 
-        public Role GetRole(Guid id)
+        public MR_DianYuan GetDianYuan(string dydm, string dlmm)
         {
-            //return new Role() { Id = Guid.Parse("cd9674fe-b353-491e-9da1-2868ebe57a2f"), RoleName = "超级管理员" };
-            return connection.Get<Role>(id);
+            string sql = "select * from [MR_DIANYUAN] where DYDM=@DYDM and DLMM=@DLMM";
+            return connection.Query<MR_DianYuan>(sql, new { DYDM = dydm, DLMM = dlmm }).SingleOrDefault();
         }
     }
 }

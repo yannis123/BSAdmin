@@ -16,16 +16,17 @@ namespace web.Models
         private const int CookieSaveDays = 14;
 
         //用户登录成功时设置Cookie
-        public static void SetAuthCookie(string username, User userData, bool rememberMe)
+        public static void SetAuthCookie(string username, MR_DianYuan userData, bool rememberMe)
         {
             if (userData == null)
                 throw new ArgumentNullException("userData");
 
-            var data = (new JavaScriptSerializer()).Serialize(new User()
+            var data = (new JavaScriptSerializer()).Serialize(new MR_DianYuan()
             {
-                Id = userData.Id,
-                UserName = userData.UserName,
-                RoleName = userData.RoleName
+                DYDM = userData.DYDM,
+                DYMC = userData.DYMC,
+                KHDM = userData.KHDM,
+                MOBILE = userData.MOBILE
             });
 
             //创建ticket
@@ -46,7 +47,7 @@ namespace web.Models
             if (rememberMe)
                 cookie.Expires = DateTime.Now.AddDays(CookieSaveDays);
 
-            HttpContext.Current.User = new GenericPrincipal(identity, new string[] { userData.RoleName });
+            //HttpContext.Current.User = new GenericPrincipal(identity, new string[] { userData.RoleName });
 
             //写入Cookie
             HttpContext.Current.Response.Cookies.Remove(cookie.Name);
@@ -54,7 +55,7 @@ namespace web.Models
         }
 
         //从Request中解析出Cookie
-        public static User GetAuthCookie()
+        public static MR_DianYuan GetAuthCookie()
         {
             // 1. 读登录Cookie
             var cookie = HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];
@@ -65,7 +66,7 @@ namespace web.Models
                 var ticket = FormsAuthentication.Decrypt(cookie.Value);
                 if (ticket != null && !string.IsNullOrEmpty(ticket.UserData))
                 {
-                    var userData = (new JavaScriptSerializer()).Deserialize<User>(ticket.UserData);
+                    var userData = (new JavaScriptSerializer()).Deserialize<MR_DianYuan>(ticket.UserData);
                     if (userData != null)
                     {
                         return userData;

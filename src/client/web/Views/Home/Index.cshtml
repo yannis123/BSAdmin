@@ -1,5 +1,6 @@
 ﻿@{
     Layout=null;
+    Domain.Model.MR_DianYuan userinfo = Model as Domain.Model.MR_DianYuan;
 }
 <!DOCTYPE html>
 <html>
@@ -33,7 +34,7 @@
                             <span><img alt="image" class="img-circle" src="/content/img/profile_small.jpg" /></span>
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <span class="clear">
-                                    <span class="block m-t-xs"><strong class="font-bold">Beaut-zihan</strong></span>
+                                    <span class="block m-t-xs"><strong class="font-bold">@(userinfo.DYMC)</strong></span>
                                     <span class="text-muted text-xs block">超级管理员<b class="caret"></b></span>
                                 </span>
                             </a>

@@ -13,6 +13,7 @@ namespace UnitTestProject1
     {
         private static IUserService _usersvc;
         private static IMRKeHuService _kehusvc;
+        private static IMRCustomerService _customer;
         //使用 ClassInitialize 在运行类中的第一个测试前先运行代码
         [ClassInitialize()]
         public static void MyClassInitialize(TestContext testContext)
@@ -23,6 +24,7 @@ namespace UnitTestProject1
 
             _usersvc = new UserService(connManager);
             _kehusvc = new MRKeHuService(connManager);
+            _customer = new MRCustomerService(connManager);
 
         }
         //使用 ClassCleanup 在运行完类中的所有测试后再运行代码
@@ -45,43 +47,43 @@ namespace UnitTestProject1
         [TestMethod]
         public void AddRole_Test()
         {
-            List<Role> list = new List<Role>();
+            //List<Role> list = new List<Role>();
 
-            var roles = _usersvc.GetRoleList();
+            //var roles = _usersvc.GetRoleList();
 
-            Role role_super_admin = new Role()
-            {
-                Id = Guid.NewGuid(),
-                CreateTime = DateTime.Now,
-                RoleName = "超级管理员",
-            };
+            //Role role_super_admin = new Role()
+            //{
+            //    Id = Guid.NewGuid(),
+            //    CreateTime = DateTime.Now,
+            //    RoleName = "超级管理员",
+            //};
 
-            Role role_admin = new Role()
-            {
-                Id = Guid.NewGuid(),
-                CreateTime = DateTime.Now,
-                RoleName = "管理员",
-            };
+            //Role role_admin = new Role()
+            //{
+            //    Id = Guid.NewGuid(),
+            //    CreateTime = DateTime.Now,
+            //    RoleName = "管理员",
+            //};
 
-            Role role = new Role()
-            {
-                Id = Guid.NewGuid(),
-                CreateTime = DateTime.Now,
-                RoleName = "店员",
-            };
-            if (!roles.Exists(m => m.RoleName == "超级管理员"))
-            {
-                var result = _usersvc.AddRole(role_super_admin);
-                Assert.IsTrue(result == role_super_admin.Id);
-            }
-            if (!roles.Exists(m => m.RoleName == "管理员"))
-            {
-                Assert.IsTrue(_usersvc.AddRole(role_admin) != Guid.Empty);
-            }
-            if (!roles.Exists(m => m.RoleName == "店员"))
-            {
-                Assert.IsTrue(_usersvc.AddRole(role) != Guid.Empty);
-            }
+            //Role role = new Role()
+            //{
+            //    Id = Guid.NewGuid(),
+            //    CreateTime = DateTime.Now,
+            //    RoleName = "店员",
+            //};
+            //if (!roles.Exists(m => m.RoleName == "超级管理员"))
+            //{
+            //    var result = _usersvc.AddRole(role_super_admin);
+            //    Assert.IsTrue(result == role_super_admin.Id);
+            //}
+            //if (!roles.Exists(m => m.RoleName == "管理员"))
+            //{
+            //    Assert.IsTrue(_usersvc.AddRole(role_admin) != Guid.Empty);
+            //}
+            //if (!roles.Exists(m => m.RoleName == "店员"))
+            //{
+            //    Assert.IsTrue(_usersvc.AddRole(role) != Guid.Empty);
+            //}
 
         }
 
@@ -89,6 +91,13 @@ namespace UnitTestProject1
         public void GetKeHuList_Test()
         {
             List<MRKeHu> list = _kehusvc.GetKeHuList(1, 10, "02101", null);
+        }
+
+        [TestMethod]
+        public void GetCustomerList_Test()
+        {
+            int total = 0;
+            var list = _customer.GetCustomerList(1, 10,out total,"");
         }
     }
 }

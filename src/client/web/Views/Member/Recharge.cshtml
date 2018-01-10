@@ -11,9 +11,9 @@
 
 </div>
 <div class="modal-body">
-@using (Html.BeginForm("Recharge", "Member", FormMethod.Post,new {@class="form-horizontal m-t"}))
-{
-    @*<form class="form-horizontal m-t" id="commentForm">*@
+    @using (Html.BeginForm("Recharge", "Member", FormMethod.Post, new { @class = "form-horizontal m-t" }))
+    {
+        @*<form class="form-horizontal m-t" id="commentForm">*@
 
         <div class="table-responsive m-t">
             <table class="table invoice-table">
@@ -25,25 +25,27 @@
                         <th>实际到账金额</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>¥100</td>
-                        <td>¥26.00</td>
-                        <td>1.20</td>
-                        <td>¥31,98</td>
-                    </tr>
-
+                <tbody id="rechargeDetail">
+                    <script id="rechargeDetailtmpl" type="text/html">
+                        <tr>
+                            <td>¥{{KCJE}}</td>
+                            <td>¥{{ZZJE-KCJE}}</td>
+                            <td>{{CZJF}}</td>
+                            <td>¥{{ZZJE}}</td>
+                        </tr>
+                    </script>
                 </tbody>
             </table>
-        </div>      
+        </div>
+
         <div class="form-group">
             <label class="col-sm-3 control-label">充值金额：</label>
             <div class="col-sm-8">
-                <select name="CZJE" class="form-control">
-                    <option >请选择充值金额</option>
+                <select name="CZJE" class="form-control" onchange="app.changeRecharge(this)">
+                    <option value="">请选择充值金额</option>
                     @foreach (var item in daLst)
-                    {                         
-                        <option>@item.KCJE</option>                       
+                    {
+                        <option value="@item.CZDM">@item.KCJE</option>
                     }
 
                 </select>
@@ -52,23 +54,34 @@
 
         <div class="form-group">
             <div class="col-sm-4 col-sm-offset-3">
-                <button class="btn btn-primary" type="submit">提交</button>
+                <button class="btn btn-primary" type="button" id="saveRecharge">提交</button>
             </div>
         </div>
-}
+    }
 </div>
 <div class="modal-footer">
     @*<button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
         <button type="submit" class="btn btn-primary">保存</button>*@
 </div>
+@section styles{
 
-<script type="text/javascript">
-    $().ready(function () {
-        $("#commentForm").validate({
-            submitHandler: function (form) {
-                alert("提交事件!");
-                form.submit();
-            }
+    <script type="text/javascript">
+        $().ready(function () {
+            $("#saveRecharge").click(function () {
+                var czdm = $("select[name='CZJE']").val();
+                if (czdm.length == 0) {
+                    alert("请选择充值档位");
+                    return false;
+                }
+                $.post("/member/Recharge", { czdm: czdm, vipdm: '@ViewBag.vipdm' }, function (resp) {
+                    if (resp.code == 0) {
+                        $("#myModal").hide();
+                        $(".modal-backdrop").remove();
+                    } else {
+                        alert("充值失败");
+                    }
+                })
+            })
         });
-    });
-</script>
+    </script>
+}

@@ -12,41 +12,59 @@ namespace web.Controllers
     public class MemberController : BaseController
     {
         private IVIPRechargeService _service;
-        public MemberController(IVIPRechargeService rechargeService)
+        private IMRCustomerService _customer;
+        public MemberController(IVIPRechargeService rechargeService, IMRCustomerService customer)
         {
             _service = rechargeService;
+            _customer = customer;
         }
         // GET: Member
         public ActionResult Index()
         {
+            // var list = _customer.GetCustomerList(0, 0);
 
             return View();
         }
 
-        public ActionResult Recharge()
+        public ActionResult Recharge(string vipdm)
         {
             var archives = _service.GetArchives();
             ViewBag.Archives = archives;
+            ViewBag.vipdm = vipdm;
             return View();
         }
+
         [HttpPost]
-        public ActionResult Recharge(MR_CCJLMX rechargeDlt)
+        public JsonResult Recharge(string czdm, string vipdm)
         {
-            var recharge = new MR_CCJL()
+            if (_service.AddRecharge(vipdm, czdm, UserInfo.DYDM, UserInfo.KHDM))
             {
-                DJBH = "dddddd",
-                DYDM = "2",
-                SDDM = "2",
-                RQ = DateTime.Now,
-                BZ = string.Empty
-
-            };
-            
-            _service.AddRecharges(recharge);
-          
-            _service.AddRechargeDtl(rechargeDlt);
-
-            return View();
+                return Json(new { code = 0 });
+            }
+            else
+            {
+                return Json(new { code = -1 });
+            }
         }
+
+        #region  get raw data
+
+        public JsonResult CustomerList(int pageNumber, int pageSize, string searchText)
+        {
+            int total = 0;
+            var list = _customer.GetCustomerList(pageNumber, pageSize, out total, "");
+            return Json(new { rows = list, total = total }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetArchive(string czdm)
+        {
+            var model = _service.GetArchive(czdm);
+
+            return Json(new { code = 0, data = model }, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+        #endregion
     }
 }

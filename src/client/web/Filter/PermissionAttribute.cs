@@ -21,15 +21,16 @@ namespace web.Filter
 
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
-            User user = MyFormsAuthentication.GetAuthCookie();
+            //MR_DianYuan user = MyFormsAuthentication.GetAuthCookie();
 
-            if (user == null) return false;
+            //if (user == null) return false;
 
-            if (string.IsNullOrEmpty(user.RoleName)) return false;
+            //if (string.IsNullOrEmpty(user.RoleName)) return false;
 
-            if (roles == null | roles.Count() == 0) return true;
+            //if (roles == null || roles.Count() == 0) return false;
 
-            return roles.Contains(user.RoleName);
+            //return roles.Contains(user.RoleName);
+            return base.AuthorizeCore(httpContext);
         }
 
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)

@@ -8,6 +8,7 @@ using Domain.IService;
 using Domain.Model;
 using System.Data;
 using DapperExtensions;
+using Dapper;
 namespace Domain.Service.VIPRecharge
 {
     public class VIPRehargeService : IVIPRechargeService
@@ -27,6 +28,56 @@ namespace Domain.Service.VIPRecharge
         {
             connection.Insert<MR_CCJL>(recharge);
         }
+        /// <summary>
+        /// 会员充值
+        /// </summary>
+        /// <param name="khdm">客户代码</param>
+        /// <param name="czdm">充值代码</param>
+        /// <param name="dydm">店员代码</param>
+        /// <param name="sddm">店铺代码</param>
+        /// <returns></returns>
+        public bool AddRecharge(string vipdm, string czdm, string dydm, string sddm)
+        {
+            MR_CCDA ccda = GetArchive(czdm);
+
+            IDbTransaction transaction = connection.BeginTransaction();
+            try
+            {
+              
+                int djbh = connection.Execute("insert into mr_ccjl (bz,dydm,rq,sddm) values (@bz,@dydm,@rq,@sddm);SELECT @@identity;", new
+                {
+                    bz = string.Empty,
+                    dydm = dydm,
+                    rq = DateTime.Now,
+                    sddm = sddm
+                }, transaction);
+
+                string number = "VC" + djbh.ToString().PadLeft(10, '0');
+
+             
+                
+                connection.Insert<MR_CCJLMX>(new MR_CCJLMX()
+                {
+                    CZDM = ccda.CZDM,
+                    CZJE = ccda.KCJE,
+                    CZJF = ccda.CZJF,
+                    VIPDM = vipdm,
+                    ZZJE = ccda.ZZJE,
+                    DJBH = djbh.ToString(),
+                    ZY = ""
+                }, transaction);
+             
+                transaction.Commit();
+              
+                return true;
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+                return false;
+            }
+
+        }
 
         public List<MR_CCDA> GetArchives()
         {
@@ -41,5 +92,11 @@ namespace Domain.Service.VIPRecharge
             }
 
         }
+
+        public MR_CCDA GetArchive(string czdm)
+        {
+            return connection.QuerySingle<MR_CCDA>("select * from mr_ccda where czdm=@czdm", new { czdm = czdm });
+        }
+
     }
 }

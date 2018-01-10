@@ -11,7 +11,7 @@ using web.Models;
 
 namespace web.Controllers
 {
-   
+
     public class HomeController : BaseController
     {
         private IServiceconfiguration _config;
@@ -21,7 +21,7 @@ namespace web.Controllers
         }
         public ActionResult Index(string code)
         {
-            return View();
+            return View(this.UserInfo);
         }
 
         /// <summary>
@@ -38,7 +38,6 @@ namespace web.Controllers
                 _config.Wx_AppSecret,
                 code
                 );
-
             return View(token);
         }
         public ActionResult About()

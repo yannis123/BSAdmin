@@ -1,6 +1,7 @@
 ﻿@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    List<Domain.Model.MR_Customer> list = Model as List<Domain.Model.MR_Customer>;
 }
 <div class="wrapper wrapper-content">
     <div class="row">
@@ -16,64 +17,7 @@
             </div>
             <div class="ibox-content">
 
-                <table class="table table-hover  table-bordered">
-                    <thead>
-                        <tr>
-                            <th>编号</th>
-                            <th>vip编码</th>
-                            <th>用户姓名</th>
-                            <th>手机号</th>
-                            <th>账户余额</th>
-                            <th>积分</th>
-                            <th>是否绑定微信</th>
-                            <th>操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>
-                                100000001
-                            </td>
-                            <td>张三</td>
-                            <td class="text-navy"> 18806521795</td>
-                            <td>¥100</td>
-                            <td>100</td>
-                            <td><span class="label label-primary">已绑定</span></td>
-                            <td>
-                                <a class="btn btn-default  btn-sm" data-toggle="modal" href="/member/recharge" data-target="#myModal">充值</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>
-                                100000002
-                            </td>
-                            <td>李四</td>
-                            <td class="text-navy"> 18806521795</td>
-                            <td>¥100</td>
-                            <td>100</td>
-                            <td><span class="label label-info">未绑定</span></td>
-                            <td>
-                                <button type="button" class="btn btn-default btn-sm">充值</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>
-                                100000003
-                            </td>
-                            <td>王麻子</td>
-                            <td class="text-navy"> 18806521795</td>
-                            <td>¥100</td>
-                            <td>100</td>
-                            <td><span class="label label-info">未绑定</span></td>
-                            <td>
-                                <button type="button" class="btn btn-default btn-sm">充值</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <table class="table table-hover  table-bordered" id="table" data-toolbar="#toolbar"></table>
             </div>
         </div>
     </div>
@@ -84,3 +28,95 @@
         </div>
     </div>
 </div>
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            initTable();
+
+        })
+
+        function initTable() {
+            $('#table').bootstrapTable({
+                method: 'post',
+                toolbar: '#toolbar',    //工具按钮用哪个容器
+                striped: true,      //是否显示行间隔色
+                cache: false,      //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,     //是否显示分页（*）
+                //sortable: true,      //是否启用排序
+                //sortOrder: "ID asc",     //排序方式
+                pageNumber: 1,      //初始化加载第一页，默认第一页
+                pageSize: 10,      //每页的记录行数（*）
+                pageList: [10, 50, 100, 150],  //可供选择的每页的行数（*）
+                url: "/member/customerlist",//这个接口需要处理bootstrap table传递的固定参数
+                queryParamsType: '', //默认值为 'limit' ,在默认情况下 传给服务端的参数为：offset,limit,sort
+                // 设置为 '' 在这种情况下传给服务器的参数为：pageSize,pageNumber
+
+                //queryParams: queryParams,//前端调用服务时，会默认传递上边提到的参数，如果需要添加自定义参数，可以自定义一个函数返回请求参数
+                sidePagination: "server",   //分页方式：client客户端分页，server服务端分页（*）
+                //search: true, //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+                strictSearch: true,
+                //showColumns: true, //是否显示所有的列
+                //showRefresh: true, //是否显示刷新按钮
+                minimumCountColumns: 2,    //最少允许的列数
+                clickToSelect: true,    //是否启用点击选中行
+                searchOnEnterKey: true,
+                //search: true,
+                columns: [
+                 {
+                     title: "代码",
+                     field: "DM",
+                     align: "center",
+                     valign: "middle"
+                 },
+                {
+                    title: "顾客名称",
+                    field: "GKMC",
+                    align: "center",
+                    valign: "middle"
+                },
+                {
+                    title: "性别",
+                    field: "SEX",
+                    align: "center",
+                    valign: "middle"
+                },
+                {
+                    title: "手机号码",
+                    field: "SJ",
+                    align: "center",
+                    valign: "middle"
+                },
+                {
+                    title: "消费金额",
+                    field: "XFJE",
+                    align: "center",
+                    valign: "middle"
+                },
+                {
+                    title: "当前积分",
+                    field: "DQJF",
+                    align: "center",
+                    valign: "middle"
+                },
+                {
+                    title: "操作",
+                    field: "DM",
+                    align: "center",
+                    valign: "middle",
+                    formatter: function (value, row, index) {
+                        //通过formatter可以自定义列显示的内容
+                        //value：当前field的值，即id
+                        //row：当前行的数据
+                        // var a = '<a href="/home/edit?id=' + value + '" >修改</a>';
+                        var a = '  <a class="btn btn-default  btn-sm" data-toggle="modal" href="/member/recharge?vipdm=' + value + '" data-target="#myModal">充值</a>';
+                        return a;
+                    }
+                },
+
+                ],
+                pagination: true
+            });
+        }
+    </script>
+}

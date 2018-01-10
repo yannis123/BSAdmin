@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace Domain.Model
 {
-    public class MR_CCJL
+    public class MR_DianYuan
     {
-        public DateTime RQ { get; set; }
-        public string SDDM { get; set; }
         public string DYDM { get; set; }
-        public string BZ { get; set; }
+        public string DYMC { get; set; }
+        public string KHDM { get; set; }
+        public string MOBILE { get; set; }
+        public string DLMM { get; set; }
     }
 }
