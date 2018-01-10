@@ -75,8 +75,7 @@
                 }
                 $.post("/member/Recharge", { czdm: czdm, vipdm: '@ViewBag.vipdm' }, function (resp) {
                     if (resp.code == 0) {
-                        $("#myModal").hide();
-                        $(".modal-backdrop").remove();
+                        window.location.reload();
                     } else {
                         alert("充值失败");
                     }

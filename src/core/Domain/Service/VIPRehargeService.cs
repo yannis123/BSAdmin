@@ -43,19 +43,17 @@ namespace Domain.Service.VIPRecharge
             IDbTransaction transaction = connection.BeginTransaction();
             try
             {
-              
-                int djbh = connection.Execute("insert into mr_ccjl (bz,dydm,rq,sddm) values (@bz,@dydm,@rq,@sddm);SELECT @@identity;", new
+
+                int djbh = connection.Query<int>("insert into mr_ccjl (bz,dydm,rq,sddm) values (@bz,@dydm,@rq,@sddm);SELECT CAST(SCOPE_IDENTITY() as int);", new
                 {
                     bz = string.Empty,
                     dydm = dydm,
                     rq = DateTime.Now,
                     sddm = sddm
-                }, transaction);
+                }, transaction).FirstOrDefault();
 
                 string number = "VC" + djbh.ToString().PadLeft(10, '0');
 
-             
-                
                 connection.Insert<MR_CCJLMX>(new MR_CCJLMX()
                 {
                     CZDM = ccda.CZDM,
@@ -66,6 +64,10 @@ namespace Domain.Service.VIPRecharge
                     DJBH = djbh.ToString(),
                     ZY = ""
                 }, transaction);
+
+                connection.Execute("update mr_ccjl set DJBH_BAK=@DJBH_BAK where DJBH=@DJBH", new { DJBH_BAK = number, DJBH = djbh },transaction);
+
+                connection.Execute("update MR_CCJLMX set DJBH_BAK=@DJBH_BAK where DJBH=@DJBH", new { DJBH_BAK = number, DJBH = djbh },transaction);
              
                 transaction.Commit();
               
