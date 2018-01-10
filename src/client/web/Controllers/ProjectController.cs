@@ -17,10 +17,15 @@ namespace web.Controllers
         // GET: Project
         public ActionResult Index()
         {
+           
+
             return View();
         }
         public ActionResult AddPreOrder()
         {
+            var dy = _service.GetDY("020020");
+            var vip = _service.GetCustomer("13868197428");
+            var sp = _service.GetSP("015216040");
             return View();
         }
     }
