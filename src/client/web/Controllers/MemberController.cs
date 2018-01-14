@@ -49,10 +49,10 @@ namespace web.Controllers
 
         #region  get raw data
 
-        public JsonResult CustomerList(int pageNumber, int pageSize, string searchText)
+        public JsonResult CustomerList(int pageNumber, int pageSize, string phoneNumber)
         {
             int total = 0;
-            var list = _customer.GetCustomerList(pageNumber, pageSize, out total, "");
+            var list = _customer.GetCustomerList(pageNumber, pageSize, out total, phoneNumber);
             return Json(new { rows = list, total = total }, JsonRequestBehavior.AllowGet);
         }
 

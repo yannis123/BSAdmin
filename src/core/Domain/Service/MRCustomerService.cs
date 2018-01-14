@@ -33,7 +33,7 @@ namespace Domain.Service
             string where = string.Empty;
             if (!string.IsNullOrEmpty(sj))
             {
-                where += " and b.khdm='" + sj + "'";
+                where += " and b.sj='" + sj + "'";
             }
 
             sql = string.Format(sql, (pageIndex - 1) * pageSize + 1, pageIndex * pageSize, where);
@@ -43,7 +43,7 @@ namespace Domain.Service
             string countsql = "select count(*) from mr_v_customer where 1=1 ";
             if (!string.IsNullOrEmpty(sj))
             {
-                countsql += " and khdm='" + sj + "'";
+                countsql += " and sj='" + sj + "'";
             }
 
             total = connection.Query<int>(countsql).Single();

@@ -9,7 +9,7 @@ namespace Domain.IService
 {
     public interface IMRCustomerService
     {
-        List<MR_Customer> GetCustomerList(int pageIndex, int pageSize, out int total, string sj);
+        List<MR_Customer> GetCustomerList(int pageIndex, int pageSize, out int total, string phoneNumber);
 
     }
 }
