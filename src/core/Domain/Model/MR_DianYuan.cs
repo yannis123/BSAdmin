@@ -11,7 +11,12 @@ namespace Domain.Model
         public string DYDM { get; set; }
         public string DYMC { get; set; }
         public string KHDM { get; set; }
+        public string KHMC { get; set; }
         public string MOBILE { get; set; }
         public string DLMM { get; set; }
+        public string QDDM { get; set; }
+        public string QUDM { get; set; }
+        public string QYMC { get; set; }
+        public string QDMC { get; set; }
     }
 }

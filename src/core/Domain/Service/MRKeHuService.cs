@@ -27,6 +27,7 @@ namespace Domain.Service
                         [MR_KEHU].khmc,
                         [MR_KEHU].qydm,
                         [MR_KEHU].qddm,
+                        [MR_KEHU].tzsy,
                         [MR_QUDAO].qdmc,
                         [MR_QUYU].qymc 
                         , ROW_NUMBER()
@@ -37,7 +38,7 @@ namespace Domain.Service
                         left join [dbo].[MR_QUYU]
                         on [MR_KEHU].qydm=[MR_QUYU].qydm  
                          )
-                        b WHERE b.rownum 
+                        b WHERE b.TZSY=0 and b.rownum 
                         BETWEEN {0} AND {1} {2} ORDER BY b.rownum";
 
             string where = string.Empty;

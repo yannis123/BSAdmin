@@ -19,15 +19,15 @@ namespace Domain.Service
             connection = connManager.GetDefaultConn();
         }
 
-        public List<MR_Customer> GetCustomerList(int pageIndex, int pageSize, out int total, string sj)
+        public List<MR_Customer> GetCustomerList(int pageIndex, int pageSize, out int total, string sj, string khdm)
         {
             string sql = @"SELECT * FROM 
                         (SELECT 
                         mr_v_customer.*
                         , ROW_NUMBER()
                          OVER (ORDER BY mr_v_customer.dm) rownum FROM  [dbo].mr_v_customer 
-                        
-                         ) as b WHERE b.rownum 
+                        WHERE CKDM=@CKDM
+                         ) as b WHERE  b.rownum 
                         BETWEEN {0} AND {1} {2} ORDER BY b.rownum";
 
             string where = string.Empty;
@@ -38,7 +38,7 @@ namespace Domain.Service
 
             sql = string.Format(sql, (pageIndex - 1) * pageSize + 1, pageIndex * pageSize, where);
 
-            var list = connection.Query<MR_Customer>(sql);
+            var list = connection.Query<MR_Customer>(sql, new { CKDM = khdm });
 
             string countsql = "select count(*) from mr_v_customer where 1=1 ";
             if (!string.IsNullOrEmpty(sj))
@@ -46,9 +46,20 @@ namespace Domain.Service
                 countsql += " and sj='" + sj + "'";
             }
 
-            total = connection.Query<int>(countsql).Single();
+            total = connection.Query<int>(countsql, new { CKDM = khdm }).Single();
 
             return list.ToList<MR_Customer>();
         }
+
+        public bool AddCustomer(MR_Customer customer)
+        {
+
+
+            string sql = @"insert into [MR_V_CUSTOMER] (DM,GKMC,SR,QDDM,CKDM,SJ,XGRQ) values
+	                    (@DM,@GKMC,@SR,@QDDM,@CKDM,@SJ,@XGRQ)";
+
+            return connection.Execute(sql, new { DM = "", GKMC = customer.GKMC, SR = customer.SR, QDDM = customer.QUDAO.QDDM, CKDM = customer.KHDM, SJ = customer.SJ, XGRQ = customer.XGRQ }) > 0;
+        }
+
     }
 }

@@ -1363,6 +1363,7 @@
     <Content Include="Views\Member\Recharge.cshtml" />
     <Content Include="Views\Project\AddPreOrder.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\Member\AddMember.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

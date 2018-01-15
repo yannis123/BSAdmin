@@ -1,5 +1,4 @@
 ﻿using Domain.IService;
-using Domain.IService;
 using Domain.Model;
 using System;
 using System.Collections.Generic;
@@ -34,6 +33,20 @@ namespace web.Controllers
             return View();
         }
 
+        public ActionResult AddMember()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddMember(MR_Customer model)
+        {
+            model.KHDM = UserInfo.KHDM;
+            model.GDR = UserInfo.KHMC;
+            model.XGRQ = DateTime.Now;
+            _customer.AddCustomer(model);
+            return View();
+        }
+
         [HttpPost]
         public JsonResult Recharge(string czdm, string vipdm)
         {
@@ -52,7 +65,7 @@ namespace web.Controllers
         public JsonResult CustomerList(int pageNumber, int pageSize, string phoneNumber)
         {
             int total = 0;
-            var list = _customer.GetCustomerList(pageNumber, pageSize, out total, phoneNumber);
+            var list = _customer.GetCustomerList(pageNumber, pageSize, out total, phoneNumber,UserInfo.KHDM);
             return Json(new { rows = list, total = total }, JsonRequestBehavior.AllowGet);
         }
 

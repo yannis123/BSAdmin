@@ -17,6 +17,14 @@ namespace Domain.Model
         /// </summary>
         public string GKMC { get; set; }
         /// <summary>
+        /// 店铺代码
+        /// </summary>
+        public string KHDM { get; set; }
+        /// <summary>
+        /// 店铺名称
+        /// </summary>
+        public string GDR { get; set; }
+        /// <summary>
         /// 性别
         /// </summary>
         public string SEX { get; set; }
@@ -53,6 +61,7 @@ namespace Domain.Model
         /// 区域
         /// </summary>
         public MR_QuYu QUYU { get; set; }
+        public DateTime XGRQ { get; set; }
 
     }
 

@@ -61,10 +61,14 @@ namespace Domain.Service
             return connection.Query<User>(sql, new { userName = userName, password = password }).SingleOrDefault();
         }
 
-        public MR_DianYuan GetDianYuan(string dydm, string dlmm)
+        public MR_DianYuan GetDianYuan(string khdm, string dlmm)
         {
-            string sql = "select * from [MR_DIANYUAN] where DYDM=@DYDM and DLMM=@DLMM";
-            return connection.Query<MR_DianYuan>(sql, new { DYDM = dydm, DLMM = dlmm }).SingleOrDefault();
+            string sql = @"select top 1 * from [MR_DIANYUAN]
+                            left join [dbo].[MR_KEHU] on [MR_DIANYUAN].KHDM=[MR_KEHU].KHDM
+	                        left join MR_QUDAO on MR_QUDAO.QDDM=[MR_KEHU].QDDM
+	                        left join MR_QUYU on MR_QUYU.QYDM=[MR_KEHU].QYDM
+                            where MR_DIANYUAN.KHDM=@KHDM and MR_DIANYUAN.DLMM=@DLMM";
+            return connection.Query<MR_DianYuan>(sql, new { KHDM = khdm, DLMM = dlmm }).SingleOrDefault();
         }
     }
 }

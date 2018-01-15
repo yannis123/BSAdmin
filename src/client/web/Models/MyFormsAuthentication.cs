@@ -26,7 +26,8 @@ namespace web.Models
                 DYDM = userData.DYDM,
                 DYMC = userData.DYMC,
                 KHDM = userData.KHDM,
-                MOBILE = userData.MOBILE
+                MOBILE = userData.MOBILE,
+                KHMC = userData.KHMC
             });
 
             //创建ticket

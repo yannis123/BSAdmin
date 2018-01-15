@@ -97,7 +97,7 @@ namespace UnitTestProject1
         public void GetCustomerList_Test()
         {
             int total = 0;
-            var list = _customer.GetCustomerList(1, 10,out total,"");
+            var list = _customer.GetCustomerList(1, 10,out total,"","");
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Domain.IService
         bool UpdateUser(User user);
         bool DeleteUser(Guid id);
         User GetUser(string userName, string password);
-        MR_DianYuan GetDianYuan(string dydm, string dlmm);
+        MR_DianYuan GetDianYuan(string khdm, string dlmm);
 
     }
 }
