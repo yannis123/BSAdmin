@@ -1,0 +1,159 @@
+﻿
+@{
+    ViewBag.Title = "GetRechargeRocord";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        充值记录查询
+                    </div>
+                    <div class="panel-body">
+                        <form role="form" class="form-inline" method="post" action="/member/index">
+                            <div class="form-group">
+                                <label for="UserName" class="control-label">手机号码:</label>
+                                <input type="text" name="phoneNumber" placeholder="请输入会员手机号码" id="phoneNumber" class="form-control">
+                            </div>
+
+                            <button class="btn btn-white" type="button" id="queryrecharge">查询</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+            <div class="ibox-content">
+
+                <table class="table table-hover  table-bordered" id="table" data-toolbar="#toolbar"></table>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var _tble;
+
+            initTable();
+
+            $("#queryrecharge").click(function () {
+                $('#table').bootstrapTable('refresh', { query: { phoneNumber: $("input[name='phoneNumber']").val() } });
+            })
+
+
+        })
+
+        function initTable() {
+            _tble = $('#table').bootstrapTable({
+                method: 'post',
+                toolbar: '#toolbar',    //工具按钮用哪个容器
+                striped: true,      //是否显示行间隔色
+                cache: false,      //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,     //是否显示分页（*）
+                //sortable: true,      //是否启用排序
+                //sortOrder: "ID asc",     //排序方式
+                pageNumber: 1,      //初始化加载第一页，默认第一页
+                pageSize: 10,      //每页的记录行数（*）
+                pageList: [10, 50, 100, 150],  //可供选择的每页的行数（*）
+                url: "/member/GetRechargeRocord",//这个接口需要处理bootstrap table传递的固定参数
+                queryParamsType: '', //默认值为 'limit' ,在默认情况下 传给服务端的参数为：offset,limit,sort
+                // 设置为 '' 在这种情况下传给服务器的参数为：pageSize,pageNumber
+
+                //queryParams: queryParams,//前端调用服务时，会默认传递上边提到的参数，如果需要添加自定义参数，可以自定义一个函数返回请求参数
+                sidePagination: "server",   //分页方式：client客户端分页，server服务端分页（*）
+                //search: true, //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+                strictSearch: true,
+                //showColumns: true, //是否显示所有的列
+                //showRefresh: true, //是否显示刷新按钮
+                minimumCountColumns: 2,    //最少允许的列数
+                clickToSelect: true,    //是否启用点击选中行
+                searchOnEnterKey: true,
+                //search: true,
+                columns: [
+                 {
+                     title: "会员代码",
+                     field: "VIPDM",
+                     align: "center",
+                     valign: "middle"
+                 },
+                {
+                    title: "会员名称",
+                    field: "GKMC",
+                    align: "center",
+                    valign: "middle"
+                },
+                {
+                    title: "会员手机",
+                    field: "SJ",
+                    align: "center",
+                    valign: "middle"
+                },
+                {
+                    title: "充值金额",
+                    field: "CZJE",
+                    align: "center",
+                    valign: "middle"
+                },
+                {
+                    title: "增值金额",
+                    field: "ZZJE",
+                    align: "center",
+                    valign: "middle"
+                },
+                {
+                    title: "充值积分",
+                    field: "CZJF",
+                    align: "center",
+                    valign: "middle"
+                },
+                {
+                    title: "充值店员",
+                    field: "DYMC",
+                    align: "center",
+                    valign: "middle"
+                },
+                {
+                    title: "店铺名称",
+                    field: "KHMC",
+                    align: "center",
+                    valign: "middle"
+                },
+                {
+                    title: "充值日期",
+                    field: "RQ",
+                    align: "center",
+                    valign: "middle",
+                    formatter: function (value, row, index) {
+                        var str = value;
+                        var d = eval('new ' + str.substr(1, str.length - 2));
+
+                        var ar_date = [d.getFullYear(), d.getMonth() + 1, d.getDate(),d.getHours(),d.getMinutes(),d.getSeconds()];
+                        function dFormat(i) {
+                            return i < 10 ? "0" + i.toString() : i;
+                        }
+                        for (var i = 0; i < ar_date.length; i++) ar_date[i] = dFormat(ar_date[i]);
+                       return ar_date.join('-'); //2012-04-01
+
+                    }
+                }
+
+                ],
+                pagination: true
+            });
+        }
+    </script>
+}
+
+
+
+

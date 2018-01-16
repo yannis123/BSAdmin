@@ -20,6 +20,9 @@ namespace Domain.Model
         /// 店铺代码
         /// </summary>
         public string KHDM { get; set; }
+        /// 店铺代码
+        /// </summary>
+        public string CKDM { get; set; }
         /// <summary>
         /// 店铺名称
         /// </summary>
