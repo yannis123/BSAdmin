@@ -53,6 +53,10 @@ namespace Domain.Model
         /// </summary>
         public decimal CZJE { get; set; }
         /// <summary>
+        /// 赠送金额
+        /// </summary>
+        public decimal ZSJE { get; set; }
+        /// <summary>
         /// 增值金额
         /// </summary>
         public decimal ZZJE { get; set; }

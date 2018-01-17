@@ -60,6 +60,7 @@ namespace Domain.Service.VIPRecharge
                     CZJF = ccda.CZJF,
                     VIPDM = vipdm,
                     ZZJE = ccda.ZZJE,
+                    ZSJE = ccda.ZSJE,
                     DJBH = djbh.ToString(),
                     ZY = ""
                 }, transaction);
@@ -84,7 +85,8 @@ namespace Domain.Service.VIPRecharge
         {
             try
             {
-                return connection.GetList<MR_CCDA>().ToList();
+                var predicate = Predicates.Field<MR_CCDA>(f => f.TZSY, Operator.Eq, 0);
+                return connection.GetList<MR_CCDA>(predicate).ToList();
             }
             catch (Exception ex)
             {
@@ -108,6 +110,7 @@ namespace Domain.Service.VIPRecharge
 	                        ,[MR_CCJLMX].CZDM
 	                        ,[MR_CCJLMX].CZJE
 	                        ,[MR_CCJLMX].ZZJE
+                            ,[MR_CCJLMX].ZSJE
 	                        ,[MR_CCJLMX].CZJF
 	                        ,[MR_DIANYUAN].DYMC
 	                        ,MR_V_CUSTOMER.GKMC
@@ -127,7 +130,7 @@ namespace Domain.Service.VIPRecharge
             string where = string.Empty;
             if (!string.IsNullOrEmpty(sj))
             {
-                where += " and MR_V_CUSTOMER.SJ='"+sj+"'";
+                where += " and MR_V_CUSTOMER.SJ='" + sj + "'";
             }
             if (!string.IsNullOrEmpty(khdm))
             {
@@ -149,6 +152,12 @@ namespace Domain.Service.VIPRecharge
 
             return connection.Query<RechargeRecord>(sql).ToList();
 
+        }
+
+        public List<MR_DianYuan> GetDianYuanList(string khdm)
+        {
+            string sql = "select * from mr_dianyuan where khdm=@khdm";
+            return connection.Query<MR_DianYuan>(sql, new { khdm = khdm }).ToList();
         }
 
     }

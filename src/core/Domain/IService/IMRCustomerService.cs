@@ -12,5 +12,6 @@ namespace Domain.IService
         List<MR_Customer> GetCustomerList(int pageIndex, int pageSize, out int total, string phoneNumber, string khdm);
         bool AddCustomer(MR_Customer customer);
         List<MR_Customer> GetCustomerList(string khdm);
+        MR_Customer GetCustomer(string khdm, string sj);
     }
 }

@@ -57,6 +57,13 @@ namespace Domain.Service
             return connection.GetList<MR_Customer>(predicate).ToList();
         }
 
+        public MR_Customer GetCustomer(string khdm,string sj)
+        {
+            string sql = @"select * from mr_v_customer where SJ=@SJ and CKDM=@CKDM";
+
+            return connection.Query<MR_Customer>(sql, new { SJ = sj , CKDM = khdm }).FirstOrDefault();
+        }
+
         public bool AddCustomer(MR_Customer customer)
         {
             string oldDM = @"select top 1 dm from   [dbo].[MR_V_CUSTOMER] where dm like 'KD%' order by dm desc";

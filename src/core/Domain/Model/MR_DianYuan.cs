@@ -15,7 +15,7 @@ namespace Domain.Model
         public string MOBILE { get; set; }
         public string DLMM { get; set; }
         public string QDDM { get; set; }
-        public string QUDM { get; set; }
+        public string QYDM { get; set; }
         public string QYMC { get; set; }
         public string QDMC { get; set; }
     }

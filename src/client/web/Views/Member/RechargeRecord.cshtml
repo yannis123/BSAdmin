@@ -102,13 +102,28 @@
                     title: "充值金额",
                     field: "CZJE",
                     align: "center",
-                    valign: "middle"
+                    valign: "middle",
+                    formatter: function (value, row, index) {
+                        return "¥" + value
+                    }
                 },
                 {
                     title: "增值金额",
                     field: "ZZJE",
                     align: "center",
-                    valign: "middle"
+                    valign: "middle",
+                    formatter: function (value, row, index) {
+                        return "¥" + value
+                    }
+                },
+                {
+                    title: "赠送金额",
+                    field: "ZSJE",
+                    align: "center",
+                    valign: "middle",
+                    formatter: function (value, row, index) {
+                        return "¥" + value
+                    }
                 },
                 {
                     title: "充值积分",
@@ -137,12 +152,12 @@
                         var str = value;
                         var d = eval('new ' + str.substr(1, str.length - 2));
 
-                        var ar_date = [d.getFullYear(), d.getMonth() + 1, d.getDate(),d.getHours(),d.getMinutes(),d.getSeconds()];
+                        var ar_date = [d.getFullYear(), d.getMonth() + 1, d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds()];
                         function dFormat(i) {
                             return i < 10 ? "0" + i.toString() : i;
                         }
                         for (var i = 0; i < ar_date.length; i++) ar_date[i] = dFormat(ar_date[i]);
-                       return ar_date.join('-'); //2012-04-01
+                        return ar_date.join('-'); //2012-04-01
 
                     }
                 }

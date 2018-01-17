@@ -179,6 +179,7 @@
     <Content Include="Content\css\font-awesome.css" />
     <Content Include="Content\css\font-awesome.min.css" />
     <Content Include="Content\css\login.css" />
+    <Content Include="Content\css\number.css" />
     <Content Include="Content\css\patterns\header-profile-skin-1.png" />
     <Content Include="Content\css\patterns\header-profile-skin-3.png" />
     <Content Include="Content\css\patterns\header-profile.png" />
@@ -290,6 +291,7 @@
     <Content Include="Content\js\bootstrap.min.js" />
     <Content Include="Content\js\contabs.js" />
     <Content Include="Content\js\content.js" />
+    <Content Include="Content\js\core.js" />
     <Content Include="Content\js\demo\bootstrap-table-demo.js" />
     <Content Include="Content\js\demo\echarts-demo.js" />
     <Content Include="Content\js\demo\flot-demo.js" />
@@ -307,6 +309,7 @@
     <Content Include="Content\js\jquery-ui.custom.min.js" />
     <Content Include="Content\js\jquery.min.js" />
     <Content Include="Content\js\login.js" />
+    <Content Include="Content\js\number.js" />
     <Content Include="Content\js\plugins\beautifyhtml\beautifyhtml.js" />
     <Content Include="Content\js\plugins\blueimp\jquery.blueimp-gallery.min.js" />
     <Content Include="Content\js\plugins\bootstrap-table\bootstrap-table-mobile.min.js" />

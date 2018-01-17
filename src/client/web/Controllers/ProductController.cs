@@ -22,15 +22,17 @@ namespace web.Controllers
             return View(list);
         }
 
-
-
-
         public JsonResult GetProduct(string spdm)
         {
             List<MR_SHANGPIN> list = _saleService.GetSP(spdm);
-
-            return Json(new { code = 0, data = list }, JsonRequestBehavior.AllowGet);
-
+            if (list != null && list.Count > 0)
+            {
+                return Json(new { code = 0, data = list }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { code = -1 }, JsonRequestBehavior.AllowGet);
+            }
 
         }
     }

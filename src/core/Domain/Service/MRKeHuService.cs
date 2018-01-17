@@ -45,11 +45,11 @@ namespace Domain.Service
             string where = string.Empty;
             if (!string.IsNullOrEmpty(khdm))
             {
-                where += " and b.khdm='" + khdm + "'";
+                where += " and MR_KEHU.khdm='" + khdm + "'";
             }
             if (!string.IsNullOrEmpty(khmc))
             {
-                where += " and b.khmc like '%" + khmc + "%'";
+                where += " and MR_KEHU.khmc like '%" + khmc + "%'";
             }
 
             sql = string.Format(sql, (pageIndex - 1) * pageSize + 1, pageIndex * pageSize, where);

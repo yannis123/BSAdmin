@@ -2,8 +2,12 @@
     ViewBag.Title = "AddPreOrder";
     Layout = "~/Views/Shared/_Layout.cshtml";
     List<Domain.Model.VIPSales.MR_SHANGPIN> list = Model as List<Domain.Model.VIPSales.MR_SHANGPIN>;
-}
 
+    List<Domain.Model.MR_DianYuan> dianyuans = ViewBag.DianYuan;
+}
+@section styles{
+    <link href="/content/css/number.css" rel="stylesheet">
+}
 <div class="wrapper wrapper-content">
 
     <div class="panel panel-default">
@@ -14,23 +18,61 @@
                 </div>
                 <div class="panel-body">
                     <form role="form" class="form-inline" method="post">
+
                         <div class="form-group">
+                            <label for="UserName" class="control-label">会员:</label>
+                            <input type="text" name="phoneNumber" placeholder="请输入会员手机号码" id="phoneNumber" class="form-control">
+                            <button class="btn btn-white" type="button" id="querymember">查询</button>
+
+                            <label for="UserName" class="control-label">操作店员:</label>
+                            <select name="DYDM" id="DYDM" class="form-control">
+                                <option value="">请选择店员</option>
+                                @foreach (var item in dianyuans)
+                                {
+                                    <option value="@item.DYDM">@item.DYMC</option>
+                                }
+                            </select>
+
+                            <label for="UserName" class="control-label">折扣:</label>
+                            <input type="text" name="discount" placeholder="请输入折扣值" id="discount" class="form-control">
+
                             <label for="UserName" class="control-label">商品编码:</label>
                             <input type="text" name="spdm" placeholder="请输入商品编码" id="spdm" class="form-control">
+                            <button class="btn btn-white" type="button" id="queryproduct">查询</button>
                         </div>
-                        @*<div class="form-group">
-                                <label for="Password" class="control-label">商品名称:</label>
-                                <input type="text" name="KHMC" placeholder="请输入商品名称" id="Password" class="form-control">
-                            </div>*@
-                        <button class="btn btn-white" type="submit" id="queryshangpin">查询</button>
-                    </form>
-                </div>
+                        <div class="hr-line-dashed"></div>
 
-            </div>
-            <div class="panel panel-primary">
-                <div class="panel-body">
-                    <div class="panel-body">
-                        <table class="table table-bordered">
+                        <table class="table table-bordered" id="member"></table>
+
+                        <script id="membertmp" type="text/html">
+                            <thead>
+                                <tr>
+                                    <th>会员代码</th>
+                                    <th>会员名称</th>
+                                    <th>性别</th>
+                                    <th>手机号码</th>
+                                    <th>账户余额</th>
+                                    <th>消费金额</th>
+                                    <th>当前积分</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{DM}}</td>
+                                    <td>{{GKMC}}	</td>
+                                    <td>{{SEX}}</td>
+                                    <td>{{SJ}}</td>
+                                    <td>¥{{XFJE}}</td>
+                                    <td>¥{{XFJE}}</td>
+                                    <td>{{DQJF}}</td>
+                                </tr>
+                            </tbody>
+                            <div class="hr-line-dashed"></div>
+                        </script>2
+
+                        <table class="table table-bordered" id="product"></table>
+
+                        <script id="producttmp" type="text/template">
                             <thead>
                                 <tr>
                                     <th>商品代码</th>
@@ -40,132 +82,89 @@
                                     <th>颜色名称</th>
                                     <th>尺码代码</th>
                                     <th>尺码名称</th>
+                                    <th>数量</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var item in list)
-                                {
-                                    <tr>
-                                        <td>@item.SPDM</td>
-                                        <td>@item.SPMC</td>
-                                        <td>@item.BZSJ</td>
-                                        <td>@item.GG1DM</td>
-                                        <td>@item.GG1MC</td>
-                                        <td>@item.GG2DM</td>
-                                        <td>@item.GG2MC</td>
-                                    </tr>
-                                }
+                                {{each data as product i}}
+                                <tr>
+                                    <td>{{product.SPDM}}</td>
+                                    <td>{{product.SPMC}}</td>
+                                    <td>{{product.BZSJ}}</td>
+                                    <td>{{product.GG1DM}}</td>
+                                    <td>{{product.GG1MC}}</td>
+                                    <td>{{product.GG2DM}}</td>
+                                    <td>{{product.GG2MC}}</td>
+                                    <td><input type="number" pattern="[0-9]*" min="0" max="20" name="count" class="form-control"></td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </script>
+
+                        <table class="table invoice-total">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <strong>总价：</strong>
+                                    </td>
+                                    <td>¥1026.00</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>折扣：</strong>
+                                    </td>
+                                    <td>¥235.98</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>总计</strong>
+                                    </td>
+                                    <td>¥1261.98</td>
+                                </tr>
                             </tbody>
                         </table>
-                    </div>
-                    @*<div class="ibox-content">
-                            <table id="exampleTableFromData" data-mobile-responsive="true">
-                                <thead>
-                                    <tr>
-                                        <th data-field="Tid">商品代码</th>
-                                        <th data-field="First">商品名称</th>
-
-                                    </tr>
-                                </thead>
-                            </table>
+                        <div class="text-right">
+                            <button class="btn btn-primary"><i class="fa fa-dollar"></i> 保存</button>
                         </div>
-                        <div class="ibox-content">
-                            <div class="tabs-container ">
-                                <ul class="nav nav-tabs">
-                                    <li class="active">
-                                        <a data-toggle="tab" href="#tab-1" aria-expanded="true"> 商品颜色</a>
-                                    </li>
-                                    <li class="">
-                                        <a data-toggle="tab" href="#tab-2" aria-expanded="false">商品尺码</a>
-                                    </li>
-                                </ul>
-                                <div class="tab-content">
-                                    <div id="tab-1" class="tab-pane active">
-                                        <div class="panel-body">
-                                            <table class="table table-bordered">
-                                                <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>姓名</th>
-                                                        <th>性别</th>
-                                                        <th>年龄</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>张三</td>
-                                                        <td>男</td>
-                                                        <td>23</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td>李四</td>
-                                                        <td>男</td>
-                                                        <td>27</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>3</td>
-                                                        <td>王麻子</td>
-                                                        <td>男</td>
-                                                        <td>65</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div id="tab-2" class="tab-pane">
-                                        <div class="panel-body">
-                                            <table class="table table-bordered">
-                                                <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>姓名</th>
-                                                        <th>性别</th>
-                                                        <th>年龄</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>张三</td>
-                                                        <td>男</td>
-                                                        <td>23</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td>李四</td>
-                                                        <td>男</td>
-                                                        <td>27</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>3</td>
-                                                        <td>王麻子</td>
-                                                        <td>男</td>
-                                                        <td>65</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
+                    </form>
 
-                            </div>
-
-                        </div>*@
                 </div>
+
             </div>
         </div>
-
     </div>
-
 </div>
 
 @section scripts{
+    <script src="/content/js/core.js"></script>
+    <script src="/content/js/number.js"></script>
     <script type="text/javascript">
         $().ready(function () {
-            // validate the comment form when it is submitted
-            $("#commentForm").validate();
+            $("input[type='number']").number();
+            $("#querymember").click(function () {
+                var phoneNumber = $("#phoneNumber").val();
+                $.post("/member/GetCustomer", { phoneNumber: phoneNumber }, function (result) {
+                    if (result.code == 0) {
+                        var html = template('membertmp', result.data);
+                        $("#member").html(html);
+                    } else {
+                        $("#member").html("");
+                        layer.alert("未查询到此顾客");
+                    }
+                })
+            })
+            $("#queryproduct").click(function () {
+                var spdm = $("#spdm").val();
+                $.post("/product/GetProduct", { spdm: spdm }, function (result) {
+                    if (result.code == 0) {
+                        var html = template('producttmp', result);
+                        $("#product").html(html);
+                    } else {
+                        $("#product").html("");
+                        layer.alert("未查询到此商品");
+                    }
+                })
+            })
         });
     </script>
 }

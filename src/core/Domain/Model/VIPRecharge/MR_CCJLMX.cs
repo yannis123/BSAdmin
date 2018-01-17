@@ -12,6 +12,7 @@ namespace Domain.Model
         public string VIPDM { get; set; }
         public string CZDM { get; set; }
         public decimal CZJE { get; set; }
+        public decimal ZSJE { get; set; }
         public decimal ZZJE { get; set; }
         public int CZJF { get; set; }
         public string ZY { get; set; }
