@@ -16,8 +16,8 @@ namespace Domain.IService
         List<MR_Customer> GetCustomer(string phone);
         List<MR_DianYuan> GetDY(string param, string khdm);
         List<MR_SHANGPIN> GetSP(string SPDM);
-
-
+        List<MR_SHANGPIN> GetProducts(string spdms);
+        bool SaveOrder(OrderInfo order);
 
 
     }

@@ -1,9 +1,7 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "GetRechargeRocord";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <div class="wrapper wrapper-content">
     <div class="row">
         <div class="ibox float-e-margins">
@@ -18,17 +16,13 @@
                                 <label for="UserName" class="control-label">手机号码:</label>
                                 <input type="text" name="phoneNumber" placeholder="请输入会员手机号码" id="phoneNumber" class="form-control">
                             </div>
-
                             <button class="btn btn-white" type="button" id="queryrecharge">查询</button>
                         </form>
                     </div>
-
                 </div>
             </div>
             <div class="ibox-content">
-
                 <table class="table table-hover  table-bordered" id="table" data-toolbar="#toolbar"></table>
-
             </div>
         </div>
     </div>
@@ -117,12 +111,20 @@
                     }
                 },
                 {
-                    title: "赠送金额",
+                    title: "积分兑换金额",
                     field: "ZSJE",
                     align: "center",
                     valign: "middle",
                     formatter: function (value, row, index) {
                         return "¥" + value
+                    }
+                }, {
+                    title: "实际获得金额",
+                    field: "ZSJE",
+                    align: "center",
+                    valign: "middle",
+                    formatter: function (value, row, index) {
+                        return row["CZJE"] + row["ZZJE"] + row["ZSJE"];
                     }
                 },
                 {
@@ -168,7 +170,5 @@
         }
     </script>
 }
-
-
 
 

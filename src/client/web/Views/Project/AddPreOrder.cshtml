@@ -9,21 +9,18 @@
     <link href="/content/css/number.css" rel="stylesheet">
 }
 <div class="wrapper wrapper-content">
-
     <div class="panel panel-default">
         <div class="panel-body">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    商品查询
+                    拿货消费单
                 </div>
                 <div class="panel-body">
-                    <form role="form" class="form-inline" method="post">
-
+                    <form role="form" class="form-inline">
                         <div class="form-group">
                             <label for="UserName" class="control-label">会员:</label>
                             <input type="text" name="phoneNumber" placeholder="请输入会员手机号码" id="phoneNumber" class="form-control">
                             <button class="btn btn-white" type="button" id="querymember">查询</button>
-
                             <label for="UserName" class="control-label">操作店员:</label>
                             <select name="DYDM" id="DYDM" class="form-control">
                                 <option value="">请选择店员</option>
@@ -32,18 +29,14 @@
                                     <option value="@item.DYDM">@item.DYMC</option>
                                 }
                             </select>
-
                             <label for="UserName" class="control-label">折扣:</label>
-                            <input type="text" name="discount" placeholder="请输入折扣值" id="discount" class="form-control">
-
+                            <input type="text" name="discountpoint" placeholder="请输入折扣值" id="discountpoint" class="form-control">
                             <label for="UserName" class="control-label">商品编码:</label>
                             <input type="text" name="spdm" placeholder="请输入商品编码" id="spdm" class="form-control">
                             <button class="btn btn-white" type="button" id="queryproduct">查询</button>
                         </div>
                         <div class="hr-line-dashed"></div>
-
                         <table class="table table-bordered" id="member"></table>
-
                         <script id="membertmp" type="text/html">
                             <thead>
                                 <tr>
@@ -62,16 +55,14 @@
                                     <td>{{GKMC}}	</td>
                                     <td>{{SEX}}</td>
                                     <td>{{SJ}}</td>
-                                    <td>¥{{XFJE}}</td>
+                                    <td>¥{{DQJE}}</td>
                                     <td>¥{{XFJE}}</td>
                                     <td>{{DQJF}}</td>
                                 </tr>
                             </tbody>
                             <div class="hr-line-dashed"></div>
                         </script>
-
                         <table class="table table-bordered" id="product"></table>
-
                         <script id="producttmp" type="text/template">
                             <thead>
                                 <tr>
@@ -95,46 +86,57 @@
                                     <td>{{product.GG1MC}}</td>
                                     <td>{{product.GG2DM}}</td>
                                     <td>{{product.GG2MC}}</td>
-                                    <td><input type="number" pattern="[0-9]*" min="0" max="20" name="count" class="form-control"></td>
+                                    <td>
+                                        @*<input type="number" pattern="[0-9]*" min="0" max="20" name="count" class="form-control">*@
+                                        <select name="count" id="count" class="form-control">
+                                            <option value="">请选择数量</option>
+                                            <option value="1">1件</option>
+                                            <option value="2">2件</option>
+                                            <option value="3">3件</option>
+                                            <option value="4">4件</option>
+                                            <option value="5">5件</option>
+                                            <option value="6">6件</option>
+                                            <option value="7">7件</option>
+                                            <option value="8">8件</option>
+                                            <option value="9">9件</option>
+                                            <option value="10">10件</option>
+                                        </select>
+                                    </td>
                                 </tr>
                                 {{/each}}
                             </tbody>
                         </script>
-
                         <table class="table invoice-total">
                             <tbody>
                                 <tr>
                                     <td>
                                         <strong>总价：</strong>
                                     </td>
-                                    <td>¥1026.00</td>
+                                    <td id="amount">¥0.00</td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <strong>折扣：</strong>
                                     </td>
-                                    <td>¥235.98</td>
+                                    <td id="discount">¥0.0</td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <strong>总计</strong>
                                     </td>
-                                    <td>¥1261.98</td>
+                                    <td id="totalAmount">¥0.0</td>
                                 </tr>
                             </tbody>
                         </table>
                         <div class="text-right">
-                            <button class="btn btn-primary"><i class="fa fa-dollar"></i> 保存</button>
+                            <button class="btn btn-primary" id="saveOrder"><i class="fa fa-dollar"></i> 保存</button>
                         </div>
                     </form>
-
                 </div>
-
             </div>
         </div>
     </div>
 </div>
-
 @section scripts{
     <script src="/content/js/core.js"></script>
     <script src="/content/js/number.js"></script>
@@ -155,16 +157,91 @@
             })
             $("#queryproduct").click(function () {
                 var spdm = $("#spdm").val();
-                $.post("/product/GetProduct", { spdm: spdm }, function (result) {
+                $.post("/product/GetProduct", { spdms: spdm }, function (result) {
                     if (result.code == 0) {
                         var html = template('producttmp', result);
                         $("#product").html(html);
+                        $("select[name='count']").change(function () {
+                            calculate();
+                        })
                     } else {
                         $("#product").html("");
                         layer.alert("未查询到此商品");
                     }
                 })
             })
+            $("#discountpoint").change(function () {
+                var discount = $(this).val();
+                var re = /^[0-9]+.?[0-9]*$/; //判断字符串是否为数字
+                if (!re.test(discount)) {
+                    $(this).val(""); return false;
+                }
+                if (discount > 1 || discount < 0) {
+                    $(this).val("");
+                    layer.alert("折扣值为0-1"); return false;
+                }
+                calculate();
+            })
+
+            $("#saveOrder").click(function () {
+                var orderInfo = {};
+                orderInfo.gkdm = $("#member").find("tr").find("td").eq(0).html();
+                orderInfo.dydm = $("select[name='DYDM']").val();
+                orderInfo.discountPoint = $("#discountpoint").val();
+                orderInfo.products = calculate();
+
+                if (orderInfo.gkdm == undefined || orderInfo.gkdm.length == 0) {
+                    layer.alert("请选择会员！"); return false;
+                }
+                if (orderInfo.dydm == undefined || orderInfo.dydm.length == 0) {
+                    layer.alert("请选择店员！"); return false;
+                }
+                if (orderInfo.products == undefined || orderInfo.products.length == 0) {
+                    layer.alert("请选择商品！"); return false;
+                }
+
+                $.post("/project/addpreorder", orderInfo, function (result) {
+                    if (result.code == 0) {
+                        //window.location.reload();
+                        layer.alert("保存成功！")
+                    } else {
+                        layer.alert(result.error);
+                    }
+                })
+                return false;
+            })
         });
+
+        function calculate() {
+            var products = new Array();
+            var amount = 0, totalAmont = 0, discount = 0;
+            var productList = $("#product").find("tr");
+            $.each(productList, function (index, item) {
+                if ($(item).find("select[name='count']").val() > 0) {
+                    var product = {};
+                    product.spdm = $(item).find("td").eq(0).html();
+                    product.price = $(item).find("td").eq(2).html();
+                    product.gg1dm = $(item).find("td").eq(3).html();
+                    product.gg1mc = $(item).find("td").eq(4).html();
+                    product.gg2dm = $(item).find("td").eq(5).html();
+                    product.gg2mc = $(item).find("td").eq(6).html();
+                    product.count = $(item).find("select[name='count']").val();
+                    products.push(product);
+                }
+            })
+            for (var i = 0; i < products.length; i++) {
+                if (products[i].count > 0) {
+                    amount += products[i].price * products[i].count;
+                }
+            }
+            discount = amount * ($("#discountpoint").val().length > 0 ? $("#discountpoint").val() : 0);
+            totalAmont = amount - discount;
+
+            $("#discount").html("¥" + discount.toFixed(2));
+            $("#totalAmount").html("¥" + totalAmont.toFixed(2));
+            $("#amount").html("¥" + amount.toFixed(2));
+            return products;
+        }
+
     </script>
 }

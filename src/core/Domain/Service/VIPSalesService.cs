@@ -69,5 +69,88 @@ namespace Domain.Service
             return sps.ToList();
 
         }
+
+        public List<MR_SHANGPIN> GetProducts(string spdms)
+        {
+            var sps = connection.Query<MR_SHANGPIN>(
+                @"select sp.SPDM,sp.SPMC,sp.BZSJ,sp1.GGDM as GG1DM,gg1.GGMC as GG1MC,sp2.GGDM as GG2DM ,gg2.GGMC as GG2MC
+                    from[dbo].[MR_SHANGPIN] sp
+                  left join
+                    [dbo].[MR_SPGG1] sp1 on sp.SPDM = sp1.SPDM
+                  left join
+                    [dbo].[MR_GUIGE1]gg1 on sp1.GGDM = gg1.GGDM
+                  left join
+                    [dbo].[MR_SPGG2] sp2 on sp.SPDM = sp2.SPDM
+                  left join
+                    [dbo].[MR_GUIGE2] gg2 on sp2.GGDM = gg2.GGDM
+                    where sp.spdm in @spdm", new { spdm = spdms.Split(',').ToArray() });
+            if (!sps.Any())
+                return new List<MR_SHANGPIN>();
+            return sps.ToList();
+        }
+
+        public bool SaveOrder(OrderInfo order)
+        {
+            if (order.discountPoint == 0) order.discountPoint = 0;
+            //商品总金额
+            decimal spje = 0;
+            string djbh = string.Empty;
+            djbh = connection.ExecuteScalar<string>("select top 1 djbh from mr_xsjl order by rq desc");
+            djbh = string.IsNullOrEmpty(djbh) ? "XS000000001" : "XS" + (long.Parse(djbh.Substring(2)) + 1).ToString().PadLeft(9,'0');
+
+
+            string sql_xsjl = @"insert into mr_xsjl (djbh,rq,sddm,dydm,bz,zk,zkje,zje) values (@djbh,getdate(),@sddm,@dydm,@bz,@zk,@zkje,@zje)";
+
+            string sql_sxjlmx = @"insert into mr_xsjlmx (djbh,vipdm,spdm,spmc,spsl,gg1dm,gg1mc,gg2dm,gg2mc,bzsj) values (@djbh,@vipdm,@spdm,@spmc,@spsl,@gg1dm,@gg1mc,@gg2dm,@gg2mc,@bzsj)";
+
+            using (IDbTransaction transaction = connection.BeginTransaction())
+            {
+                try
+                {
+                    foreach (var item in order.products)
+                    {
+                        var sql_product = "select * from mr_shangpin where spdm=@spdm";
+
+                        var product = connection.QuerySingle<MR_SHANGPIN>(sql_product, new { spdm = item.spdm }, transaction);
+                        spje += product.BZSJ * item.count;
+                        //保存订单明细
+                        connection.Execute(sql_sxjlmx, new
+                        {
+                            djbh = djbh,
+                            vipdm = order.gkdm,
+                            spdm = item.spdm,
+                            spmc = product.SPMC,
+                            spsl = item.count,
+                            gg1dm = item.gg1dm,
+                            gg1mc = item.gg1mc,
+                            gg2dm = item.gg2dm,
+                            gg2mc = item.gg2mc,
+                            bzsj = product.BZSJ
+                        }, transaction);
+
+                    }
+                    //折扣金额
+                    decimal zkje = spje * Convert.ToDecimal(order.discountPoint);
+                    //实际扣减金额
+                    decimal zfje = spje - zkje;
+
+                    //保存订单
+                    connection.Execute(sql_xsjl, new { djbh = djbh, sddm = order.sddm, dydm = order.dydm, bz = "", zk = order.discountPoint, zkje = zkje, zje = zfje }, transaction);
+
+                    //更新账户余额
+                    string sql_customer = @"update mr_v_customer set dqje=dqje-@zfje where dm=@gkdm";
+                    connection.Execute(sql_customer, new { zfje = zfje, gkdm = order.gkdm }, transaction);
+
+                    transaction.Commit();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    return false;
+                }
+            }
+
+        }
     }
 }
