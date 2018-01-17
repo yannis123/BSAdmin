@@ -37,9 +37,10 @@ namespace Domain.Service
                         on [MR_KEHU].qddm=[MR_QUDAO].qddm
                         left join [dbo].[MR_QUYU]
                         on [MR_KEHU].qydm=[MR_QUYU].qydm  
+                        where 1=1 {2}
                          )
                         b WHERE b.TZSY=0 and b.rownum 
-                        BETWEEN {0} AND {1} {2} ORDER BY b.rownum";
+                        BETWEEN {0} AND {1}  ORDER BY b.rownum";
 
             string where = string.Empty;
             if (!string.IsNullOrEmpty(khdm))

@@ -1,12 +1,12 @@
 ﻿var app = {};
 
 app.shwdialog = function (title, url) {
-    parent.layer.open({
+        layer.open({
         type: 2,
-        title: 'layer mobile页',
+        title: title,
         shadeClose: true,
         shade: 0.8,
-        area: ['50%', '90%'],
+        area: ['50%', '80%'],
         content: url
     });
 }

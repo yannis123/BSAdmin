@@ -1365,6 +1365,7 @@
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Member\AddMember.cshtml" />
     <Content Include="Views\Project\AddProject.cshtml" />
+    <Content Include="Views\Member\RechargeRecord.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

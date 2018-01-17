@@ -25,22 +25,22 @@ namespace Domain.Service
                         (SELECT 
                         mr_v_customer.*
                         , ROW_NUMBER()
-                         OVER (ORDER BY mr_v_customer.dm) rownum FROM  [dbo].mr_v_customer 
-                        WHERE CKDM=@CKDM
+                         OVER (ORDER BY mr_v_customer.dm DESC) rownum FROM  [dbo].mr_v_customer 
+                        WHERE CKDM=@CKDM {2} 
                          ) as b WHERE  b.rownum 
-                        BETWEEN {0} AND {1} {2} ORDER BY b.rownum";
+                        BETWEEN {0} AND {1}  ORDER BY b.rownum";
 
             string where = string.Empty;
             if (!string.IsNullOrEmpty(sj))
             {
-                where += " and b.sj='" + sj + "'";
+                where += " and sj='" + sj + "'";
             }
 
             sql = string.Format(sql, (pageIndex - 1) * pageSize + 1, pageIndex * pageSize, where);
 
             var list = connection.Query<MR_Customer>(sql, new { CKDM = khdm });
 
-            string countsql = "select count(*) from mr_v_customer where 1=1 ";
+            string countsql = "select count(*) from mr_v_customer where 1=1 and CKDM=@CKDM ";
             if (!string.IsNullOrEmpty(sj))
             {
                 countsql += " and sj='" + sj + "'";
@@ -51,14 +51,32 @@ namespace Domain.Service
             return list.ToList<MR_Customer>();
         }
 
+        public List<MR_Customer> GetCustomerList(string khdm)
+        {
+            var predicate = Predicates.Field<MR_Customer>(f => f.CKDM, Operator.Eq, khdm);
+            return connection.GetList<MR_Customer>(predicate).ToList();
+        }
+
         public bool AddCustomer(MR_Customer customer)
         {
+            string oldDM = @"select top 1 dm from   [dbo].[MR_V_CUSTOMER] where dm like 'KD%' order by dm desc";
+            string maxDm = connection.ExecuteScalar<string>(oldDM);
+            maxDm = !string.IsNullOrEmpty(maxDm) ? maxDm.Substring(2, 6) : "000000";
 
+            string sql = @"insert into [MR_V_CUSTOMER] (DM,GKMC,SEX,SR,QDDM,CKDM,SJ,XGRQ) values
+	                    (@DM,@GKMC,@SEX,@SR,@QDDM,@CKDM,@SJ,@XGRQ)";
 
-            string sql = @"insert into [MR_V_CUSTOMER] (DM,GKMC,SR,QDDM,CKDM,SJ,XGRQ) values
-	                    (@DM,@GKMC,@SR,@QDDM,@CKDM,@SJ,@XGRQ)";
-
-            return connection.Execute(sql, new { DM = "", GKMC = customer.GKMC, SR = customer.SR, QDDM = customer.QUDAO.QDDM, CKDM = customer.KHDM, SJ = customer.SJ, XGRQ = customer.XGRQ }) > 0;
+            return connection.Execute(sql, new
+            {
+                DM = "KD" + (int.Parse(maxDm) + 1).ToString().PadLeft(6, '0'),
+                GKMC = customer.GKMC,
+                SR = customer.SR,
+                QDDM = customer.QDDM,
+                CKDM = customer.KHDM,
+                SJ = customer.SJ,
+                SEX = customer.SEX,
+                XGRQ = customer.XGRQ
+            }) > 0;
         }
 
     }

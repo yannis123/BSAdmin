@@ -49,6 +49,14 @@
                     }
 
                 </select>
+                <select name="CZJE" class="form-control" onchange="app.changeRecharge(this)">
+                    <option value="">充值店员</option>
+                    @foreach (var item in daLst)
+                    {
+                        <option value="@item.CZDM">@item.KCJE</option>
+                    }
+
+                </select>
             </div>
         </div>
 
