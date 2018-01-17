@@ -42,8 +42,8 @@ namespace Domain.Service.VIPRecharge
             IDbTransaction transaction = connection.BeginTransaction();
             try
             {
-              
-                int djbh = connection.Query<int>("insert into mr_ccjl (bz,dydm,rq,sddm) values (@bz,@dydm,@rq,@sddm);SELECT @@identity;",new
+
+                int djbh = connection.Query<int>("insert into mr_ccjl (bz,dydm,rq,sddm) values (@bz,@dydm,@rq,@sddm);SELECT @@identity;", new
                 {
                     bz = string.Empty,
                     dydm = dydm,
@@ -63,13 +63,13 @@ namespace Domain.Service.VIPRecharge
                     DJBH = djbh.ToString(),
                     ZY = ""
                 }, transaction);
-             
-                connection.Execute("update mr_ccjl set DJBH_BAK=@DJBH_BAK where DJBH=@DJBH", new { DJBH_BAK = number, DJBH = djbh },transaction);
 
-                connection.Execute("update MR_CCJLMX set DJBH_BAK=@DJBH_BAK where DJBH=@DJBH", new { DJBH_BAK = number, DJBH = djbh },transaction);
-             
+                connection.Execute("update mr_ccjl set DJBH_BAK=@DJBH_BAK where DJBH=@DJBH", new { DJBH_BAK = number, DJBH = djbh }, transaction);
+
+                connection.Execute("update MR_CCJLMX set DJBH_BAK=@DJBH_BAK where DJBH=@DJBH", new { DJBH_BAK = number, DJBH = djbh }, transaction);
+
                 transaction.Commit();
-              
+
                 return true;
             }
             catch (Exception ex)
@@ -97,6 +97,58 @@ namespace Domain.Service.VIPRecharge
         public MR_CCDA GetArchive(string czdm)
         {
             return connection.QuerySingle<MR_CCDA>("select * from mr_ccda where czdm=@czdm", new { czdm = czdm });
+        }
+
+        public List<RechargeRecord> GetRechargeList(int pageIndex, int pageSize, out int total, string khdm, string sj)
+        {
+            string sql = @"	
+                        SELECT * FROM (
+	                        select [MR_CCJL].* 
+	                        ,[MR_CCJLMX].VIPDM
+	                        ,[MR_CCJLMX].CZDM
+	                        ,[MR_CCJLMX].CZJE
+	                        ,[MR_CCJLMX].ZZJE
+	                        ,[MR_CCJLMX].CZJF
+	                        ,[MR_DIANYUAN].DYMC
+	                        ,MR_V_CUSTOMER.GKMC
+	                        ,MR_V_CUSTOMER.SJ
+	                        ,MR_KEHU.KHMC
+	                        , ROW_NUMBER()
+                            OVER (ORDER BY [MR_CCJL].RQ DESC) rownum 
+	                        from [dbo].[MR_CCJL]
+	                        left join [dbo].[MR_CCJLMX] on [MR_CCJLMX].DJBH=[MR_CCJL].DJBH
+	                        left join MR_DIANYUAN on MR_DIANYUAN.DYDM=[MR_CCJL].DYDM
+	                        left join MR_V_CUSTOMER on MR_V_CUSTOMER.DM=[MR_CCJLMX].VIPDM
+	                        left join MR_KEHU on MR_KEHU.KHDM=[MR_CCJL].SDDM
+                            Where 1=1 {2}
+	                        )as b WHERE  b.rownum 
+                            BETWEEN {0} AND {1}  ORDER BY b.rownum ";
+
+            string where = string.Empty;
+            if (!string.IsNullOrEmpty(sj))
+            {
+                where += " and MR_V_CUSTOMER.SJ='"+sj+"'";
+            }
+            if (!string.IsNullOrEmpty(khdm))
+            {
+                where += " and MR_CCJL.SDDM='" + khdm + "'";
+            }
+
+            sql = string.Format(sql, (pageIndex - 1) * pageSize + 1, pageIndex * pageSize, where);
+
+            string countsql = @"select count(*)
+	                        from [dbo].[MR_CCJL]
+	                        left join [dbo].[MR_CCJLMX] on [MR_CCJLMX].DJBH=[MR_CCJL].DJBH
+	                        left join MR_DIANYUAN on MR_DIANYUAN.DYDM=[MR_CCJL].DYDM
+	                        left join MR_V_CUSTOMER on MR_V_CUSTOMER.DM=[MR_CCJLMX].VIPDM
+	                        left join MR_KEHU on MR_KEHU.KHDM=[MR_CCJL].SDDM
+                            Where 1=1 {0}";
+
+
+            total = connection.ExecuteScalar<int>(string.Format(countsql, where));
+
+            return connection.Query<RechargeRecord>(sql).ToList();
+
         }
 
     }

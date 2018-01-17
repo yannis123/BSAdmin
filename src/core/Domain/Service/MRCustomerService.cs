@@ -51,6 +51,12 @@ namespace Domain.Service
             return list.ToList<MR_Customer>();
         }
 
+        public List<MR_Customer> GetCustomerList(string khdm)
+        {
+            var predicate = Predicates.Field<MR_Customer>(f => f.CKDM, Operator.Eq, khdm);
+            return connection.GetList<MR_Customer>(predicate).ToList();
+        }
+
         public bool AddCustomer(MR_Customer customer)
         {
             string oldDM = @"select top 1 dm from   [dbo].[MR_V_CUSTOMER] where dm like 'KD%' order by dm desc";

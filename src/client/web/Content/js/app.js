@@ -31,4 +31,3 @@ app.queryshangpin = function (spdm) {
 
     })
 }
-

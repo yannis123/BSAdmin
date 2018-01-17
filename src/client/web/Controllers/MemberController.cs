@@ -53,6 +53,12 @@ namespace web.Controllers
             }
         }
 
+        public ActionResult RechargeRecord()
+        {
+            return View();
+        }
+        #region  get raw data
+
         [HttpPost]
         public JsonResult Recharge(string czdm, string vipdm)
         {
@@ -71,7 +77,6 @@ namespace web.Controllers
             return View();
         }
 
-        #region  get raw data
 
         public JsonResult CustomerList(int pageNumber, int pageSize, string phoneNumber)
         {
@@ -87,7 +92,12 @@ namespace web.Controllers
             return Json(new { code = 0, data = model }, JsonRequestBehavior.AllowGet);
         }
 
-
+        public JsonResult GetRechargeRocord(int pageNumber, int pageSize, string phoneNumber)
+        {
+            int total = 0;
+            var list = _service.GetRechargeList(pageNumber, pageSize, out total, UserInfo.KHDM, phoneNumber);
+            return Json(new { rows = list, total = total }, JsonRequestBehavior.AllowGet);
+        }
 
         #endregion
     }
