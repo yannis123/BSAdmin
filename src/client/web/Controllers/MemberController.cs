@@ -72,11 +72,6 @@ namespace web.Controllers
             }
         }
 
-        public ActionResult RechargeRecord()
-        {
-            return View();
-        }
-
 
         public JsonResult CustomerList(int pageNumber, int pageSize, string phoneNumber)
         {
