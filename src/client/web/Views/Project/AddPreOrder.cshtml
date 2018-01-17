@@ -1,73 +1,164 @@
 ﻿@{
     ViewBag.Title = "AddPreOrder";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    List<Domain.Model.VIPSales.MR_SHANGPIN> list = Model as List<Domain.Model.VIPSales.MR_SHANGPIN>;
 }
 
-<div class="wrapper wrapper-content animated fadeInRight">
-   
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="ibox float-e-margins">
-                <div class="ibox-content">
-                   
-                    <form class="form-horizontal m-t" id="commentForm">
-                        <div class="form-group">
-                            <label class="col-sm-1 control-label">姓名：</label>
-                            <div class="col-sm-3">
-                                <input id="cname" name="name" minlength="2" type="text" class="form-control" required="" aria-required="true">
-                            </div>
-                            <label class="col-sm-1 control-label">姓名：</label>
-                            <div class="col-sm-3">
-                                <input id="cname" name="name" minlength="2" type="text" class="form-control" required="" aria-required="true">
-                            </div>
-                            <label class="col-sm-1 control-label">姓名：</label>
-                            <div class="col-sm-3">
-                                <input id="cname" name="name" minlength="2" type="text" class="form-control" required="" aria-required="true">
-                            </div>
-                        </div>
-                      
-                        <div class="form-group">
-                            <label class="col-sm-1 control-label">姓名：</label>
-                            <div class="col-sm-3">
-                                <input id="cname" name="name" minlength="2" type="text" class="form-control" required="" aria-required="true">
-                            </div>
-                            <label class="col-sm-1 control-label">姓名：</label>
-                            <div class="col-sm-3">
-                                <input id="cname" name="name" minlength="2" type="text" class="form-control" required="" aria-required="true">
-                            </div>
-                            <label class="col-sm-1 control-label">姓名：</label>
-                            <div class="col-sm-3">
-                                <input id="cname" name="name" minlength="2" type="text" class="form-control" required="" aria-required="true">
-                            </div>
-                        </div>
+<div class="wrapper wrapper-content">
 
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    商品查询
+                </div>
+                <div class="panel-body">
+                    <form role="form" class="form-inline" method="post">
                         <div class="form-group">
-                            <label class="col-sm-1 control-label">姓名：</label>
-                            <div class="col-sm-3">
-                                <input id="cname" name="name" minlength="2" type="text" class="form-control" required="" aria-required="true">
-                            </div>
-                            <label class="col-sm-1 control-label">姓名：</label>
-                            <div class="col-sm-3">
-                                <input id="cname" name="name" minlength="2" type="text" class="form-control" required="" aria-required="true">
-                            </div>
-                            <label class="col-sm-1 control-label">姓名：</label>
-                            <div class="col-sm-3">
-                                <input id="cname" name="name" minlength="2" type="text" class="form-control" required="" aria-required="true">
-                            </div>
+                            <label for="UserName" class="control-label">商品编码:</label>
+                            <input type="text" name="spdm" placeholder="请输入商品编码" id="spdm" class="form-control">
                         </div>
-
-                        <div class="form-group">
-                            <div class="col-sm-4 col-sm-offset-3">
-                                <button class="btn btn-primary" type="submit">提交</button>
-                            </div>
-                        </div>
+                        @*<div class="form-group">
+                                <label for="Password" class="control-label">商品名称:</label>
+                                <input type="text" name="KHMC" placeholder="请输入商品名称" id="Password" class="form-control">
+                            </div>*@
+                        <button class="btn btn-white" type="submit" id="queryshangpin">查询</button>
                     </form>
                 </div>
+
             </div>
-         
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    <div class="panel-body">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>商品代码</th>
+                                    <th>商品名称</th>
+                                    <th>售价</th>
+                                    <th>颜色代码</th>
+                                    <th>颜色名称</th>
+                                    <th>尺码代码</th>
+                                    <th>尺码名称</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in list)
+                                {
+                                    <tr>
+                                        <td>@item.SPDM</td>
+                                        <td>@item.SPMC</td>
+                                        <td>@item.BZSJ</td>
+                                        <td>@item.GG1DM</td>
+                                        <td>@item.GG1MC</td>
+                                        <td>@item.GG2DM</td>
+                                        <td>@item.GG2MC</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    @*<div class="ibox-content">
+                            <table id="exampleTableFromData" data-mobile-responsive="true">
+                                <thead>
+                                    <tr>
+                                        <th data-field="Tid">商品代码</th>
+                                        <th data-field="First">商品名称</th>
+
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="tabs-container ">
+                                <ul class="nav nav-tabs">
+                                    <li class="active">
+                                        <a data-toggle="tab" href="#tab-1" aria-expanded="true"> 商品颜色</a>
+                                    </li>
+                                    <li class="">
+                                        <a data-toggle="tab" href="#tab-2" aria-expanded="false">商品尺码</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div id="tab-1" class="tab-pane active">
+                                        <div class="panel-body">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>姓名</th>
+                                                        <th>性别</th>
+                                                        <th>年龄</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>张三</td>
+                                                        <td>男</td>
+                                                        <td>23</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>2</td>
+                                                        <td>李四</td>
+                                                        <td>男</td>
+                                                        <td>27</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>3</td>
+                                                        <td>王麻子</td>
+                                                        <td>男</td>
+                                                        <td>65</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div id="tab-2" class="tab-pane">
+                                        <div class="panel-body">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>姓名</th>
+                                                        <th>性别</th>
+                                                        <th>年龄</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>张三</td>
+                                                        <td>男</td>
+                                                        <td>23</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>2</td>
+                                                        <td>李四</td>
+                                                        <td>男</td>
+                                                        <td>27</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>3</td>
+                                                        <td>王麻子</td>
+                                                        <td>男</td>
+                                                        <td>65</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>*@
+                </div>
+            </div>
         </div>
-   
+
     </div>
+
 </div>
 
 @section scripts{

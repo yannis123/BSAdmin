@@ -23,10 +23,20 @@ namespace web.Controllers
         }
         public ActionResult AddPreOrder()
         {
-            var dy = _service.GetDY("020020");
+           
+            var dy = _service.GetDY("020020", UserInfo.KHDM);
             var vip = _service.GetCustomer("13868197428");
             var sp = _service.GetSP("015216040");
-            return View();
+            return View(sp);
+        }
+
+        public ActionResult AddProject()
+        {
+            var dyList = _service.GetDY("020020", UserInfo.KHDM);
+            ViewBag.DYList = dyList;
+            //var vip = _service.GetCustomer("13868197428");
+            var sp = _service.GetSP("015216040");
+            return View(sp);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Domain.IService
         void AddSalesDel(MR_XSJLMX saleDel);
 
         List<MR_Customer> GetCustomer(string phone);
-        List<MR_DianYuan> GetDY(string param);
+        List<MR_DianYuan> GetDY(string param, string khdm);
         List<MR_SHANGPIN> GetSP(string SPDM);
 
 

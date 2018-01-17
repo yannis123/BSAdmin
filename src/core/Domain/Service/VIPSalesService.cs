@@ -40,9 +40,9 @@ namespace Domain.Service
             return customers.ToList();
         }
 
-        public List<MR_DianYuan> GetDY(string param)
+        public List<MR_DianYuan> GetDY(string param, string khdm)
         {
-            var sql = @"select * from [dbo].[MR_DIANYUAN] where DYDM like '%" + param + "%' or DYMC like '%" + param + "%'";
+            var sql = @"select * from [dbo].[MR_DIANYUAN] where KHDM='" + khdm + "' DYDM like '%" + param + "%' or DYMC like '%" + param + "%'";
             var dys = connection.Query<MR_DianYuan>(sql);
 
             if (!dys.Any())

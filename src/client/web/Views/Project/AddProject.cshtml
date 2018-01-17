@@ -1,0 +1,85 @@
+﻿
+@{
+    ViewBag.Title = "AddProject";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<Domain.Model.VIPSales.MR_SHANGPIN> list = Model as List<Domain.Model.VIPSales.MR_SHANGPIN>;
+    List<Domain.Model.MR_DianYuan> dyList = ViewBag.DYList as List<Domain.Model.MR_DianYuan>;
+}
+<div class="wrapper wrapper-content">
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    商品查询
+                </div>
+                <div class="panel-body">
+                    <form role="form" class="form-inline" method="post">
+                        <div class="form-group">
+
+                            <div class="form-group">
+                                <label for="UserName" class="control-label">店员编码/姓名:</label>
+                                <select type="text" name="spdm" placeholder="请输入店员编码/姓名" id="spdm" class="form-control">
+                                   
+                                </select>
+                            </div>
+
+
+                            <label for="UserName" class="control-label">商品编码:</label>
+                            <input type="text" name="spdm" placeholder="请输入商品编码" id="spdm" class="form-control">
+                        </div>
+                        <button class="btn btn-white" type="submit" id="queryshangpin">查询</button>
+
+
+                    </form>
+                </div>
+
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    <div class="panel-body">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>商品代码</th>
+                                    <th>商品名称</th>
+                                    <th>售价</th>
+                                    <th>颜色代码</th>
+                                    <th>颜色名称</th>
+                                    <th>尺码代码</th>
+                                    <th>尺码名称</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in list)
+                                {
+                                    <tr>
+                                        <td>@item.SPDM</td>
+                                        <td>@item.SPMC</td>
+                                        <td>@item.BZSJ</td>
+                                        <td>@item.GG1DM</td>
+                                        <td>@item.GG1MC</td>
+                                        <td>@item.GG2DM</td>
+                                        <td>@item.GG2MC</td>
+                                    </tr>
+                                    }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $().ready(function () {
+            // validate the comment form when it is submitted
+            $("#commentForm").validate();
+        });
+    </script>
+}
+

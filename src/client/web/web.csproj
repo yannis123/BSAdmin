@@ -1364,6 +1364,7 @@
     <Content Include="Views\Project\AddPreOrder.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Member\AddMember.cshtml" />
+    <Content Include="Views\Project\AddProject.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
