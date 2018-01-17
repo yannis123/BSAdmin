@@ -38,13 +38,19 @@ namespace web.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult AddMember(MR_Customer model)
+        public JsonResult AddMember(MR_Customer model)
         {
             model.KHDM = UserInfo.KHDM;
             model.GDR = UserInfo.KHMC;
             model.XGRQ = DateTime.Now;
-            _customer.AddCustomer(model);
-            return View();
+            if (_customer.AddCustomer(model))
+            {
+                return Json(new { code = 0 }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { code = -1, }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         [HttpPost]
@@ -60,12 +66,17 @@ namespace web.Controllers
             }
         }
 
+        public ActionResult RechargeRecord()
+        {
+            return View();
+        }
+
         #region  get raw data
 
         public JsonResult CustomerList(int pageNumber, int pageSize, string phoneNumber)
         {
             int total = 0;
-            var list = _customer.GetCustomerList(pageNumber, pageSize, out total, phoneNumber,UserInfo.KHDM);
+            var list = _customer.GetCustomerList(pageNumber, pageSize, out total, phoneNumber, UserInfo.KHDM);
             return Json(new { rows = list, total = total }, JsonRequestBehavior.AllowGet);
         }
 
