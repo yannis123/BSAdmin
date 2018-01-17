@@ -65,9 +65,13 @@ namespace Domain.Service.VIPRecharge
                     ZY = ""
                 }, transaction);
 
+                //更新充值记录和充值明细登记编号
                 connection.Execute("update mr_ccjl set DJBH_BAK=@DJBH_BAK where DJBH=@DJBH", new { DJBH_BAK = number, DJBH = djbh }, transaction);
 
                 connection.Execute("update MR_CCJLMX set DJBH_BAK=@DJBH_BAK where DJBH=@DJBH", new { DJBH_BAK = number, DJBH = djbh }, transaction);
+
+                //修改账户积分和金额
+                connection.Execute("update mr_v_customer set DQJE=DQJE+@CZJE,DQJF=DQJF+@CZJF where DM=@DM", new { CZJE = ccda.KCJE + ccda.ZZJE + ccda.ZSJE, CZJF = ccda.CZJF, DM = vipdm }, transaction);
 
                 transaction.Commit();
 
