@@ -118,7 +118,7 @@
                                     <td>
                                         <strong>折扣：</strong>
                                     </td>
-                                    <td id="discount">¥0.0</td>
+                                    <td id="discount">-¥0.0</td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -237,7 +237,7 @@
             discount = amount * ($("#discountpoint").val().length > 0 ? $("#discountpoint").val() : 0);
             totalAmont = amount - discount;
 
-            $("#discount").html("¥" + discount.toFixed(2));
+            $("#discount").html("-¥" + discount.toFixed(2));
             $("#totalAmount").html("¥" + totalAmont.toFixed(2));
             $("#amount").html("¥" + amount.toFixed(2));
             return products;

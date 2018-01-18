@@ -21,7 +21,7 @@
                             <input id="SJ" name="SJ" class="form-control" type="text" aria-required="true" aria-invalid="false" class="valid">
                         </div>
                     </div>
-                    <div class="form-group" id="datasr">
+                    <div class="form-group">
                         <label class="col-sm-3 control-label">生日：</label>
                         <div class="col-sm-8">
                             <div class="input-group date">
@@ -63,12 +63,8 @@
 
         $().ready(function () {
 
-            $('#datasr .input-group.date').datepicker({
-                todayBtn: "linked",
-                keyboardNavigation: false,
-                forceParse: false,
-                calendarWeeks: true,
-                autoclose: true
+            laydate.render({
+                elem: "#SR" //指定元素
             });
 
             // validate signup form on keyup and submit

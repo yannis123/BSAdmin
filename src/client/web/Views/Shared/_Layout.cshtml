@@ -16,9 +16,9 @@
     @RenderSection("styles", required: false)
 </head>
 <body class="gray-bg">
-   
-        @RenderBody()
-    
+
+    @RenderBody()
+
     <!-- 全局js -->
     <script src="/content/js/jquery.min.js?v=2.1.4"></script>
     <script src="/content/js/bootstrap.min.js?v=3.3.6"></script>
@@ -36,7 +36,11 @@
     <script src="/content/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
     <script src="/content/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
     <script src="/content/js/demo/bootstrap-table-demo.js"></script>
-            @RenderSection("scripts", required: false)
+
+
+    <script src="/content/js/plugins/laydate/laydate.js"></script>
+
+    @RenderSection("scripts", required: false)
     <script src="/content/js/app.js?v=1.0.0"></script>
     <!--统计代码，可删除-->
 </body>

@@ -96,10 +96,10 @@ namespace Domain.Service
             decimal spje = 0;
             string djbh = string.Empty;
             djbh = connection.ExecuteScalar<string>("select top 1 djbh from mr_xsjl order by rq desc");
-            djbh = string.IsNullOrEmpty(djbh) ? "XS000000001" : "XS" + (long.Parse(djbh.Substring(2)) + 1).ToString().PadLeft(9,'0');
+            djbh = string.IsNullOrEmpty(djbh) ? "XS000000001" : "XS" + (long.Parse(djbh.Substring(2)) + 1).ToString().PadLeft(9, '0');
 
 
-            string sql_xsjl = @"insert into mr_xsjl (djbh,rq,sddm,dydm,bz,zk,zkje,zje) values (@djbh,getdate(),@sddm,@dydm,@bz,@zk,@zkje,@zje)";
+            string sql_xsjl = @"insert into mr_xsjl (djbh,rq,sddm,dydm,bz,zk,zkje,zje,vipdm) values (@djbh,getdate(),@sddm,@dydm,@bz,@zk,@zkje,@zje,@vipdm)";
 
             string sql_sxjlmx = @"insert into mr_xsjlmx (djbh,vipdm,spdm,spmc,spsl,gg1dm,gg1mc,gg2dm,gg2mc,bzsj) values (@djbh,@vipdm,@spdm,@spmc,@spsl,@gg1dm,@gg1mc,@gg2dm,@gg2mc,@bzsj)";
 
@@ -135,7 +135,7 @@ namespace Domain.Service
                     decimal zfje = spje - zkje;
 
                     //保存订单
-                    connection.Execute(sql_xsjl, new { djbh = djbh, sddm = order.sddm, dydm = order.dydm, bz = "", zk = order.discountPoint, zkje = zkje, zje = zfje }, transaction);
+                    connection.Execute(sql_xsjl, new { djbh = djbh, sddm = order.sddm, dydm = order.dydm, bz = "", zk = order.discountPoint, zkje = zkje, zje = zfje, vipdm = order.gkdm }, transaction);
 
                     //更新账户余额
                     string sql_customer = @"update mr_v_customer set dqje=dqje-@zfje where dm=@gkdm";
@@ -151,6 +151,71 @@ namespace Domain.Service
                 }
             }
 
+        }
+
+        public List<MainOrder> GetMainOrders(int pageIndex, int pageSize, out int total, string sj, string khdm, string djbh, string dydm, DateTime startdate, DateTime enddate)
+        {
+            string sql = @"  SELECT * FROM (
+                              SELECT [MR_XSJL].* 
+                              ,[MR_KEHU].KHMC
+                              ,[MR_DIANYUAN].DYMC
+                              ,MR_V_CUSTOMER.GKMC
+                              ,MR_V_CUSTOMER.SJ
+                              , ROW_NUMBER() OVER (ORDER BY [MR_XSJL].RQ DESC) rownum 
+                              from  [MR_XSJL] 
+                              left join [dbo].[MR_KEHU] on [MR_XSJL].SDDM=[MR_KEHU].KHDM
+                              left join [dbo].[MR_DIANYUAN] on [MR_DIANYUAN].DYDM=[MR_XSJL].DYDM
+                              left join MR_V_CUSTOMER on MR_V_CUSTOMER.DM=MR_XSJL.VIPDM
+                               Where 1=1 {2}
+                              )as b WHERE  b.rownum 
+                               BETWEEN {0} AND {1}  ORDER BY b.rownum  ";
+
+            string where = string.Empty;
+            if (!string.IsNullOrEmpty(sj))
+            {
+                where += " and MR_V_CUSTOMER.SJ='" + sj + "'";
+            }
+            if (!string.IsNullOrEmpty(khdm))
+            {
+                where += " and MR_XSJL.SDDM='" + khdm + "'";
+            }
+            if (!string.IsNullOrEmpty(djbh))
+            {
+                where += " and MR_XSJL.DJBH='" + djbh + "'";
+            }
+            if (!string.IsNullOrEmpty(dydm))
+            {
+                where += " and MR_XSJL.DYDM='" + dydm + "'";
+            }
+            if (startdate != null && startdate != DateTime.MinValue)
+            {
+                where += " and MR_XSJL.RQ>='" + startdate.ToString() + "'";
+            }
+            if (enddate != null && enddate != DateTime.MinValue)
+            {
+                where += " and MR_XSJL.RQ<='" + enddate.ToString() + "'";
+            }
+            sql = string.Format(sql, (pageIndex - 1) * pageSize + 1, pageIndex * pageSize, where);
+
+            var list = connection.Query<MainOrder>(sql).ToList();
+
+            string countsql = @"
+                              SELECT count(*)
+                              from  [MR_XSJL] 
+                              left join [dbo].[MR_KEHU] on [MR_XSJL].SDDM=[MR_KEHU].KHDM
+                              left join [dbo].[MR_DIANYUAN] on [MR_DIANYUAN].DYDM=[MR_XSJL].DYDM
+                              left join MR_V_CUSTOMER on MR_V_CUSTOMER.DM=MR_XSJL.VIPDM
+                               Where 1=1 {0}";
+
+            total = connection.ExecuteScalar<int>(string.Format(countsql, where));
+
+            return connection.Query<MainOrder>(sql).ToList();
+
+        }
+        public List<MR_XSJLMX> GetOrderDetais(string djbh)
+        {
+            var predicate = Predicates.Field<MR_XSJLMX>(f => f.DJBH, Operator.Eq, djbh);
+            return connection.GetList<MR_XSJLMX>(predicate).ToList();
         }
     }
 }

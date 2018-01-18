@@ -13,5 +13,6 @@ namespace Domain.IService
         bool AddCustomer(MR_Customer customer);
         List<MR_Customer> GetCustomerList(string khdm);
         MR_Customer GetCustomer(string khdm, string sj);
+        bool BindWeixin(string phoneNumber, string wxopenid);
     }
 }

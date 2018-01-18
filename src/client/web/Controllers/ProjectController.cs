@@ -43,6 +43,19 @@ namespace web.Controllers
             var sp = _service.GetSP("015216040");
             return View(sp);
         }
+
+        public ActionResult MainOrderList()
+        {
+            return View();
+        }
+
+        public ActionResult OrderDetail(string djbh)
+        {
+            var list = _service.GetOrderDetais(djbh);
+            return View(list);
+        }
+
+
         [HttpPost]
         public JsonResult AddPreOrder(OrderInfo order)
         {
@@ -73,6 +86,17 @@ namespace web.Controllers
                 return Json(new { code = -1, eror = "保存失败" });
             }
         }
+
+        public JsonResult GetMainOrderList(MainOrderListRequest request)
+        {
+            int total = 0;
+
+            var list = _service.GetMainOrders(request.pageNumber, request.pageSize, out total, request.phoneNumber, UserInfo.KHDM, request.djbh, request.dydm, request.startdate, request.enddate);
+
+            return Json(new { rows = list, total = total }, JsonRequestBehavior.AllowGet);
+
+        }
+
 
     }
 }

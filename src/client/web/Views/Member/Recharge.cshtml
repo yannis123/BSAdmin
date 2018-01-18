@@ -5,12 +5,12 @@
     var daLst = (List<Domain.Model.MR_CCDA>)ViewBag.Archives;
     var dianyuans = (List<Domain.Model.MR_DianYuan>)ViewBag.DianYuans;
 }
-<div class="modal-header">
+@*<div class="modal-header">
     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 
     <h4 class="modal-title">会员充值</h4>
 
-</div>
+</div>*@
 <div class="modal-body">
     @using (Html.BeginForm("Recharge", "Member", FormMethod.Post, new { @class = "form-horizontal m-t" }))
     {
@@ -78,7 +78,7 @@
     @*<button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
         <button type="submit" class="btn btn-primary">保存</button>*@
 </div>
-@section styles{
+@section scripts{
 
     <script type="text/javascript">
         $().ready(function () {
@@ -97,7 +97,8 @@
 
                 $.post("/member/Recharge", { czdm: czdm, vipdm: '@ViewBag.vipdm',dydm:dydm }, function (resp) {
                     if (resp.code == 0) {
-                        window.location.reload();
+                        parent.location.reload();
+                        parent.layer.closeAll();
                     } else {
                         layer.alert("充值失败");
                     }

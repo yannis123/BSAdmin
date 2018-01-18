@@ -24,4 +24,21 @@ namespace Domain.Model
         public decimal bzsj { get; set; }
         public int count { get; set; }
     }
+
+    public class MainOrder
+    {
+        public string DJBH { get; set; }
+        public DateTime RQ { get; set; }
+        public string SDDM { get; set; }
+        public string KHMC { get; set; }
+        public string DYDM { get; set; }
+        public string DYMC { get; set; }
+        public string VIPDM { get; set; }
+        public string GKMC { get; set; }
+        public string SJ { get; set; }
+        public string BZ { get; set; }
+        public double ZK { get; set; }
+        public decimal ZKJE { get; set; }
+        public string ZJE { get; set; }
+    }
 }

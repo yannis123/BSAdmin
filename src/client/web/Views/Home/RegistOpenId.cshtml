@@ -21,7 +21,7 @@
                                 </div>
 
                                 <div>
-                                    <button type="submit" class="btn btn-block btn-rounded  btn-outline btn-primary">验证</button>
+                                    <button type="button" class="btn btn-block btn-rounded  btn-outline btn-primary" id="bindwx">绑定</button>
                                 </div>
                             </form>
                         </div>
@@ -34,3 +34,32 @@
 
 </div>
 
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            $("#bindwx").click(function () {
+                var phoneNumber = $("#phoneNumber").val();
+                var openId = $("input[name='openId']").val();
+                var mobile = /^(13[0-9]{9})|(18[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})$/;
+                if (phoneNumber.length != 11 && mobile.test(value)) {
+                    alert("请输入正确的手机号码"); return false;
+                }
+                if (phoneNumber.length == 0) {
+                    alert("请输入手机号码"); return false;
+                }
+                if (openId.length == 0) {
+                    alert("未获取到用户微信信息"); return false;
+                }
+
+                $.post("/home/BindOpenId", { phoneNumber: phoneNumber, openId: openId }, function (result) {
+                    if (result.code == 0) {
+                        alert("绑定成功！");
+                    }
+                    else {
+                        alert("绑定失败！");
+                    }
+                })
+            })
+        })
+    </script>
+}

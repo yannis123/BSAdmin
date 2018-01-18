@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "OrderDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var list = Model as List<Domain.Model.VIPSales.MR_XSJLMX>;
+}
+
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+         
+            <div class="ibox-content">
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>商品代码</th>
+                            <th>商品名称</th>
+                            <th>商品数量</th>
+                            <th>颜色代码</th>
+                            <th>颜色名称</th>
+                            <th>尺码代码</th>
+                            <th>尺码名称</th>
+                            <th>标准价格</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in list)
+                        {
+                            <tr>
+                                <td>@item.SPDM</td>
+                                <td>@item.SPMC</td>
+                                <td>@item.SPSL/件</td>
+                                <td>@item.GG1DM</td>
+                                <td>@item.GG1MC</td>
+                                <td>@item.GG2DM</td>
+                                <td>@item.GG2MC</td>
+                                <td>¥@item.BZSJ.ToString("f2")</td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>

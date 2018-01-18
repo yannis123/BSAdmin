@@ -14,9 +14,11 @@ namespace web.Controllers
 
     public class HomeController : BaseController
     {
+        private IMRCustomerService _customer;
         private IServiceconfiguration _config;
-        public HomeController(IServiceconfiguration config)
+        public HomeController(IServiceconfiguration config, IMRCustomerService customer)
         {
+            _customer = customer;
             _config = config;
         }
         public ActionResult Index(string code)
@@ -40,6 +42,17 @@ namespace web.Controllers
                 );
             return View(token);
         }
+
+        [HttpPost]
+        public JsonResult BindOpenId(string phoneNumber, string openId)
+        {
+            if (_customer.BindWeixin(phoneNumber, openId))
+            {
+                return Json(new { code = 0 });
+            }
+            return Json(new { code = -1 });
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
