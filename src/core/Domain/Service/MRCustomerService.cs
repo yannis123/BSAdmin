@@ -88,7 +88,7 @@ namespace Domain.Service
 
         public bool BindWeixin(string phoneNumber, string wxopenid)
         {
-            string getsql = "select count(*) from mr_v_customer where sj=@sj and isnull(tzsy,0)=0 ";
+            string getsql = "select count(*) from mr_v_customer where sj=@sj  ";
 
             int count = connection.ExecuteScalar<int>(getsql, new { sj = phoneNumber });
             if (count == 1)

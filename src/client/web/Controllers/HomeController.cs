@@ -26,22 +26,7 @@ namespace web.Controllers
             return View(this.UserInfo);
         }
 
-        /// <summary>
-        /// 获取微信用户OpenId
-        /// </summary>
-        /// <param name="code">authorizathon_code</param>
-        /// <returns></returns>
-        [HttpGet]
-        public ActionResult RegistOpenId(string code)
-        {
-            Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthAccessTokenResult token =
-                Senparc.Weixin.MP.AdvancedAPIs.OAuthApi.GetAccessToken(
-                _config.Wx_AppId,
-                _config.Wx_AppSecret,
-                code
-                );
-            return View(token);
-        }
+        
 
         [HttpPost]
         public JsonResult BindOpenId(string phoneNumber, string openId)

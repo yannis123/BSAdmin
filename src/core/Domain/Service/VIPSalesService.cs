@@ -89,8 +89,14 @@ namespace Domain.Service
             return sps.ToList();
         }
 
-        public bool SaveOrder(OrderInfo order)
+        public OrderResponse SaveOrder(OrderInfo order)
         {
+            OrderResponse response = new OrderResponse() { Code = 0 };
+
+           
+
+           
+
             if (order.discountPoint == 0) order.discountPoint = 0;
             //商品总金额
             decimal spje = 0;
@@ -98,6 +104,7 @@ namespace Domain.Service
             djbh = connection.ExecuteScalar<string>("select top 1 djbh from mr_xsjl order by rq desc");
             djbh = string.IsNullOrEmpty(djbh) ? "XS000000001" : "XS" + (long.Parse(djbh.Substring(2)) + 1).ToString().PadLeft(9, '0');
 
+            string sql_getcustomer = @"select * from mr_v_customer where dm=@dm";
 
             string sql_xsjl = @"insert into mr_xsjl (djbh,rq,sddm,dydm,bz,zk,zkje,zje,vipdm) values (@djbh,getdate(),@sddm,@dydm,@bz,@zk,@zkje,@zje,@vipdm)";
 
@@ -107,6 +114,9 @@ namespace Domain.Service
             {
                 try
                 {
+                    //查询客户信息
+                    var customer = connection.Query<MR_Customer>(sql_getcustomer, new { dm = order.gkdm },transaction).FirstOrDefault();
+
                     foreach (var item in order.products)
                     {
                         var sql_product = "select * from mr_shangpin where spdm=@spdm";
@@ -134,23 +144,36 @@ namespace Domain.Service
                     //实际扣减金额
                     decimal zfje = spje - zkje;
 
+                    if (customer.DQJE < zfje)
+                    {
+                        response.Error = "当前账户余额不足";
+                        response.DQJE = customer.DQJE;
+                        return response;
+                    }
+
                     //保存订单
                     connection.Execute(sql_xsjl, new { djbh = djbh, sddm = order.sddm, dydm = order.dydm, bz = "", zk = order.discountPoint, zkje = zkje, zje = zfje, vipdm = order.gkdm }, transaction);
 
-                    //更新账户余额
-                    string sql_customer = @"update mr_v_customer set dqje=dqje-@zfje where dm=@gkdm";
-                    connection.Execute(sql_customer, new { zfje = zfje, gkdm = order.gkdm }, transaction);
+                    //更新账户余额和消费金额
+                    string sql_updatecustomer = @"update mr_v_customer set dqje=dqje-@zfje , xfje=xfje+@zfje where dm=@gkdm";
+                    connection.Execute(sql_updatecustomer, new { zfje = zfje, gkdm = order.gkdm }, transaction);
 
                     transaction.Commit();
-                    return true;
+
+                    response.DQJE = customer.DQJE - zfje;
+                    response.XFJE = customer.XFJE + zfje;
+                    response.BCXFJE = zfje;
+                    response.SJ = customer.SJ;
+                    response.GKMC = customer.GKMC;
                 }
                 catch (Exception ex)
                 {
+                    response.Error = "提交失败";
                     transaction.Rollback();
-                    return false;
+                    return response;
                 }
             }
-
+            return response;
         }
 
         public List<MainOrder> GetMainOrders(int pageIndex, int pageSize, out int total, string sj, string khdm, string djbh, string dydm, DateTime startdate, DateTime enddate)

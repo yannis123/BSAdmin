@@ -61,6 +61,7 @@
     <Compile Include="Model\MR_Customer.cs" />
     <Compile Include="Model\MR_DianYuan.cs" />
     <Compile Include="Model\OrderInfo.cs" />
+    <Compile Include="Model\TemplateData.cs" />
     <Compile Include="Model\VIPRecharge\MR_CCJLMX.cs" />
     <Compile Include="Model\MRKeHu.cs" />
     <Compile Include="Model\Member.cs" />

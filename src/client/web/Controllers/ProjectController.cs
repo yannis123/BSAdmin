@@ -77,13 +77,14 @@ namespace web.Controllers
             }
             order.sddm = UserInfo.KHDM;
             //_service.AddSales();
-            if (_service.SaveOrder(order))
+            var orderResponse = _service.SaveOrder(order);
+            if (orderResponse.Code == 0)
             {
-                return Json(new { code = 0 });
+                return Json(new { code = 0, data = orderResponse });
             }
             else
             {
-                return Json(new { code = -1, eror = "保存失败" });
+                return Json(new { code = -1, eror = orderResponse.Error });
             }
         }
 

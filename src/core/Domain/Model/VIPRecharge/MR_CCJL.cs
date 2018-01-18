@@ -27,7 +27,7 @@ namespace Domain.Model
         /// <summary>
         /// 充值日期
         /// </summary>
-        public DateTime RQ { get; set; }
+        public string RQ { get; set; }
         /// <summary>
         /// 店铺代码
         /// </summary>

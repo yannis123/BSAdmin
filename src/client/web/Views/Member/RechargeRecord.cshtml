@@ -151,6 +151,8 @@
                     align: "center",
                     valign: "middle",
                     formatter: function (value, row, index) {
+                        return value;
+
                         var str = value;
                         var d = eval('new ' + str.substr(1, str.length - 2));
 

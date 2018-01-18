@@ -270,7 +270,7 @@
     <Content Include="Content\img\index_4.jpg" />
     <Content Include="Content\img\loading-upload.gif" />
     <Content Include="Content\img\locked.png" />
-    <Content Include="Content\img\login-background.jpg" />
+    <None Include="Content\img\login-background.jpg.bak" />
     <Content Include="Content\img\p1.jpg" />
     <Content Include="Content\img\p2.jpg" />
     <Content Include="Content\img\p3.jpg" />
@@ -288,7 +288,7 @@
     <Content Include="Content\img\user.png" />
     <Content Include="Content\img\webuploader.png" />
     <Content Include="Content\img\webwxgetmsgimg %284%29.jpg" />
-    <Content Include="Content\img\webwxgetmsgimg .jpg" />
+    <Content Include="Content\img\login-background.jpg" />
     <Content Include="Content\img\wenku_logo.png" />
     <Content Include="Content\js\app.js" />
     <Content Include="Content\js\bootstrap.min.js" />
@@ -1380,10 +1380,10 @@
     <Content Include="Views\Member\RechargeRecord.cshtml" />
     <Content Include="Views\Project\MainOrderList.cshtml" />
     <Content Include="Views\Project\OrderDetail.cshtml" />
+    <Content Include="Views\Api\RegistOpenId.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Api\" />
     <Folder Include="Views\Authorize\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>

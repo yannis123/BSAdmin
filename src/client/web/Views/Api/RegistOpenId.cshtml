@@ -1,15 +1,14 @@
-﻿@{
+﻿
+@{
     ViewBag.Title = "绑定微信";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @model Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthAccessTokenResult
 
-
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
         <div class="col-sm-12">
             <div class="ibox float-e-margins">
-
                 <div class="ibox-content">
                     <div class="row">
                         <div class="col-sm-12">
@@ -19,29 +18,25 @@
                                 <div class="form-group">
                                     <input type="text" name="phoneNumber" placeholder="请输入您的In's注册手机号码" class="form-control">
                                 </div>
-
                                 <div>
                                     <button type="button" class="btn btn-block btn-rounded  btn-outline btn-primary" id="bindwx">绑定</button>
                                 </div>
                             </form>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
-
 @section scripts{
     <script type="text/javascript">
         $(function () {
             $("#bindwx").click(function () {
-                var phoneNumber = $("#phoneNumber").val();
+                var phoneNumber = $("input[name='phoneNumber']").val();
                 var openId = $("input[name='openId']").val();
                 var mobile = /^(13[0-9]{9})|(18[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})$/;
-                if (phoneNumber.length != 11 && mobile.test(value)) {
+                if (phoneNumber.length != 11 && !mobile.test(phoneNumber)) {
                     alert("请输入正确的手机号码"); return false;
                 }
                 if (phoneNumber.length == 0) {
@@ -51,7 +46,7 @@
                     alert("未获取到用户微信信息"); return false;
                 }
 
-                $.post("/api/RegistOpenId", { phoneNumber: phoneNumber, openId: openId }, function (result) {
+                $.post("/api/BindWeixin", { PhoneNumber: phoneNumber, OpenId: openId }, function (result) {
                     if (result.code == 0) {
                         alert("绑定成功！");
                     }
@@ -63,3 +58,7 @@
         })
     </script>
 }
+
+
+
+

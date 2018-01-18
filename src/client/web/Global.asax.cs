@@ -15,6 +15,10 @@ namespace web
 {
     public class MvcApplication : System.Web.HttpApplication
     {
+        public MvcApplication()
+        {
+
+        }
         private static IWindsorContainer container;
 
         private static void BootstrapContainer()
@@ -35,7 +39,7 @@ namespace web
 
         protected void Application_PostAuthenticateRequest(object sender, System.EventArgs e)
         {
-           
+
         }
 
         protected void Application_End()

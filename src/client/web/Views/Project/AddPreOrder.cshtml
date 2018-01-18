@@ -15,26 +15,32 @@
                 <div class="panel-heading">
                     拿货消费单
                 </div>
+               
                 <div class="panel-body">
-                    <form role="form" class="form-inline">
+                    <form role="form" class="form-inline ">
+
                         <div class="form-group">
                             <label for="UserName" class="control-label">会员:</label>
                             <input type="text" name="phoneNumber" placeholder="请输入会员手机号码" id="phoneNumber" class="form-control">
-                            <button class="btn btn-white" type="button" id="querymember">查询</button>
+                            <button class="btn btn-warning" type="button" id="querymember">查询</button>
                             <label for="UserName" class="control-label">操作店员:</label>
                             <select name="DYDM" id="DYDM" class="form-control">
                                 <option value="">请选择店员</option>
                                 @foreach (var item in dianyuans)
                                 {
-                                    <option value="@item.DYDM">@item.DYMC</option>
+                                <option value="@item.DYDM">@item.DYMC</option>
                                 }
                             </select>
-                            <label for="UserName" class="control-label">折扣:</label>
-                            <input type="text" name="discountpoint" placeholder="请输入折扣值" id="discountpoint" class="form-control">
-                            <label for="UserName" class="control-label">商品编码:</label>
-                            <input type="text" name="spdm" placeholder="请输入商品编码" id="spdm" class="form-control">
-                            <button class="btn btn-white" type="button" id="queryproduct">查询</button>
+                            <label for="UserName" class="control-label" style="display:none;">折扣:</label>
+                            <input type="text" name="discountpoint" placeholder="请输入折扣值" id="discountpoint" class="form-control" style="display:none;">
                         </div>
+                        <br /><br />
+                        <div class="form-group" style="display:block">
+                            <label for="UserName" class="control-label">商品编码:</label>
+                            <input type="text" name="spdm" placeholder="多个商品编码以逗号分割" id="spdm" class="form-control" style="width:70%;">
+                            <button class="btn btn-warning" type="button" id="queryproduct">查询</button>
+                        </div>
+
                         <div class="hr-line-dashed"></div>
                         <table class="table table-bordered" id="member"></table>
                         <script id="membertmp" type="text/html">
@@ -88,7 +94,7 @@
                                     <td>{{product.GG2MC}}</td>
                                     <td>
                                         @*<input type="number" pattern="[0-9]*" min="0" max="20" name="count" class="form-control">*@
-                                        <select name="count" id="count" class="form-control">
+                                        <select name="count" id="count" class="form-control" style="color:red;">
                                             <option value="">请选择数量</option>
                                             <option value="1">1件</option>
                                             <option value="2">2件</option>
@@ -114,13 +120,13 @@
                                     </td>
                                     <td id="amount">¥0.00</td>
                                 </tr>
-                                <tr>
+                                <tr style="display:none;">
                                     <td>
                                         <strong>折扣：</strong>
                                     </td>
                                     <td id="discount">-¥0.0</td>
                                 </tr>
-                                <tr>
+                                <tr style="display:none;">
                                     <td>
                                         <strong>总计</strong>
                                     </td>
@@ -129,7 +135,7 @@
                             </tbody>
                         </table>
                         <div class="text-right">
-                            <button class="btn btn-primary" id="saveOrder"><i class="fa fa-dollar"></i> 保存</button>
+                            <button class="btn btn-warning" id="saveOrder"><i class="fa fa-check"></i> 提交</button>
                         </div>
                     </form>
                 </div>
@@ -202,8 +208,12 @@
 
                 $.post("/project/addpreorder", orderInfo, function (result) {
                     if (result.code == 0) {
-                        //window.location.reload();
-                        layer.alert("保存成功！")
+                        layer.alert(
+                          '会员名称:【' + result.data.GKMC + '】<br/>手机号：' + result.data.SJ + '<br/>本次拿货消费金额:' + result.data.BCXFJE + '<br/>历次拿货消费金额总计:' + result.data.XFJE + '<br/>Vip充值余额剩余:' + result.data.DQJE + '元'
+                       , function () {
+                           window.location.reload();
+                       });
+                      
                     } else {
                         layer.alert(result.error);
                     }

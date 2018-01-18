@@ -28,7 +28,7 @@ namespace Domain.Model
     public class MainOrder
     {
         public string DJBH { get; set; }
-        public DateTime RQ { get; set; }
+        public string RQ { get; set; }
         public string SDDM { get; set; }
         public string KHMC { get; set; }
         public string DYDM { get; set; }
@@ -40,5 +40,16 @@ namespace Domain.Model
         public double ZK { get; set; }
         public decimal ZKJE { get; set; }
         public string ZJE { get; set; }
+    }
+
+    public class OrderResponse
+    {
+        public string Error { get; set; }
+        public decimal DQJE { get; set; }
+        public string GKMC { get; set; }
+        public decimal BCXFJE { get; set; }
+        public decimal XFJE { get; set; }
+        public string SJ { get; set; }
+        public int Code { get; set; }
     }
 }
