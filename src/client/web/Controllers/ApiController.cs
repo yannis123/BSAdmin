@@ -23,8 +23,7 @@ namespace web.Controllers
             _config = config;
             _member = member;
             _customer = customer;
-
-            AccessTokenContainer.Register(_config.Wx_AppId, _config.Wx_AppSecret);
+         
         }
         // GET: Api
         public ActionResult Index()
@@ -101,12 +100,12 @@ namespace web.Controllers
 
             var testData = new XFTemplateData()
             {
-                hymc = new TemplateDataItem("yannis"),
-                sj = new TemplateDataItem("18806521795"),
-                bcxfje = new TemplateDataItem("¥100.00"),
-                xfje = new TemplateDataItem("¥200.00"),
-                dqje = new TemplateDataItem("¥500.00"),
-                time = new TemplateDataItem(DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss"))
+                //hymc = new TemplateDataItem("yannis"),
+                //sj = new TemplateDataItem("18806521795"),
+                //bcxfje = new TemplateDataItem("¥100.00"),
+                //xfje = new TemplateDataItem("¥200.00"),
+                //dqje = new TemplateDataItem("¥500.00"),
+                //time = new TemplateDataItem(DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss"))
             };
             var result = Senparc.Weixin.MP.AdvancedAPIs.TemplateApi.SendTemplateMessage(accessToken, openId, templateId, "#FF0000", "#", testData);
 

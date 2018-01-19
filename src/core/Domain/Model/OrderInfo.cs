@@ -51,5 +51,6 @@ namespace Domain.Model
         public decimal XFJE { get; set; }
         public string SJ { get; set; }
         public int Code { get; set; }
+        public string WXOPENID { get; set; }
     }
 }

@@ -93,10 +93,6 @@ namespace Domain.Service
         {
             OrderResponse response = new OrderResponse() { Code = 0 };
 
-           
-
-           
-
             if (order.discountPoint == 0) order.discountPoint = 0;
             //商品总金额
             decimal spje = 0;
@@ -115,7 +111,7 @@ namespace Domain.Service
                 try
                 {
                     //查询客户信息
-                    var customer = connection.Query<MR_Customer>(sql_getcustomer, new { dm = order.gkdm },transaction).FirstOrDefault();
+                    var customer = connection.Query<MR_Customer>(sql_getcustomer, new { dm = order.gkdm }, transaction).FirstOrDefault();
 
                     foreach (var item in order.products)
                     {
@@ -155,8 +151,8 @@ namespace Domain.Service
                     connection.Execute(sql_xsjl, new { djbh = djbh, sddm = order.sddm, dydm = order.dydm, bz = "", zk = order.discountPoint, zkje = zkje, zje = zfje, vipdm = order.gkdm }, transaction);
 
                     //更新账户余额和消费金额
-                    string sql_updatecustomer = @"update mr_v_customer set dqje=dqje-@zfje , xfje=xfje+@zfje where dm=@gkdm";
-                    connection.Execute(sql_updatecustomer, new { zfje = zfje, gkdm = order.gkdm }, transaction);
+                    string sql_updatecustomer = @"update mr_v_customer set dqje=dqje-@zfje , xfje=@xfje where dm=@gkdm";
+                    connection.Execute(sql_updatecustomer, new { zfje = zfje, xfje = customer.XFJE + zfje, gkdm = order.gkdm }, transaction);
 
                     transaction.Commit();
 
@@ -165,6 +161,7 @@ namespace Domain.Service
                     response.BCXFJE = zfje;
                     response.SJ = customer.SJ;
                     response.GKMC = customer.GKMC;
+                    response.WXOPENID = customer.WXOPENID;
                 }
                 catch (Exception ex)
                 {

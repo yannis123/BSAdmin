@@ -69,6 +69,7 @@ namespace Domain.Model
         /// </summary>
         public MR_QuYu QUYU { get; set; }
         public DateTime XGRQ { get; set; }
+        public string WXOPENID { get; set; }
 
     }
 

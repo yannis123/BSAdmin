@@ -17,12 +17,12 @@ namespace Domain.Model
     }
     public class XFTemplateData
     {
-        public TemplateDataItem hymc { get; set; }
-        public TemplateDataItem sj { get; set; }
-        public TemplateDataItem bcxfje { get; set; }
-        public TemplateDataItem xfje { get; set; }
-        public TemplateDataItem dqje { get; set; }
+        public TemplateDataItem productType { get; set; }
+        public TemplateDataItem name { get; set; }
+        public TemplateDataItem accountType { get; set; }
+        public TemplateDataItem account { get; set; }
         public TemplateDataItem time { get; set; }
+        public TemplateDataItem remark { get; set; }
     }
 
     /// <summary>
