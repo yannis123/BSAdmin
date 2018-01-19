@@ -125,6 +125,20 @@
                     align: "center",
                     valign: "middle"
                 },
+                  {
+                      title: "绑定微信",
+                      field: "WXOPENID",
+                      align: "center",
+                      valign: "middle",
+                      formatter: function (value, row, index) {
+                          if (value) {
+                              return '<small class="label label-warning"> 已绑定</small>';
+                          }
+                          else {
+                              return '<small class="label label-default"> 未绑定</small>';
+                          }
+                      }
+                  },
                 {
                     title: "操作",
                     field: "DM",
