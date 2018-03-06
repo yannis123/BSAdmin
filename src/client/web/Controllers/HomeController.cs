@@ -14,9 +14,11 @@ namespace web.Controllers
 
     public class HomeController : BaseController
     {
+        private IMRCustomerService _customer;
         private IServiceconfiguration _config;
-        public HomeController(IServiceconfiguration config)
+        public HomeController(IServiceconfiguration config, IMRCustomerService customer)
         {
+            _customer = customer;
             _config = config;
         }
         public ActionResult Index(string code)
@@ -24,22 +26,18 @@ namespace web.Controllers
             return View(this.UserInfo);
         }
 
-        /// <summary>
-        /// 获取微信用户OpenId
-        /// </summary>
-        /// <param name="code">authorizathon_code</param>
-        /// <returns></returns>
-        [HttpGet]
-        public ActionResult RegistOpenId(string code)
+        
+
+        [HttpPost]
+        public JsonResult BindOpenId(string phoneNumber, string openId)
         {
-            Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthAccessTokenResult token =
-                Senparc.Weixin.MP.AdvancedAPIs.OAuthApi.GetAccessToken(
-                _config.Wx_AppId,
-                _config.Wx_AppSecret,
-                code
-                );
-            return View(token);
+            if (_customer.BindWeixin(phoneNumber, openId))
+            {
+                return Json(new { code = 0 });
+            }
+            return Json(new { code = -1 });
         }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

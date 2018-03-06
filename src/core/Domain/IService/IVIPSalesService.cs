@@ -16,9 +16,10 @@ namespace Domain.IService
         List<MR_Customer> GetCustomer(string phone);
         List<MR_DianYuan> GetDY(string param, string khdm);
         List<MR_SHANGPIN> GetSP(string SPDM);
-
-
-
+        List<MR_SHANGPIN> GetProducts(string spdms);
+        OrderResponse SaveOrder(OrderInfo order);
+        List<MainOrder> GetMainOrders(int pageIndex, int pageSize, out int total, string sj, string khdm, string djbh, string dydm, DateTime startdate, DateTime enddate);
+        List<MR_XSJLMX> GetOrderDetais(string djbh);
 
     }
 }

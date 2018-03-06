@@ -23,6 +23,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage
         /// <summary>
         /// msgid
         /// </summary>
-        public int msgid { get; set; }
+        public double msgid { get; set; }
     }
 }

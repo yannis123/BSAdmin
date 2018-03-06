@@ -8,6 +8,7 @@ namespace Domain.Model.VIPSales
 {
     public class MR_XSJLMX
     {
+        public string DJBH { get; set; }
         public string VIPDM { get; set; }
         public string SPDM { get; set; }
         public string SPMC { get; set; }
@@ -16,6 +17,7 @@ namespace Domain.Model.VIPSales
         public string GG2DM { get; set; }
         public string GG2MC { get; set; }
         public decimal BZSJ { get; set; }
+        public int SPSL { get; set; }
     }
 }
 

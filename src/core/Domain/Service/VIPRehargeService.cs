@@ -39,52 +39,59 @@ namespace Domain.Service.VIPRecharge
         {
             MR_CCDA ccda = GetArchive(czdm);
 
-            IDbTransaction transaction = connection.BeginTransaction();
-            try
+            using (IDbTransaction transaction = connection.BeginTransaction())
             {
-
-                int djbh = connection.Query<int>("insert into mr_ccjl (bz,dydm,rq,sddm) values (@bz,@dydm,@rq,@sddm);SELECT @@identity;", new
+                try
                 {
-                    bz = string.Empty,
-                    dydm = dydm,
-                    rq = DateTime.Now,
-                    sddm = sddm
-                }, transaction).FirstOrDefault();
 
-                string number = "VC" + djbh.ToString().PadLeft(10, '0');
+                    int djbh = connection.Query<int>("insert into mr_ccjl (bz,dydm,rq,sddm) values (@bz,@dydm,@rq,@sddm);SELECT @@identity;", new
+                    {
+                        bz = string.Empty,
+                        dydm = dydm,
+                        rq = DateTime.Now,
+                        sddm = sddm
+                    }, transaction).FirstOrDefault();
 
-                connection.Insert<MR_CCJLMX>(new MR_CCJLMX()
+                    string number = "VC" + djbh.ToString().PadLeft(10, '0');
+
+                    connection.Insert<MR_CCJLMX>(new MR_CCJLMX()
+                    {
+                        CZDM = ccda.CZDM,
+                        CZJE = ccda.KCJE,
+                        CZJF = ccda.CZJF,
+                        VIPDM = vipdm,
+                        ZZJE = ccda.ZZJE,
+                        ZSJE = ccda.ZSJE,
+                        DJBH = djbh.ToString(),
+                        ZY = ""
+                    }, transaction);
+
+                    //更新充值记录和充值明细登记编号
+                    connection.Execute("update mr_ccjl set DJBH_BAK=@DJBH_BAK where DJBH=@DJBH", new { DJBH_BAK = number, DJBH = djbh }, transaction);
+
+                    connection.Execute("update MR_CCJLMX set DJBH_BAK=@DJBH_BAK where DJBH=@DJBH", new { DJBH_BAK = number, DJBH = djbh }, transaction);
+
+                    //修改账户积分和金额
+                    connection.Execute("update mr_v_customer set DQJE=DQJE+@CZJE,DQJF=DQJF+@CZJF where DM=@DM", new { CZJE = ccda.KCJE + ccda.ZZJE + ccda.ZSJE, CZJF = ccda.CZJF, DM = vipdm }, transaction);
+
+                    transaction.Commit();
+
+                    return true;
+                }
+                catch (Exception ex)
                 {
-                    CZDM = ccda.CZDM,
-                    CZJE = ccda.KCJE,
-                    CZJF = ccda.CZJF,
-                    VIPDM = vipdm,
-                    ZZJE = ccda.ZZJE,
-                    DJBH = djbh.ToString(),
-                    ZY = ""
-                }, transaction);
-
-                connection.Execute("update mr_ccjl set DJBH_BAK=@DJBH_BAK where DJBH=@DJBH", new { DJBH_BAK = number, DJBH = djbh }, transaction);
-
-                connection.Execute("update MR_CCJLMX set DJBH_BAK=@DJBH_BAK where DJBH=@DJBH", new { DJBH_BAK = number, DJBH = djbh }, transaction);
-
-                transaction.Commit();
-
-                return true;
+                    transaction.Rollback();
+                    return false;
+                }
             }
-            catch (Exception ex)
-            {
-                transaction.Rollback();
-                return false;
-            }
-
         }
 
         public List<MR_CCDA> GetArchives()
         {
             try
             {
-                return connection.GetList<MR_CCDA>().ToList();
+                var predicate = Predicates.Field<MR_CCDA>(f => f.TZSY, Operator.Eq, 0);
+                return connection.GetList<MR_CCDA>(predicate).ToList();
             }
             catch (Exception ex)
             {
@@ -108,6 +115,7 @@ namespace Domain.Service.VIPRecharge
 	                        ,[MR_CCJLMX].CZDM
 	                        ,[MR_CCJLMX].CZJE
 	                        ,[MR_CCJLMX].ZZJE
+                            ,[MR_CCJLMX].ZSJE
 	                        ,[MR_CCJLMX].CZJF
 	                        ,[MR_DIANYUAN].DYMC
 	                        ,MR_V_CUSTOMER.GKMC
@@ -127,7 +135,7 @@ namespace Domain.Service.VIPRecharge
             string where = string.Empty;
             if (!string.IsNullOrEmpty(sj))
             {
-                where += " and MR_V_CUSTOMER.SJ='"+sj+"'";
+                where += " and MR_V_CUSTOMER.SJ='" + sj + "'";
             }
             if (!string.IsNullOrEmpty(khdm))
             {
@@ -149,6 +157,12 @@ namespace Domain.Service.VIPRecharge
 
             return connection.Query<RechargeRecord>(sql).ToList();
 
+        }
+
+        public List<MR_DianYuan> GetDianYuanList(string khdm)
+        {
+            string sql = "select * from mr_dianyuan where khdm=@khdm and isnull(tzsy,0)=0";
+            return connection.Query<MR_DianYuan>(sql, new { khdm = khdm }).ToList();
         }
 
     }

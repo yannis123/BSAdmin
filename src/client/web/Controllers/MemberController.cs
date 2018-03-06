@@ -28,8 +28,10 @@ namespace web.Controllers
         public ActionResult Recharge(string vipdm)
         {
             var archives = _service.GetArchives();
+            var diayuns = _service.GetDianYuanList(UserInfo.KHDM);
             ViewBag.Archives = archives;
             ViewBag.vipdm = vipdm;
+            ViewBag.DianYuans = diayuns;
             return View();
         }
 
@@ -60,9 +62,9 @@ namespace web.Controllers
         #region  get raw data
 
         [HttpPost]
-        public JsonResult Recharge(string czdm, string vipdm)
+        public JsonResult Recharge(string czdm, string vipdm, string dydm)
         {
-            if (_service.AddRecharge(vipdm, czdm, UserInfo.DYDM, UserInfo.KHDM))
+            if (_service.AddRecharge(vipdm, czdm, dydm, UserInfo.KHDM))
             {
                 return Json(new { code = 0 });
             }
@@ -92,6 +94,19 @@ namespace web.Controllers
             int total = 0;
             var list = _service.GetRechargeList(pageNumber, pageSize, out total, UserInfo.KHDM, phoneNumber);
             return Json(new { rows = list, total = total }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetCustomer(string phoneNumber)
+        {
+            var customer = _customer.GetCustomer(UserInfo.KHDM,phoneNumber);
+            if (customer != null)
+            {
+                return Json(new { code = 0, data = customer }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { code = -1 }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         #endregion

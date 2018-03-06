@@ -19,8 +19,8 @@
                                 <input type="text" name="phoneNumber" placeholder="请输入手机号码" id="phoneNumber" class="form-control">
                             </div>
 
-                            <button class="btn btn-white" type="button" id="querymemeber">查询</button>
-                            <a class="btn btn-white" onclick="app.shwdialog('添加会员', '/Member/AddMember')">添加</a>
+                            <button class="btn btn-outline btn-danger" type="button" id="querymemeber">查询会员</button>
+                            <a class="btn btn-outline btn-danger" onclick="app.shwdialog('添加会员', '/Member/AddMember')">新增会员</a>
 
                         </form>
                     </div>
@@ -96,18 +96,6 @@
                     valign: "middle"
                 },
                 {
-                    title: "生日",
-                    field: "SR",
-                    align: "center",
-                    valign: "middle",
-                    formatter: function (value, row, index) {
-                        var str = value;
-                        var d = new Date(value);                       
-                        var ar_date = [d.getFullYear(), d.getMonth() + 1, d.getDate()];
-                        return ar_date.join('/');
-                    }
-                },
-                {
                     title: "性别",
                     field: "SEX",
                     align: "center",
@@ -126,11 +114,31 @@
                     valign: "middle"
                 },
                 {
+                    title: "当前余额",
+                    field: "DQJE",
+                    align: "center",
+                    valign: "middle"
+                },
+                {
                     title: "当前积分",
                     field: "DQJF",
                     align: "center",
                     valign: "middle"
                 },
+                  {
+                      title: "绑定微信",
+                      field: "WXOPENID",
+                      align: "center",
+                      valign: "middle",
+                      formatter: function (value, row, index) {
+                          if (value) {
+                              return '<small class="label label-warning"> 已绑定</small>';
+                          }
+                          else {
+                              return '<small class="label label-default"> 未绑定</small>';
+                          }
+                      }
+                  },
                 {
                     title: "操作",
                     field: "DM",
@@ -141,7 +149,9 @@
                         //value：当前field的值，即id
                         //row：当前行的数据
                         // var a = '<a href="/home/edit?id=' + value + '" >修改</a>';
-                        var a = '  <a class="btn btn-default  btn-sm" data-toggle="modal" href="/member/recharge?vipdm=' + value + '" data-target="#myModal">充值</a>';
+                        //var a = '  <a class="btn btn-primary  btn-sm" data-toggle="modal" href="/member/recharge?vipdm=' + value + '" data-target="#myModal">充值</a>';
+                        //
+                        var a = "<a class=\"btn btn-primary  btn-sm\" onclick=\"app.shwdialog('会员充值', '/Member/recharge?vipdm=" + value + "')\">充值</a>";
                         return a;
                     }
                 },

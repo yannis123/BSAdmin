@@ -15,5 +15,6 @@ namespace Domain.IService
 
         MR_CCDA GetArchive(string czdm);
         List<RechargeRecord> GetRechargeList(int pageIndex, int pageSize, out int total, string khdm, string sj);
+        List<MR_DianYuan> GetDianYuanList(string khdm);
     }
 }

@@ -57,6 +57,13 @@ namespace Domain.Service
             return connection.GetList<MR_Customer>(predicate).ToList();
         }
 
+        public MR_Customer GetCustomer(string khdm, string sj)
+        {
+            string sql = @"select * from mr_v_customer where SJ=@SJ and CKDM=@CKDM";
+
+            return connection.Query<MR_Customer>(sql, new { SJ = sj, CKDM = khdm }).FirstOrDefault();
+        }
+
         public bool AddCustomer(MR_Customer customer)
         {
             string oldDM = @"select top 1 dm from   [dbo].[MR_V_CUSTOMER] where dm like 'KD%' order by dm desc";
@@ -77,6 +84,20 @@ namespace Domain.Service
                 SEX = customer.SEX,
                 XGRQ = customer.XGRQ
             }) > 0;
+        }
+
+        public bool BindWeixin(string phoneNumber, string wxopenid)
+        {
+            string getsql = "select count(*) from mr_v_customer where sj=@sj  ";
+
+            int count = connection.ExecuteScalar<int>(getsql, new { sj = phoneNumber });
+            if (count == 1)
+            {
+                string updatesql = "update mr_v_customer set wxopenid=@wxopenid ,BINDTIME=getdate() where sj=@sj";
+                connection.Execute(updatesql, new { wxopenid = wxopenid, sj = phoneNumber });
+                return true;
+            }
+            return false;
         }
 
     }

@@ -1,21 +1,40 @@
-﻿@{
-    ViewBag.Title = "GetRechargeRocord";
+﻿
+@{
+    ViewBag.Title = "MainOrderList";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <div class="wrapper wrapper-content">
     <div class="row">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        充值记录查询
+                        拿货记录
                     </div>
                     <div class="panel-body">
-                        <form role="form" class="form-inline" method="post" action="/member/index">
+                        <form role="form" class="form-inline">
                             <div class="form-group">
                                 <label for="UserName" class="control-label">手机号码:</label>
                                 <input type="text" name="phoneNumber" placeholder="请输入会员手机号码" id="phoneNumber" class="form-control">
                             </div>
+                            <div class="form-group">
+                                <label for="UserName" class="control-label">登记编号:</label>
+                                <input type="text" name="djbh" placeholder="请输入登记编号" id="djbh" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="UserName" class="control-label">店员代码:</label>
+                                <input type="text" name="dydm" placeholder="请输入店员代码" id="dydm" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="UserName" class="control-label">开始日期:</label>
+                                <input type="text" name="startdate" id="startdate" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="UserName" class="control-label">结束日期:</label>
+                                <input type="text" name="enddate" id="enddate" class="form-control">
+                            </div>
+
                             <button class="btn btn-white" type="button" id="queryrecharge">查询</button>
                         </form>
                     </div>
@@ -27,21 +46,31 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="modal">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-        </div>
-    </div>
-</div>
+
 @section scripts{
     <script type="text/javascript">
         $(document).ready(function () {
+            laydate.render({
+                elem: "#startdate" //指定元素
+            });
+            laydate.render({
+                elem: "#enddate" //指定元素
+            });
             var _tble;
 
             initTable();
 
             $("#queryrecharge").click(function () {
-                $('#table').bootstrapTable('refresh', { query: { phoneNumber: $("input[name='phoneNumber']").val() } });
+                $('#table').bootstrapTable('refresh', {
+                    query: {
+                        phoneNumber: $("input[name='phoneNumber']").val(),
+                        khdm: $("input[name='khdm']").val(),
+                        djbh: $("input[name='djbh']").val(),
+                        dydm: $("input[name='dydm']").val(),
+                        startdate: $("input[name='startdate']").val(),
+                        enddate: $("input[name='enddate']").val()
+                    }
+                });
             })
 
 
@@ -59,7 +88,7 @@
                 pageNumber: 1,      //初始化加载第一页，默认第一页
                 pageSize: 10,      //每页的记录行数（*）
                 pageList: [10, 50, 100, 150],  //可供选择的每页的行数（*）
-                url: "/member/GetRechargeRocord",//这个接口需要处理bootstrap table传递的固定参数
+                url: "/project/GetMainOrderList",//这个接口需要处理bootstrap table传递的固定参数
                 queryParamsType: '', //默认值为 'limit' ,在默认情况下 传给服务端的参数为：offset,limit,sort
                 // 设置为 '' 在这种情况下传给服务器的参数为：pageSize,pageNumber
 
@@ -75,84 +104,73 @@
                 //search: true,
                 columns: [
                  {
-                     title: "会员代码",
-                     field: "VIPDM",
+                     title: "登记编号",
+                     field: "DJBH",
                      align: "center",
                      valign: "middle"
                  },
                 {
-                    title: "会员名称",
-                    field: "GKMC",
+                    title: "商店代码",
+                    field: "SDDM",
                     align: "center",
                     valign: "middle"
                 },
                 {
-                    title: "会员手机",
-                    field: "SJ",
-                    align: "center",
-                    valign: "middle"
-                },
-                {
-                    title: "充值金额",
-                    field: "CZJE",
-                    align: "center",
-                    valign: "middle",
-                    formatter: function (value, row, index) {
-                        return "¥" + value
-                    }
-                },
-                {
-                    title: "增值金额",
-                    field: "ZZJE",
-                    align: "center",
-                    valign: "middle",
-                    formatter: function (value, row, index) {
-                        return "¥" + value
-                    }
-                },
-                {
-                    title: "积分兑换金额",
-                    field: "ZSJE",
-                    align: "center",
-                    valign: "middle",
-                    formatter: function (value, row, index) {
-                        return "¥" + value
-                    }
-                }, {
-                    title: "实际获得金额",
-                    field: "ZSJE",
-                    align: "center",
-                    valign: "middle",
-                    formatter: function (value, row, index) {
-                        return row["CZJE"] + row["ZZJE"] + row["ZSJE"];
-                    }
-                },
-                {
-                    title: "充值积分",
-                    field: "CZJF",
-                    align: "center",
-                    valign: "middle"
-                },
-                {
-                    title: "充值店员",
-                    field: "DYMC",
-                    align: "center",
-                    valign: "middle"
-                },
-                {
-                    title: "店铺名称",
+                    title: "商店名称",
                     field: "KHMC",
                     align: "center",
                     valign: "middle"
                 },
                 {
-                    title: "充值日期",
+                    title: "店员代码",
+                    field: "DYDM",
+                    align: "center",
+                    valign: "middle"
+                },
+                {
+                    title: "店员名称",
+                    field: "DYMC",
+                    align: "center",
+                    valign: "middle"
+                },
+                {
+                    title: "Vip代码",
+                    field: "VIPDM",
+                    align: "center",
+                    valign: "middle"
+                }, {
+                    title: "顾客名称",
+                    field: "GKMC",
+                    align: "center",
+                    valign: "middle"
+                },
+               
+                 {
+                     title: "原价",
+                     field: "ZKJE",
+                     align: "center",
+                     valign: "middle",
+                     formatter: function (value, row, index) {
+                         return "¥" + parseFloat((parseFloat(row["ZJE"]) + parseFloat(row["ZKJE"]))).toFixed(2);
+                     }
+                 },
+                
+                 {
+                     title: "实际消费总金额",
+                     field: "ZJE",
+                     align: "center",
+                     valign: "middle",
+                     formatter: function (value, row, index) {
+                         return "¥" + value
+                     }
+                 },
+                {
+                    title: "拿货日期",
                     field: "RQ",
                     align: "center",
                     valign: "middle",
                     formatter: function (value, row, index) {
                         return value;
-
                         var str = value;
                         var d = eval('new ' + str.substr(1, str.length - 2));
 
@@ -164,7 +182,17 @@
                         return ar_date.join('-'); //2012-04-01
 
                     }
-                }
+                },
+                   {
+                       title: "操作",
+                       field: "DJBH",
+                       align: "center",
+                       valign: "middle",
+                       formatter: function (value, row, index) {
+                           var a = "<a class=\"btn btn-primary  btn-sm\" onclick=\"app.shwdialog('消费明细', '/project/OrderDetail?djbh=" + value + "')\">查看明细</a>";
+                           return a;
+                       }
+                   }
 
                 ],
                 pagination: true
@@ -172,5 +200,7 @@
         }
     </script>
 }
+
+
 
 

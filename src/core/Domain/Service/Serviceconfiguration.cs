@@ -14,6 +14,7 @@ namespace Domain.IService
         private const string WX_APPID = "AppId";
         private const string WX_APPSECRET = "AppSecret";
         private const string WX_REDIRECTURL = "RedirectUrl";
+        private const string WX_TEMPLATEMESSAGEID = "TemplateMessageId";
 
         public string DefaultConnection
         {
@@ -57,6 +58,15 @@ namespace Domain.IService
             {
                 return System.Configuration.ConfigurationManager.AppSettings[WX_REDIRECTURL] ?? "";
             }
+        }
+
+        public string WX_TemplateMessageId
+        {
+            get
+            {
+                return System.Configuration.ConfigurationManager.AppSettings[WX_TEMPLATEMESSAGEID] ?? "";
+            }
+
         }
     }
 }

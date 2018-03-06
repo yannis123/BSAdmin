@@ -48,6 +48,10 @@ namespace Domain.Model
         /// </summary>
         public decimal XFJE { get; set; }
         /// <summary>
+        /// 账户当前余额
+        /// </summary>
+        public decimal DQJE { get; set; }
+        /// <summary>
         /// 手机
         /// </summary>
         public string SJ { get; set; }
@@ -65,6 +69,7 @@ namespace Domain.Model
         /// </summary>
         public MR_QuYu QUYU { get; set; }
         public DateTime XGRQ { get; set; }
+        public string WXOPENID { get; set; }
 
     }
 

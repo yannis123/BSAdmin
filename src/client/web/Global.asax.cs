@@ -1,5 +1,7 @@
 ﻿using Castle.Windsor;
 using Castle.Windsor.Installer;
+using Domain.Service;
+using Senparc.Weixin.MP.CommonAPIs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +17,7 @@ namespace web
 {
     public class MvcApplication : System.Web.HttpApplication
     {
+
         private static IWindsorContainer container;
 
         private static void BootstrapContainer()
@@ -31,11 +34,19 @@ namespace web
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             MvcApplication.BootstrapContainer();
+            try
+            {
+                AccessTokenContainer.Register(System.Configuration.ConfigurationManager.AppSettings["AppId"] ?? "", System.Configuration.ConfigurationManager.AppSettings["AppSecret"] ?? "");
+            }
+            catch (Exception e)
+            {
+
+            }
         }
 
         protected void Application_PostAuthenticateRequest(object sender, System.EventArgs e)
         {
-           
+
         }
 
         protected void Application_End()

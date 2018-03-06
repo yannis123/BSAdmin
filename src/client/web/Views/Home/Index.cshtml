@@ -31,7 +31,7 @@
                 <ul class="nav" id="side-menu">
                     <li class="nav-header">
                         <div class="dropdown profile-element">
-                            <span><img alt="image" class="img-circle" src="/content/img/profile_small.jpg" /></span>
+                            @*<span><img alt="image" class="img-circle" src="/content/img/profile_small.jpg" /></span>*@
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <span class="clear">
                                     <span class="block m-t-xs"><strong class="font-bold">@(userinfo.KHMC)</strong></span>
@@ -76,19 +76,22 @@
                     <li>
                         <a href="#">
                             <i class="fa fa-user"></i>
-                            <span class="nav-label">销售管理</span>
+                            <span class="nav-label">销售业务</span>
                             <span class="fa arrow"></span>
                         </a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a class="J_menuItem" href="/project/addpreorder">新增顾客预订单</a>
+                                <a class="J_menuItem" href="/project/addpreorder">顾客拿货消费单</a>
                             </li>
                             <li>
-                                <a class="J_menuItem" href="/member/rechargerecord">充值记录</a>
+                                <a class="J_menuItem" href="/project/MainOrderList">顾客拿货记录</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="/member/rechargerecord">顾客充值记录</a>
                             </li>
                         </ul>
                     </li>
-                    <li>
+                    <li style="display:none;">
                         <a href="#">
                             <i class="fa fa-user"></i>
                             <span class="nav-label">会员管理</span>
@@ -131,17 +134,17 @@
                       
                     </li>
                     <li>
-                        <a class="J_menuItem" href="/store/index">
+                        <a class="J_menuItem">
                             <i class="fa fa-gear"></i>
                             <span class="nav-label">调度管理</span>
                             <span class="fa arrow"></span>
                         </a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a class="J_menuItem" href="/project/addpreorder">数据来源</a>
+                                <a class="J_menuItem" href="">数据来源</a>
                             </li>
                             <li>
-                                <a class="J_menuItem" href="/member/index">静态调度列表</a>
+                                <a class="J_menuItem" href="">静态调度列表</a>
                             </li>
                             <li>
                                 <a class="J_menuItem" href="graph_echarts.html">静态调度操作</a>
