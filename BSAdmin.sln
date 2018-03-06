@@ -41,6 +41,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{8565B0
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuartzJobManager", "src\client\QuartzJobManager\QuartzJobManager.csproj", "{C99B66E0-0659-4069-938E-BAF6E0E5D0C6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -96,6 +98,12 @@ Global
 		{D6800D31-570F-42DD-9E69-13A94FDDAEC7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D6800D31-570F-42DD-9E69-13A94FDDAEC7}.Test|Any CPU.ActiveCfg = Release|Any CPU
 		{D6800D31-570F-42DD-9E69-13A94FDDAEC7}.Test|Any CPU.Build.0 = Release|Any CPU
+		{C99B66E0-0659-4069-938E-BAF6E0E5D0C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C99B66E0-0659-4069-938E-BAF6E0E5D0C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C99B66E0-0659-4069-938E-BAF6E0E5D0C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C99B66E0-0659-4069-938E-BAF6E0E5D0C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C99B66E0-0659-4069-938E-BAF6E0E5D0C6}.Test|Any CPU.ActiveCfg = Release|Any CPU
+		{C99B66E0-0659-4069-938E-BAF6E0E5D0C6}.Test|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -114,5 +122,6 @@ Global
 		{72CCF70E-69DD-42B7-B1B6-4E85758CA6F1} = {56B0E826-961B-41D3-9A3F-A3418FB7E757}
 		{6AC3FCB5-AC95-4FFC-A5E0-B4E2843AAA05} = {0AEE677A-F9D6-4962-9A39-9581C68C6769}
 		{D6800D31-570F-42DD-9E69-13A94FDDAEC7} = {6AC3FCB5-AC95-4FFC-A5E0-B4E2843AAA05}
+		{C99B66E0-0659-4069-938E-BAF6E0E5D0C6} = {266BAB10-3DF9-4C15-AC3D-269B04B8E28E}
 	EndGlobalSection
 EndGlobal
