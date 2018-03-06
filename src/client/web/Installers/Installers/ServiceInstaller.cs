@@ -72,6 +72,11 @@ namespace web.Ioc.Installers
             #endregion
 
 
+            container.Register(Component.For<IScheduleJobsService>() //接口  
+          .ImplementedBy<ScheduleJobsService>() //实现类 
+          .LifestyleSingleton()
+    );
+
 
             //container.Register(Component.For(typeof(IRepository<>)) //接口  
             //       .ImplementedBy(typeof(Repository<>)) //实现类 

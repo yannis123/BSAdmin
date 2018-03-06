@@ -8,12 +8,13 @@ using System.Threading.Tasks;
 
 namespace QuartzJobManager
 {
-    public class TestJob : IJob
+    public class MonthlyJob : IJob
     {
-        private readonly ILog _logger = LogManager.GetLogger(typeof(QuartzJobManager.TestJob));
+        private readonly ILog _logger = LogManager.GetLogger(typeof(QuartzJobManager.MonthlyJob));
+
         void IJob.Execute(IJobExecutionContext context)
         {
-            _logger.InfoFormat("TestJob测试");
+            _logger.InfoFormat("MonthlyJob测试");
         }
     }
 }

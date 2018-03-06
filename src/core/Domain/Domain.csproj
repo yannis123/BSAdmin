@@ -54,6 +54,7 @@
     <Compile Include="IService\IMRCustomerService.cs" />
     <Compile Include="IService\IMRKeHuService.cs" />
     <Compile Include="DBConnectionManager.cs" />
+    <Compile Include="IService\IScheduleJobsService.cs" />
     <Compile Include="IService\IUserService.cs" />
     <Compile Include="IService\IMemberService.cs" />
     <Compile Include="IService\IVIPRechargeService.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="Service\MemberService.cs" />
     <Compile Include="Service\MRCustomerService.cs" />
     <Compile Include="Service\MRKeHuService.cs" />
+    <Compile Include="Service\ScheduleJobsService.cs" />
     <Compile Include="Service\Serviceconfiguration.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

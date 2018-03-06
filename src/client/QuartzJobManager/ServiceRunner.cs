@@ -15,6 +15,7 @@ namespace QuartzJobManager
 
         public ServiceRunner()
         {
+
             scheduler = StdSchedulerFactory.GetDefaultScheduler();
         }
 
