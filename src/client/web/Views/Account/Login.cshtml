@@ -1,4 +1,4 @@
-﻿@{ 
+﻿@{
     Layout = null;
 }
 <!DOCTYPE html>
@@ -28,8 +28,19 @@
     </script>
 
 </head>
+@{
 
-<body class="signin">
+    string bg = "/uploadFiles/index.jpg";
+    if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "uploadFiles\\" + "index.jpg"))
+    {
+        bg = "style=background-image:url(" + bg + ")";
+    }
+    else
+    {
+        bg = string.Empty;
+    }
+}
+<body class="signin" @(bg)>
     <div class="signinpanel">
         <div class="row">
             <div class="col-sm-7">
@@ -40,12 +51,12 @@
                     <div class="m-b"></div>
                     <h4></h4>
                     @*<ul class="m-b">
-                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 优势一</li>
-                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 优势二</li>
-                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 优势三</li>
-                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 优势四</li>
-                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 优势五</li>
-                    </ul>*@
+                            <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 优势一</li>
+                            <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 优势二</li>
+                            <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 优势三</li>
+                            <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 优势四</li>
+                            <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 优势五</li>
+                        </ul>*@
                     @*<strong>还没有账号？ <a href="#">立即注册&raquo;</a></strong>*@
                 </div>
             </div>
@@ -53,15 +64,15 @@
                 <form method="post" action="/account/login">
                     <h4 class="no-margins">登录：</h4>
                     @*<p class="m-t-md">登录到H+后台主题UI框架</p>*@
-                    <input type="text" class="form-control uname" placeholder="用户名"  name="UserName"/>
-                    <input type="password" class="form-control pword m-b" placeholder="密码"  name="Password"/>
+                    <input type="text" class="form-control uname" placeholder="用户名" name="UserName" />
+                    <input type="password" class="form-control pword m-b" placeholder="密码" name="Password" />
                     <button class="btn btn-warning btn-block" id="loginbtn">登录</button>
                 </form>
             </div>
         </div>
         <div class="signup-footer">
             <div class="pull-left">
-                &copy; 2018 All Rights Reserved. 
+                &copy; 2018 All Rights Reserved.
             </div>
         </div>
     </div>

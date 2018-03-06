@@ -82,17 +82,17 @@ jQuery(function() {
 
         chunked: true,
         // server: 'http://webuploader.duapp.com/server/fileupload.php',
-        server: 'http://2betop.net/fileupload.php',
+        server: '/systemset/upload',
         fileNumLimit: 300,
         fileSizeLimit: 5 * 1024 * 1024,    // 200 M
         fileSingleSizeLimit: 1 * 1024 * 1024    // 50 M
     });
 
     // 添加“添加文件”的按钮，
-    uploader.addButton({
-        id: '#filePicker2',
-        label: '继续添加'
-    });
+    //uploader.addButton({
+    //    id: '#filePicker2',
+    //    label: ''
+    //});
 
     // 当有文件添加进来时执行，负责view的创建
     function addFile( file ) {
