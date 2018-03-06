@@ -20,7 +20,7 @@
                             </div>
 
                             <button class="btn btn-white" type="button" id="querymemeber">查询</button>
-                            <a class="btn btn-white"  onclick="app.shwdialog('添加会员', '/Member/AddMember')" >添加</a>
+                            <a class="btn btn-white" onclick="app.shwdialog('添加会员', '/Member/AddMember')">添加</a>
 
                         </form>
                     </div>
@@ -94,6 +94,18 @@
                     field: "GKMC",
                     align: "center",
                     valign: "middle"
+                },
+                {
+                    title: "生日",
+                    field: "SR",
+                    align: "center",
+                    valign: "middle",
+                    formatter: function (value, row, index) {
+                        var str = value;
+                        var d = new Date(value);                       
+                        var ar_date = [d.getFullYear(), d.getMonth() + 1, d.getDate()];
+                        return ar_date.join('/');
+                    }
                 },
                 {
                     title: "性别",
