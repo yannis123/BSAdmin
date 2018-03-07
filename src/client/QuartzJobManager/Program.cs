@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Castle.Windsor;
+using Castle.Windsor.Installer;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,9 +12,12 @@ namespace QuartzJobManager
 {
     class Program
     {
+        private static IWindsorContainer container;
+
         static void Main(string[] args)
         {
             log4net.Config.XmlConfigurator.ConfigureAndWatch(new FileInfo(AppDomain.CurrentDomain.BaseDirectory + "log4net.config"));
+            BootstrapContainer();
             HostFactory.Run(x =>
             {
                 x.UseLog4Net();
@@ -26,5 +31,13 @@ namespace QuartzJobManager
                 x.EnablePauseAndContinue();
             });
         }
+
+        static void BootstrapContainer()
+        {
+            container = new WindsorContainer().Install(FromAssembly.This());
+
+        }
+
+
     }
 }
