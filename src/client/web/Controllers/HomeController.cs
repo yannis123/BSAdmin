@@ -26,7 +26,7 @@ namespace web.Controllers
             return View(this.UserInfo);
         }
 
-        
+
 
         [HttpPost]
         public JsonResult BindOpenId(string phoneNumber, string openId)
@@ -51,6 +51,11 @@ namespace web.Controllers
             return View();
         }
         public ActionResult Empty()
+        {
+            return View();
+        }
+
+        public ActionResult Blank()
         {
             return View();
         }
