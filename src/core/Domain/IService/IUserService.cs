@@ -11,12 +11,13 @@ namespace Domain.IService
     {
 
         List<User> GetUserList();
-        User GetUser(Guid id);
+        User GetUser(int id);
         int AddUser(User user);
         bool UpdateUser(User user);
-        bool DeleteUser(Guid id);
+        bool DeleteUser(int id);
         User GetUser(string userName, string password);
         MR_DianYuan GetDianYuan(string khdm, string dlmm);
+        string AddDianYuan(MR_DianYuan dianyuan);
 
     }
 }

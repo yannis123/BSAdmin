@@ -1,7 +1,7 @@
 ﻿var app = {};
 
 app.shwdialog = function (title, url) {
-        layer.open({
+    layer.open({
         type: 2,
         title: title,
         shadeClose: true,
@@ -30,4 +30,8 @@ app.queryshangpin = function (spdm) {
     $.get("/", { spdm: spdm }, function (resp) {
 
     })
+}
+
+app.adddianyuan = function (dianyuan) {
+
 }

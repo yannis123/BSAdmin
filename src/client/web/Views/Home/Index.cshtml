@@ -1,6 +1,6 @@
 ﻿@{
     Layout = null;
-    Domain.Model.MR_DianYuan userinfo = Model as Domain.Model.MR_DianYuan;
+    Domain.Model.User userinfo = Model as Domain.Model.User;
 }
 <!DOCTYPE html>
 <html>
@@ -34,7 +34,7 @@
                             @*<span><img alt="image" class="img-circle" src="/content/img/profile_small.jpg" /></span>*@
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <span class="clear">
-                                    <span class="block m-t-xs"><strong class="font-bold">@(userinfo.KHMC)</strong></span>
+                                    <span class="block m-t-xs"><strong class="font-bold">@(userinfo.StoreName)</strong></span>
                                     <span class="text-muted text-xs block">超级管理员<b class="caret"></b></span>
                                 </span>
                             </a>
@@ -54,128 +54,135 @@
                         </div>
                     </li>
 
-                    <li>
-                        <a class="J_menuItem" href="">
-                            <i class="fa fa-desktop"></i>
-                            <span class="nav-label">基础档案</span>
-                            <span class="fa arrow"></span>
-                        </a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a class="J_menuItem" href="/store/index">店铺信息</a>
-                            </li>
-                            <li>
-                                <a class="J_menuItem" href="/product/index">商品信息</a>
-                            </li>
-                            <li>
-                                <a class="J_menuItem" href="/member/index">会员信息</a>
-                            </li>
+                    @if (userinfo.UserType == 2)
+                    {
+                        <li>
+                            <a class="J_menuItem" href="">
+                                <i class="fa fa-desktop"></i>
+                                <span class="nav-label">基础档案</span>
+                                <span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a class="J_menuItem" href="/store/index">店铺信息</a>
+                                </li>
+                                <li>
+                                    <a class="J_menuItem" href="/product/index">商品信息</a>
+                                </li>
+                                <li>
+                                    <a class="J_menuItem" href="/member/index">会员信息</a>
+                                </li>
 
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fa fa-user"></i>
-                            <span class="nav-label">销售业务</span>
-                            <span class="fa arrow"></span>
-                        </a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a class="J_menuItem" href="/project/addpreorder">顾客拿货消费单</a>
-                            </li>
-                            <li>
-                                <a class="J_menuItem" href="/project/MainOrderList">顾客拿货记录</a>
-                            </li>
-                            <li>
-                                <a class="J_menuItem" href="/member/rechargerecord">顾客充值记录</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li style="display:none;">
-                        <a href="#">
-                            <i class="fa fa-user"></i>
-                            <span class="nav-label">会员管理</span>
-                            <span class="fa arrow"></span>
-                        </a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a class="J_menuItem" href="graph_echarts.html">会员同步</a>
-                            </li>
-                            <li>
-                                <a class="J_menuItem" href="/member/index">会员列表</a>
-                            </li>
-                            <li>
-                                <a class="J_menuItem" href="graph_echarts.html">会员充值</a>
-                            </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-user"></i>
+                                <span class="nav-label">销售业务</span>
+                                <span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a class="J_menuItem" href="/project/addpreorder">顾客拿货消费单</a>
+                                </li>
+                                <li>
+                                    <a class="J_menuItem" href="/project/MainOrderList">顾客拿货记录</a>
+                                </li>
+                                <li>
+                                    <a class="J_menuItem" href="/member/rechargerecord">顾客充值记录</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li style="display:none;">
+                            <a href="#">
+                                <i class="fa fa-user"></i>
+                                <span class="nav-label">会员管理</span>
+                                <span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a class="J_menuItem" href="graph_echarts.html">会员同步</a>
+                                </li>
+                                <li>
+                                    <a class="J_menuItem" href="/member/index">会员列表</a>
+                                </li>
+                                <li>
+                                    <a class="J_menuItem" href="graph_echarts.html">会员充值</a>
+                                </li>
 
-                        </ul>
-                    </li>
-                    <li style="display:none">
-                        <a href="#">
-                            <i class="fa fa fa-wechat"></i>
-                            <span class="nav-label">微信管理</span>
-                            <span class="fa arrow"></span>
-                        </a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a class="J_menuItem" href="graph_echarts.html">模板消息</a>
-                            </li>
-                            <li>
-                                <a class="J_menuItem" href="graph_echarts.html">公众号推送</a>
-                            </li>
+                            </ul>
+                        </li>
+                        <li style="display:none">
+                            <a href="#">
+                                <i class="fa fa fa-wechat"></i>
+                                <span class="nav-label">微信管理</span>
+                                <span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a class="J_menuItem" href="graph_echarts.html">模板消息</a>
+                                </li>
+                                <li>
+                                    <a class="J_menuItem" href="graph_echarts.html">公众号推送</a>
+                                </li>
 
-                        </ul>
-                    </li>
-                    <li>
-                        <a class="J_menuItem" href="/user/index">
-                            <i class="fa fa-user-plus"></i>
-                            <span class="nav-label">账号管理</span>
-                        </a>
+                            </ul>
+                        </li>
 
-                    </li>
-                    <li>
-                        <a class="J_menuItem">
-                            <i class="fa fa-gear"></i>
-                            <span class="nav-label">调度管理</span>
-                            <span class="fa arrow"></span>
-                        </a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a class="J_menuItem" href="/home/blank">数据来源</a>
-                            </li>
-                            <li>
-                                <a class="J_menuItem" href="/home/blank">静态调度列表</a>
-                            </li>
-                            <li>
-                                <a class="J_menuItem" href="/home/blank">静态调度操作</a>
-                            </li>
-                            <li>
-                                <a class="J_menuItem" href="/home/blank">销售数据调度</a>
-                            </li>
-                            <li>
-                                <a class="J_menuItem" href="/home/blank">VIP数据调度</a>
-                            </li>
+                        <li>
+                            <a class="J_menuItem">
+                                <i class="fa fa-gear"></i>
+                                <span class="nav-label">调度管理</span>
+                                <span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a class="J_menuItem" href="/home/blank">数据来源</a>
+                                </li>
+                                <li>
+                                    <a class="J_menuItem" href="/home/blank">静态调度列表</a>
+                                </li>
+                                <li>
+                                    <a class="J_menuItem" href="/home/blank">静态调度操作</a>
+                                </li>
+                                <li>
+                                    <a class="J_menuItem" href="/home/blank">销售数据调度</a>
+                                </li>
+                                <li>
+                                    <a class="J_menuItem" href="/home/blank">VIP数据调度</a>
+                                </li>
 
-                        </ul>
-                    </li>
-                    <li>
-                        <a class="J_menuItem" href="/home/blank">
-                            <i class="fa fa-gear"></i>
-                            <span class="nav-label">系统设置</span>
-                            <span class="fa arrow"></span>
-                        </a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a class="J_menuItem" href="/home/blank">管理员设置</a>
-                            </li>
-                            <li>
-                                <a class="J_menuItem" href="systemset/index">参数设置</a>
-                            </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="J_menuItem" href="/home/blank">
+                                <i class="fa fa-gear"></i>
+                                <span class="nav-label">系统设置</span>
+                                <span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a class="J_menuItem" href="/home/blank">管理员设置</a>
+                                </li>
+                                <li>
+                                    <a class="J_menuItem" href="systemset/index">参数设置</a>
+                                </li>
 
 
-                        </ul>
-                    </li>
+                            </ul>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            <a class="J_menuItem" href="/user/index">
+                                <i class="fa fa-user-plus"></i>
+                                <span class="nav-label">账号管理</span>
+                            </a>
 
+                        </li>
+
+                    }
 
                 </ul>
             </div>

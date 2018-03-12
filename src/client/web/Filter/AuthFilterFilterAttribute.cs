@@ -18,7 +18,7 @@ namespace web.Filter
         public string RoleName { get; set; }
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            MR_DianYuan user = MyFormsAuthentication.GetAuthCookie();
+            User user = MyFormsAuthentication.GetAuthCookie();
 
             #region 未登录
             if (user == null)

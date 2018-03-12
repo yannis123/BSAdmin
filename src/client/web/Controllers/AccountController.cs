@@ -38,7 +38,10 @@ namespace web.Controllers
         [HttpPost]
         public ActionResult Login(LoginModel model, string returnUrl)
         {
-            var user = _userSerice.GetDianYuan(model.UserName, model.Password);
+            //var user = _userSerice.GetDianYuan(model.UserName, model.Password);
+
+            var user = _userSerice.GetUser(model.UserName, model.Password);
+
             if (user != null)
             {
                 //验证成功，用户名密码正确，构造用户数据（可以添加更多数据，这里只保存用户Id）

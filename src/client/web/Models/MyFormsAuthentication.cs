@@ -55,8 +55,77 @@ namespace web.Models
             HttpContext.Current.Response.Cookies.Add(cookie);
         }
 
+        public static void SetAuthCookie(string username, User userData, bool rememberMe)
+        {
+            if (userData == null)
+                throw new ArgumentNullException("userData");
+
+            var data = (new JavaScriptSerializer()).Serialize(new Domain.Model.User()
+            {
+                Id = userData.Id,
+                RoleName = userData.RoleName,
+                StoreName = userData.StoreName,
+                StoreNumber = userData.StoreNumber,
+                UserName = userData.UserName,
+                UserType = userData.UserType
+
+            });
+
+            //创建ticket
+            var ticket = new FormsAuthenticationTicket(
+                2, username, DateTime.Now, DateTime.Now.AddDays(CookieSaveDays), rememberMe, data);
+            identity = new FormsIdentity(ticket);
+            //加密ticket
+            var cookieValue = FormsAuthentication.Encrypt(ticket);
+
+            //创建Cookie
+            var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, cookieValue)
+            {
+                HttpOnly = true,
+                Secure = FormsAuthentication.RequireSSL,
+                Domain = FormsAuthentication.CookieDomain,
+                Path = FormsAuthentication.FormsCookiePath,
+            };
+            if (rememberMe)
+                cookie.Expires = DateTime.Now.AddDays(CookieSaveDays);
+
+            //HttpContext.Current.User = new GenericPrincipal(identity, new string[] { userData.RoleName });
+
+            //写入Cookie
+            HttpContext.Current.Response.Cookies.Remove(cookie.Name);
+            HttpContext.Current.Response.Cookies.Add(cookie);
+        }
+
+        #region old method
         //从Request中解析出Cookie
-        public static MR_DianYuan GetAuthCookie()
+        //public static MR_DianYuan GetAuthCookie()
+        //{
+        //    1.读登录Cookie
+        //    var cookie = HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];
+        //    if (cookie == null || string.IsNullOrEmpty(cookie.Value)) return null;
+        //    try
+        //    {
+        //        2.解密Cookie值，获取FormsAuthenticationTicket对象
+        //      var ticket = FormsAuthentication.Decrypt(cookie.Value);
+        //        if (ticket != null && !string.IsNullOrEmpty(ticket.UserData))
+        //        {
+        //            var userData = (new JavaScriptSerializer()).Deserialize<MR_DianYuan>(ticket.UserData);
+        //            if (userData != null)
+        //            {
+        //                return userData;
+        //            }
+        //        }
+        //        return null;
+        //    }
+        //    catch
+        //    {
+        //        /* 有异常也不要抛出，防止攻击者试探。 */
+        //        return null;
+        //    }
+        //}
+        #endregion
+
+        public static User GetAuthCookie()
         {
             // 1. 读登录Cookie
             var cookie = HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];
@@ -67,7 +136,7 @@ namespace web.Models
                 var ticket = FormsAuthentication.Decrypt(cookie.Value);
                 if (ticket != null && !string.IsNullOrEmpty(ticket.UserData))
                 {
-                    var userData = (new JavaScriptSerializer()).Deserialize<MR_DianYuan>(ticket.UserData);
+                    var userData = (new JavaScriptSerializer()).Deserialize<User>(ticket.UserData);
                     if (userData != null)
                     {
                         return userData;

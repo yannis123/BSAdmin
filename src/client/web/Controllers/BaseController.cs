@@ -10,7 +10,8 @@ namespace web.Controllers
 {
     public class BaseController : Controller
     {
-        private MR_DianYuan _user;
+        //private MR_DianYuan _user;
+        private User _user;
         public BaseController()
         {
             _user = MyFormsAuthentication.GetAuthCookie();
@@ -26,7 +27,7 @@ namespace web.Controllers
         /// <summary>
         /// 用户信息
         /// </summary>
-        public MR_DianYuan UserInfo
+        public User UserInfo
         {
             get
             {

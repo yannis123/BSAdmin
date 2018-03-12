@@ -25,32 +25,40 @@ namespace Domain.Service
 
         public List<User> GetUserList()
         {
-            //List<User> list = new List<Model.User>();
-            //list.Add(new User() { UserName = "yannis", CreateTime = DateTime.Now, Id = Guid.Parse("cd9674fe-b353-491e-9da1-2868ebe57a2f"), Password = "123", Status = 1});
-            //list.Add(new User() { UserName = "yanght", CreateTime = DateTime.Now, Id = Guid.Parse("ea60d9c7-d522-42b2-8a9f-ff8009fa0cf3"), Password = "123", Status = 1 });
-            //return list;
-
-            var predicate = Predicates.Field<User>(m => m.Status, Operator.Eq, 1);
+            var predicate = Predicates.Field<User>(m => m.Status, Operator.Eq, 0);
 
             return connection.GetList<User>(predicate).ToList();
         }
 
-        public User GetUser(Guid id)
+        public User GetUser(int id)
         {
             return connection.Get<User>(id);
         }
 
         public int AddUser(User user)
         {
+            int count = connection.ExecuteScalar<int>("select count(*) from [user] where username=@username", new { username = user.UserName , usertype =user.UserType});
+
+            if (count > 0)
+            {
+                return 0;
+            }
+
             return connection.Insert<User>(user);
         }
 
         public bool UpdateUser(User user)
         {
+            int count = connection.ExecuteScalar<int>("select count(*) from [user] where username=@username", new { username = user.UserName, usertype = user.UserType });
+
+            if (count >1)
+            {
+                return false;
+            }
             return connection.Update<User>(user);
         }
 
-        public bool DeleteUser(Guid id)
+        public bool DeleteUser(int id)
         {
             return connection.Delete<User>(id);
         }
@@ -69,6 +77,26 @@ namespace Domain.Service
 	                        left join MR_QUYU on MR_QUYU.QYDM=[MR_KEHU].QYDM
                             where MR_DIANYUAN.KHDM=@KHDM and MR_DIANYUAN.DLMM=@DLMM";
             return connection.Query<MR_DianYuan>(sql, new { KHDM = khdm, DLMM = dlmm }).SingleOrDefault();
+        }
+
+        public string AddDianYuan(MR_DianYuan dianyuan)
+        {
+            string dydm = string.Empty;
+
+            string maxDydm = connection.QuerySingleOrDefault("select top 1 dydm from [MR_DIANYUAN] where dydm like 'A%' order by dydm desc");
+
+            if (string.IsNullOrEmpty(maxDydm))
+            {
+                dydm = "A" + dydm.PadLeft(5, '0');
+            }
+            else
+            {
+                dydm = "A" + (int.Parse(dydm.Substring(1, dydm.Length - 1)) + 1).ToString().PadLeft(5, '0');
+            }
+            dianyuan.ISADMIN = true;
+            dianyuan.DYDM = dydm;
+
+            return connection.Insert<MR_DianYuan>(dianyuan);
         }
     }
 }

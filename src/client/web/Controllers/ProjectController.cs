@@ -29,7 +29,7 @@ namespace web.Controllers
         }
         public ActionResult AddPreOrder()
         {
-            ViewBag.DianYuan = _rechargeService.GetDianYuanList(UserInfo.KHDM);
+            ViewBag.DianYuan = _rechargeService.GetDianYuanList(UserInfo.StoreNumber);
 
             //var dy = _service.GetDY("020020", UserInfo.KHDM);
             //var vip = _service.GetCustomer("13868197428");
@@ -39,7 +39,7 @@ namespace web.Controllers
 
         public ActionResult AddProject()
         {
-            var dyList = _service.GetDY("020020", UserInfo.KHDM);
+            var dyList = _service.GetDY("020020", UserInfo.StoreNumber);
             ViewBag.DYList = dyList;
             //var vip = _service.GetCustomer("13868197428");
             var sp = _service.GetSP("015216040");
@@ -77,7 +77,7 @@ namespace web.Controllers
             {
                 return Json(new { code = -1, error = "请选择商品" });
             }
-            order.sddm = UserInfo.KHDM;
+            order.sddm = UserInfo.StoreNumber;
             var orderResponse = _service.SaveOrder(order);
             if (orderResponse.Code == 0)
             {
@@ -117,7 +117,7 @@ namespace web.Controllers
         {
             int total = 0;
 
-            var list = _service.GetMainOrders(request.pageNumber, request.pageSize, out total, request.phoneNumber, UserInfo.KHDM, request.djbh, request.dydm, request.startdate, request.enddate);
+            var list = _service.GetMainOrders(request.pageNumber, request.pageSize, out total, request.phoneNumber, UserInfo.StoreNumber, request.djbh, request.dydm, request.startdate, request.enddate);
 
             return Json(new { rows = list, total = total }, JsonRequestBehavior.AllowGet);
 

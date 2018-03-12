@@ -18,5 +18,6 @@ namespace Domain.Model
         public string QYDM { get; set; }
         public string QYMC { get; set; }
         public string QDMC { get; set; }
+        public bool ISADMIN { get; set; }
     }
 }

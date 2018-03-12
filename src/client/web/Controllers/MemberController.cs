@@ -28,7 +28,7 @@ namespace web.Controllers
         public ActionResult Recharge(string vipdm)
         {
             var archives = _service.GetArchives();
-            var diayuns = _service.GetDianYuanList(UserInfo.KHDM);
+            var diayuns = _service.GetDianYuanList(UserInfo.StoreNumber);
             ViewBag.Archives = archives;
             ViewBag.vipdm = vipdm;
             ViewBag.DianYuans = diayuns;
@@ -42,8 +42,8 @@ namespace web.Controllers
         [HttpPost]
         public JsonResult AddMember(MR_Customer model)
         {
-            model.KHDM = UserInfo.KHDM;
-            model.GDR = UserInfo.KHMC;
+            model.KHDM = UserInfo.StoreNumber;
+            model.GDR = UserInfo.StoreName;
             model.XGRQ = DateTime.Now;
             if (_customer.AddCustomer(model))
             {
@@ -64,7 +64,7 @@ namespace web.Controllers
         [HttpPost]
         public JsonResult Recharge(string czdm, string vipdm, string dydm)
         {
-            if (_service.AddRecharge(vipdm, czdm, dydm, UserInfo.KHDM))
+            if (_service.AddRecharge(vipdm, czdm, dydm, UserInfo.StoreNumber))
             {
                 return Json(new { code = 0 });
             }
@@ -78,7 +78,7 @@ namespace web.Controllers
         public JsonResult CustomerList(int pageNumber, int pageSize, string phoneNumber)
         {
             int total = 0;
-            var list = _customer.GetCustomerList(pageNumber, pageSize, out total, phoneNumber, UserInfo.KHDM);
+            var list = _customer.GetCustomerList(pageNumber, pageSize, out total, phoneNumber, UserInfo.StoreNumber);
             return Json(new { rows = list, total = total }, JsonRequestBehavior.AllowGet);
         }
 
@@ -92,13 +92,13 @@ namespace web.Controllers
         public JsonResult GetRechargeRocord(int pageNumber, int pageSize, string phoneNumber)
         {
             int total = 0;
-            var list = _service.GetRechargeList(pageNumber, pageSize, out total, UserInfo.KHDM, phoneNumber);
+            var list = _service.GetRechargeList(pageNumber, pageSize, out total, UserInfo.StoreNumber, phoneNumber);
             return Json(new { rows = list, total = total }, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetCustomer(string phoneNumber)
         {
-            var customer = _customer.GetCustomer(UserInfo.KHDM,phoneNumber);
+            var customer = _customer.GetCustomer(UserInfo.StoreNumber, phoneNumber);
             if (customer != null)
             {
                 return Json(new { code = 0, data = customer }, JsonRequestBehavior.AllowGet);

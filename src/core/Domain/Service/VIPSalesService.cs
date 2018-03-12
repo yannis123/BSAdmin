@@ -144,6 +144,7 @@ namespace Domain.Service
                     {
                         response.Error = "当前账户余额不足";
                         response.DQJE = customer.DQJE;
+                        response.Code = -1;
                         return response;
                     }
 
@@ -166,6 +167,7 @@ namespace Domain.Service
                 catch (Exception ex)
                 {
                     response.Error = "提交失败";
+                    response.Code = -1;
                     transaction.Rollback();
                     return response;
                 }
