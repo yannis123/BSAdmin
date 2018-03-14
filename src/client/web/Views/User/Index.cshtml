@@ -86,7 +86,8 @@
                                                         <td> @item.StoreName</td>
 
                                                         <td> @item.CreateTime.ToString("yyyy-MM-dd HH:mm:ss")</td>
-                                                        <td><a class="label label-primary" onclick="app.shwdialog('修改账号', '/user/edituser?id=@(item.Id)')">修改</a> </td>
+                                                        <td><label class="label badge-@(item.Status==0?"primary":"warning")" >@(item.Status==0?"正常":"禁用")</label> </td>
+                                                        <td><a class="label label-danger" onclick="app.shwdialog('修改账号', '/user/edituser?id=@(item.Id)')">修改</a> </td>
                                                     </tr>
                                                 }
 
@@ -110,7 +111,8 @@
                                                         <td> @item.StoreName</td>
 
                                                         <td> @item.CreateTime.ToString("yyyy-MM-dd HH:mm:ss")</td>
-                                                        <td><a class="label label-primary" onclick="app.shwdialog('修改账号', '/user/edituser?id=@(item.Id)')">修改</a> </td>
+                                                        <td><label class="label badge-@(item.Status==0?"primary":"warning")">@(item.Status == 0 ? "正常" : "禁用")</label> </td>
+                                                        <td><a class="label label-danger" onclick="app.shwdialog('修改账号', '/user/edituser?id=@(item.Id)')">修改</a> </td>
                                                     </tr>
                                                 }
 
