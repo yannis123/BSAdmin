@@ -9,6 +9,7 @@ namespace Domain.IService
 {
     public interface IScheduleJobsService
     {
-        List<MR_Customer> GetCustomerList(DateTime currentTime);
+        List<MR_Customer> GetCustomerListForMonthly();
+        List<MR_Customer> GetCustomerListForDaily();
     }
 }

@@ -8,6 +8,8 @@ namespace Domain.Model
 {
     public class MR_Customer
     {
+
+        public string KHMC { get; set; }
         /// <summary>
         /// 代码
         /// </summary>

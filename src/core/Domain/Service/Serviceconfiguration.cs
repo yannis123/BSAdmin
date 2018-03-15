@@ -16,6 +16,9 @@ namespace Domain.IService
         private const string WX_REDIRECTURL = "RedirectUrl";
         private const string WX_TEMPLATEMESSAGEID = "TemplateMessageId";
 
+        private const string MONTHLY_JOB_TEMPLATE_MESSAGE_ID = "MonthlyJobTemplateMessageId";
+        private const string DAILY_JOB_TEMPLATE_MESSAGE_ID = "DailyJobTemplateMessageId";
+
         public string DefaultConnection
         {
             get
@@ -67,6 +70,22 @@ namespace Domain.IService
                 return System.Configuration.ConfigurationManager.AppSettings[WX_TEMPLATEMESSAGEID] ?? "";
             }
 
+        }
+
+        public string WX_Monthly_TemplateId
+        {
+            get
+            {
+                return System.Configuration.ConfigurationManager.AppSettings[MONTHLY_JOB_TEMPLATE_MESSAGE_ID] ?? "";
+            }
+        }
+
+        public string WX_Daily_TemplateId
+        {
+            get
+            {
+                return System.Configuration.ConfigurationManager.AppSettings[DAILY_JOB_TEMPLATE_MESSAGE_ID] ?? "";
+            }
         }
     }
 }

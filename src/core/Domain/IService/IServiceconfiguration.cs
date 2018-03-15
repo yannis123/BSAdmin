@@ -14,5 +14,8 @@ namespace Domain.Service
         string Wx_AppSecret { get; }
         string Wx_RedirectUrl { get; }
         string WX_TemplateMessageId { get; }
+
+        string WX_Monthly_TemplateId { get; }
+        string WX_Daily_TemplateId { get; }
     }
 }

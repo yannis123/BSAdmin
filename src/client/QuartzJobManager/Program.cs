@@ -1,5 +1,6 @@
 ﻿using Castle.Windsor;
 using Castle.Windsor.Installer;
+using Senparc.Weixin.MP.CommonAPIs;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,8 +19,19 @@ namespace QuartzJobManager
         {
             log4net.Config.XmlConfigurator.ConfigureAndWatch(new FileInfo(AppDomain.CurrentDomain.BaseDirectory + "log4net.config"));
             BootstrapContainer();
+
+            try
+            {
+                AccessTokenContainer.Register(System.Configuration.ConfigurationManager.AppSettings["AppId"] ?? "", System.Configuration.ConfigurationManager.AppSettings["AppSecret"] ?? "");
+            }
+            catch (Exception e)
+            {
+
+            }
+
             HostFactory.Run(x =>
             {
+              
                 x.UseLog4Net();
 
                 x.Service<ServiceRunner>();
