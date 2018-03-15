@@ -26,7 +26,7 @@ namespace Domain.Service
         public List<User> GetUserList()
         {
             var predicate = Predicates.Field<User>(m => m.Status, Operator.Eq, 0);
-
+            predicate = null;
             return connection.GetList<User>(predicate).ToList();
         }
 
@@ -65,7 +65,7 @@ namespace Domain.Service
         public User GetUser(string userName, string password)
         {
             //return new User() { Id = Guid.Parse("cd9674fe-b353-491e-9da1-2868ebe57a2f"), CreateTime = DateTime.Now, Password = "123", Status = 1, UserName = "yannis"};
-            string sql = "select * from [User] where username=@username and password=@password";
+            string sql = "select * from [User] where username=@username and password=@password and status=0";
             return connection.Query<User>(sql, new { userName = userName, password = password }).SingleOrDefault();
         }
 

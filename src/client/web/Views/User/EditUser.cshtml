@@ -48,6 +48,19 @@
                                 <input id="Password" value="@user.Password" type="Password" class="form-control" name="url">
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">用户状态：</label>
+                            <div class="col-sm-8">
+                                <div class="radio radio-info radio-inline">
+                                    <input type="radio" id="Status1" value="0" name="Status" @(user.Status==0?"checked":"") >
+                                    <label for="Status1"> 启用 </label>
+                                </div>
+                                <div class="radio radio-inline">
+                                    <input type="radio" id="Status2" value="1" name="Status" @(user.Status==1?"checked":"")>
+                                    <label for="Status2"> 禁用 </label>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="form-group">
                             <div class="col-sm-4 col-sm-offset-3">
@@ -78,6 +91,7 @@
                 var rolename = $("#RoleName").val();
                 var storenumber = $('#Store option:selected').val();//选中的值
                 var storename = $('#Store option:selected').text();//选中的文本
+                var status = $("input[name='Status']:checked").val();
                 if (username.length == 0) {
                     alert("请输入用户名"); return false;
                 }
@@ -97,7 +111,8 @@
                     "Password": password,
                     "RoleName": rolename,
                     "StoreNumber": storenumber,
-                    "StoreName": storename
+                    "StoreName": storename,
+                    "Status":status
                 }, function (data) {
                     if (data.Success) {
                         alert("修改成功");
